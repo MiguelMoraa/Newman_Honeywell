@@ -1,0 +1,4459 @@
+{
+	"info": {
+		"_postman_id": "a3ce35d8-14de-40cf-a856-42fdeaedf792",
+		"name": "PSnF_TaskPackages",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22861454",
+		"_collection_link": "https://martian-eclipse-381947.postman.co/workspace/VCNG-automation~60598d72-d6bf-4ec8-9ccc-e86c28b839db/collection/22861454-a3ce35d8-14de-40cf-a856-42fdeaedf792?action=share&creator=22861454&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Get-Data-Null-SiteId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"siteId property cannot be null or empty.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate not find source file\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(responseMessage)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?viewId=-3018",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "viewId",
+							"value": "-3018"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-Only-viewId-and-siteId-and-Invalid-SortColumn",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"Invalid value for parameter sortColumn. hola column does not exist for entity name: taskPackages.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate not find source file\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(responseMessage)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?viewId=-3018&siteId=-1&sortColumn=hola&sortAsc=true",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "viewId",
+							"value": "-3018"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "hola"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-Only-viewId-and-no-site-id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"siteId property cannot be null or empty.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate not find source file\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(responseMessage)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?viewId=-3018",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "viewId",
+							"value": "-3018"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-data-siteId-invalid-NotNumeric",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"siteId property is not numeric: invalid\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate not find source file\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(responseMessage)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=invalid",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "invalid"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-Only-viewid-and-invalid-NonExisting-site-id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"Site with id 0 cannot be found.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate not find source file\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(responseMessage)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?viewId=-3018&siteId=0",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "viewId",
+							"value": "-3018"
+						},
+						{
+							"key": "siteId",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-SortAsc-null-SortColumn",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"Invalid value for parameter sortColumn. It should not be null or empty if sortAsc is provided.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate not find source file\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(responseMessage)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&viewId=-3018&sortAsc=true",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "viewId",
+							"value": "-3018"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-SortDesc-and-null-SortColumn",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"Invalid value for parameter sortColumn. It should not be null or empty if sortAsc is provided.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate not find source file\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(responseMessage)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&viewId=-3018&sortAsc=false",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "viewId",
+							"value": "-3018"
+						},
+						{
+							"key": "sortColumn",
+							"value": "name",
+							"disabled": true
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnName-and-sortAscTrue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&viewId=-3018&sortColumn=name&sortAsc=true",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "viewId",
+							"value": "-3018"
+						},
+						{
+							"key": "sortColumn",
+							"value": "name"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnName-and-sortAscFalse",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&viewId=-3018&sortColumn=name&sortAsc=false",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "viewId",
+							"value": "-3018"
+						},
+						{
+							"key": "sortColumn",
+							"value": "name"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnName-and-sortAscNull",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json() \r",
+							"var errorMessages = [ \r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\", \r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"]\r",
+							"    \r",
+							"pm.test(\"Status code is 400\", function () { \r",
+							"     pm.response.to.have.status(400) })\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate Bad request Message\", function () { \r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) { \r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i]) \r",
+							"    } \r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&sortColumn=name&sortAsc=",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "name"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnName-and-missingsortAsc",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json() \r",
+							"var errorMessages = [ \r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\", \r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"]\r",
+							"    \r",
+							"pm.test(\"Status code is 400\", function () { \r",
+							"     pm.response.to.have.status(400) })\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate Bad request Message\", function () { \r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) { \r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i]) \r",
+							"    } \r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&sortColumn=name&sortAsc=",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "name"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnSpokenName-and-sortAscTrue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&viewId=-3018&sortColumn=spokenName&sortAsc=true",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "viewId",
+							"value": "-3018"
+						},
+						{
+							"key": "sortColumn",
+							"value": "spokenName"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnSpokenName-and-sortAscFalse",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&viewId=-3018&sortColumn=spokenName&sortAsc=false",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "viewId",
+							"value": "-3018"
+						},
+						{
+							"key": "sortColumn",
+							"value": "spokenName"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnSpokenName-and-sortAscNull",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json() \r",
+							"var errorMessages = [ \r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\", \r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"]\r",
+							"    \r",
+							"pm.test(\"Status code is 400\", function () { \r",
+							"     pm.response.to.have.status(400) })\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate Bad request Message\", function () { \r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) { \r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i]) \r",
+							"    } \r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&sortColumn=spokenName&sortAsc=",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "spokenName"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnSpokenName-and-missingsortAsc",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json() \r",
+							"var errorMessages = [ \r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\", \r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"]\r",
+							"    \r",
+							"pm.test(\"Status code is 400\", function () { \r",
+							"     pm.response.to.have.status(400) })\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate Bad request Message\", function () { \r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) { \r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i]) \r",
+							"    } \r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&sortColumn=spokenName&sortAsc=",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "spokenName"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnTask.taskType-and-sortAscTrue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&viewId=-3018&sortColumn=task.taskType&sortAsc=true",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "viewId",
+							"value": "-3018"
+						},
+						{
+							"key": "sortColumn",
+							"value": "task.taskType"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnTask.taskType-and-sortAscFalse",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&viewId=-3018&sortColumn=task.taskType&sortAsc=false",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "viewId",
+							"value": "-3018"
+						},
+						{
+							"key": "sortColumn",
+							"value": "task.taskType"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnTask.taskType-and-sortAscNull",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json() \r",
+							"var errorMessages = [ \r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\", \r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"]\r",
+							"    \r",
+							"pm.test(\"Status code is 400\", function () { \r",
+							"     pm.response.to.have.status(400) })\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate Bad request Message\", function () { \r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) { \r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i]) \r",
+							"    } \r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&sortColumn=task.taskType&sortAsc=",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "task.taskType"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnTask.taskType-and-missingsortAsc",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json() \r",
+							"var errorMessages = [ \r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\", \r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"]\r",
+							"    \r",
+							"pm.test(\"Status code is 400\", function () { \r",
+							"     pm.response.to.have.status(400) })\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate Bad request Message\", function () { \r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) { \r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i]) \r",
+							"    } \r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&sortColumn=task.taskType&sortAsc=",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "task.taskType"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnDescription-and-sortAscTrue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&viewId=-3018&sortColumn=description&sortAsc=true",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "viewId",
+							"value": "-3018"
+						},
+						{
+							"key": "sortColumn",
+							"value": "description"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnDescription-and-sortAscFalse",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&viewId=-3018&sortColumn=description&sortAsc=false",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "viewId",
+							"value": "-3018"
+						},
+						{
+							"key": "sortColumn",
+							"value": "description"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnDescription-and-sortAscNull",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json() \r",
+							"var errorMessages = [ \r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\", \r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"]\r",
+							"    \r",
+							"pm.test(\"Status code is 400\", function () { \r",
+							"     pm.response.to.have.status(400) })\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate Bad request Message\", function () { \r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) { \r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i]) \r",
+							"    } \r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&sortColumn=description&sortAsc=",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "description"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnDescription-and-missingsortAsc",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json() \r",
+							"var errorMessages = [ \r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\", \r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"]\r",
+							"    \r",
+							"pm.test(\"Status code is 400\", function () { \r",
+							"     pm.response.to.have.status(400) })\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate Bad request Message\", function () { \r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) { \r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i]) \r",
+							"    } \r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&sortColumn=description&sortAsc=",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "description"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnTaskName-and-sortAscTrue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&viewId=-3018&sortColumn=task.name&sortAsc=true",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "viewId",
+							"value": "-3018"
+						},
+						{
+							"key": "sortColumn",
+							"value": "task.name"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnTaskName-and-sortAscFalse",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&viewId=-3018&sortColumn=task.name&sortAsc=false",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "viewId",
+							"value": "-3018"
+						},
+						{
+							"key": "sortColumn",
+							"value": "task.name"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnTaskName-and-sortAscNull",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json() \r",
+							"var errorMessages = [ \r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\", \r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"]\r",
+							"    \r",
+							"pm.test(\"Status code is 400\", function () { \r",
+							"     pm.response.to.have.status(400) })\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate Bad request Message\", function () { \r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) { \r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i]) \r",
+							"    } \r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&sortColumn=task.name&sortAsc=",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "task.name"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnTaskName-and-missingsortAsc",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json() \r",
+							"var errorMessages = [ \r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\", \r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"]\r",
+							"    \r",
+							"pm.test(\"Status code is 400\", function () { \r",
+							"     pm.response.to.have.status(400) })\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate Bad request Message\", function () { \r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) { \r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i]) \r",
+							"    } \r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&sortColumn=task.name&sortAsc=",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "task.name"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnTask.TaskVersion-and-sortAscTrue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&viewId=-3018&sortColumn=task.taskVersion&sortAsc=true",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "viewId",
+							"value": "-3018"
+						},
+						{
+							"key": "sortColumn",
+							"value": "task.taskVersion"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnTask.TaskVersion-and-sortAscFalse",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&viewId=-3018&sortColumn=task.taskVersion&sortAsc=false",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "viewId",
+							"value": "-3018"
+						},
+						{
+							"key": "sortColumn",
+							"value": "task.taskVersion"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnTask.TaskVersion-and-sortAscNull",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json() \r",
+							"var errorMessages = [ \r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\", \r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"]\r",
+							"    \r",
+							"pm.test(\"Status code is 400\", function () { \r",
+							"     pm.response.to.have.status(400) })\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate Bad request Message\", function () { \r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) { \r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i]) \r",
+							"    } \r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&sortColumn=task.taskVersion&sortAsc=",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "task.taskVersion"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnTask.TaskVersion-and-missingsortAsc",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json() \r",
+							"var errorMessages = [ \r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\", \r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"]\r",
+							"    \r",
+							"pm.test(\"Status code is 400\", function () { \r",
+							"     pm.response.to.have.status(400) })\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate Bad request Message\", function () { \r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) { \r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i]) \r",
+							"    } \r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&sortColumn=task.taskVersion&sortAsc=",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "task.taskVersion"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnTaskFormat-and-sortAscTrue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&viewId=-3018&sortColumn=task.format&sortAsc=true",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "viewId",
+							"value": "-3018"
+						},
+						{
+							"key": "sortColumn",
+							"value": "task.format"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnTaskFormat-and-sortAscFalse",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&viewId=-3018&sortColumn=task.format&sortAsc=false",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "viewId",
+							"value": "-3018"
+						},
+						{
+							"key": "sortColumn",
+							"value": "task.format"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnTaskFormat-and-sortAscNull",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json() \r",
+							"var errorMessages = [ \r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\", \r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"]\r",
+							"    \r",
+							"pm.test(\"Status code is 400\", function () { \r",
+							"     pm.response.to.have.status(400) })\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate Bad request Message\", function () { \r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) { \r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i]) \r",
+							"    } \r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&sortColumn=task.format&sortAsc=",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "task.format"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnTaskFormat-and-missingsortAsc",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json() \r",
+							"var errorMessages = [ \r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\", \r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"]\r",
+							"    \r",
+							"pm.test(\"Status code is 400\", function () { \r",
+							"     pm.response.to.have.status(400) })\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate Bad request Message\", function () { \r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) { \r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i]) \r",
+							"    } \r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&sortColumn=task.format&sortAsc=",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "task.format"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnSite-and-sortAscTrue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&viewId=-3018&sortColumn=site&sortAsc=true",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "viewId",
+							"value": "-3018"
+						},
+						{
+							"key": "sortColumn",
+							"value": "site"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnSite-and-sortAscFalse",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&viewId=-3018&sortColumn=site&sortAsc=false",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "viewId",
+							"value": "-3018"
+						},
+						{
+							"key": "sortColumn",
+							"value": "site"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnSite-and-sortAscNull",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json() \r",
+							"var errorMessages = [ \r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\", \r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"]\r",
+							"    \r",
+							"pm.test(\"Status code is 400\", function () { \r",
+							"     pm.response.to.have.status(400) })\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate Bad request Message\", function () { \r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) { \r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i]) \r",
+							"    } \r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&sortColumn=site&sortAsc=",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "site"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnSite-and-missingsortAsc",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json() \r",
+							"var errorMessages = [ \r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\", \r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"]\r",
+							"    \r",
+							"pm.test(\"Status code is 400\", function () { \r",
+							"     pm.response.to.have.status(400) })\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate Bad request Message\", function () { \r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) { \r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i]) \r",
+							"    } \r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&sortColumn=site&sortAsc=",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "site"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-Name-viewId-And-SiteId-And-offset-equals-0",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&viewId=-3018&offset=0",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "viewId",
+							"value": "-3018"
+						},
+						{
+							"key": "sortColumn",
+							"value": "name",
+							"disabled": true
+						},
+						{
+							"key": "sortAsc",
+							"value": "false",
+							"disabled": true
+						},
+						{
+							"key": "offset",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-data-offset-valid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&offset=5",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "offset",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-data-offset-invalid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"offset property is not numeric: invalid\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate not find source file\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(responseMessage)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&offset=invalid",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "offset",
+							"value": "invalid"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-data-offset-negativeNumber",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"offset property value cannot be negative.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate not find source file\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(responseMessage)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&offset=-54",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "offset",
+							"value": "-54"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-data-limit-valid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&limit=5",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "limit",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-data-limit-invalid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"limit property is not numeric: invalid\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate not find source file\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(responseMessage)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&limit=invalid",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "limit",
+							"value": "invalid"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-data-limit-negativeNumber",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"limit property value cannot be negative.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate not find source file\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(responseMessage)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&limit=-56",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "limit",
+							"value": "-56"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-data-limit-valid-and-offset-valid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&limit=5&offset=5",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "limit",
+							"value": "5"
+						},
+						{
+							"key": "offset",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-data-submittedFilterCriterion-Name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&submittedFilterCriterion=%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%33%30%30%32%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%41%72%74%69%73%61%6e%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%33%30%30%32%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%41%72%74%69%73%61%6e%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-data-submittedFilterCriterion-SpokenName",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&submittedFilterCriterion=%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%33%30%30%33%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%74%61%73%6b%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%33%30%30%33%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%74%61%73%6b%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-data-submittedFilterCriterion-TaskType",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&submittedFilterCriterion=%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%33%30%30%34%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%33%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%32%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%33%30%30%34%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%33%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%32%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-data-submittedFilterCriterion-Description",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&submittedFilterCriterion=%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%33%30%30%35%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%74%65%73%74%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%33%30%30%35%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%74%65%73%74%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-data-submittedFilterCriterion-TaskName",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&submittedFilterCriterion=%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%33%30%30%36%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%45%4e%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%33%30%30%36%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%45%4e%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-data-submittedFilterCriterion-TaskVersion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&submittedFilterCriterion=%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%33%30%30%37%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%31%2e%30%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%33%30%30%37%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%31%2e%30%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-data-submittedFilterCriterion-TaskFormat",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&submittedFilterCriterion=%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%33%30%30%38%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%32%2e%30%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%33%30%30%38%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%32%2e%30%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-data-submittedFilterCriterion-Site",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/data?siteId=-1&submittedFilterCriterion=%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%33%30%30%39%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%64%65%66%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%33%30%30%39%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%64%65%66%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

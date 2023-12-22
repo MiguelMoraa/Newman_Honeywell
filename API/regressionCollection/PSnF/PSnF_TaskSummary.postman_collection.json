@@ -1,0 +1,3764 @@
+{
+	"info": {
+		"_postman_id": "0adf194e-c0fc-4e8e-96c4-5ed455518931",
+		"name": "PSnF_taskSummary",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22861454",
+		"_collection_link": "https://martian-eclipse-381947.postman.co/workspace/VCNG-automation~60598d72-d6bf-4ec8-9ccc-e86c28b839db/collection/22861454-0adf194e-c0fc-4e8e-96c4-5ed455518931?action=share&creator=22861454&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Get-Data-sortColumnwithsitename-AnD-sortArceqltrue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/summary/data?sortColumn=site.name&sortAsc=true",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"summary",
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "site.name"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnwithsitename-AnD-sortArceqlfalse",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/summary/data?sortColumn=site.name&sortAsc=false",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"summary",
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "site.name"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnwithsitename-AnD-sortArceNull",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var errorMessages = [\r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\",\r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"\r",
+							"]\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Errors Messages\", function () {\r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) {\r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i])\r",
+							"    }   \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/summary/data?sortColumn=site.name&sortAsc=",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"summary",
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "site.name"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnwithsitename-AnD-sortArceMissing",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Error Message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)    \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/summary/data?sortColumn=site.name",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"summary",
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "site.name"
+						},
+						{
+							"key": "sortAsc",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnwithtaskPackage.name-AnD-sortArceqltrue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/summary/data?sortColumn=taskPackage.name&sortAsc=true",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"summary",
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "taskPackage.name"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnwithtaskPackage.name-AnD-sortArceqlfalse",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/summary/data?sortColumn=taskPackage.name&sortAsc=false",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"summary",
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "taskPackage.name"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnwithtaskPackage.name-AnD-sortArcNull",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var errorMessages = [\r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\",\r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"\r",
+							"]\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Errors Messages\", function () {\r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) {\r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i])\r",
+							"    }   \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/summary/data?sortColumn=taskPackage.name&sortAsc=",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"summary",
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "taskPackage.name"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnwithtaskPackage.name-AnD-sortArcMissing",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Error Message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)    \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/summary/data?sortColumn=taskPackage.name",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"summary",
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "taskPackage.name"
+						},
+						{
+							"key": "sortAsc",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnwithtotalTerminals-AnD-sortArceqltrue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/summary/data?sortColumn=totalTerminals&sortAsc=true",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"summary",
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "totalTerminals"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnwithtotalTerminals-AnD-sortArceqlfalse",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/summary/data?sortColumn=totalTerminals&sortAsc=false",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"summary",
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "totalTerminals"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnwithtotalTerminals-AnD-sortArcNull",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var errorMessages = [\r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\",\r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"\r",
+							"]\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Errors Messages\", function () {\r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) {\r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i])\r",
+							"    }   \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/summary/data?sortColumn=totalTerminals&sortAsc=",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"summary",
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "totalTerminals"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnwithtotalTerminals-AnD-sortArcMissing",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Error Message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)    \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/summary/data?sortColumn=totalTerminals",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"summary",
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "totalTerminals"
+						},
+						{
+							"key": "sortAsc",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnwithterminalStateUnknown-AnD-sortArceqltrue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/summary/data?sortColumn=terminalStateUnknown&sortAsc=true",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"summary",
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "terminalStateUnknown"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnwithterminalStateUnknown-AnD-sortArceqlfalse",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/summary/data?sortColumn=terminalStateUnknown&sortAsc=false",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"summary",
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "terminalStateUnknown"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnwithterminalStateUnknown-AnD-sortArcNull",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var errorMessages = [\r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\",\r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"\r",
+							"]\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Errors Messages\", function () {\r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) {\r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i])\r",
+							"    }   \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/summary/data?sortColumn=terminalStateUnknown&sortAsc=",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"summary",
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "terminalStateUnknown"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnwithterminalStateUnknown-AnD-sortArcMissing",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Error Message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)    \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/summary/data?sortColumn=terminalStateUnknown",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"summary",
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "terminalStateUnknown"
+						},
+						{
+							"key": "sortAsc",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnwithterminalStateOff-AnD-sortArceqltrue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/summary/data?sortColumn=terminalStateOff&sortAsc=true",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"summary",
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "terminalStateOff"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnwithterminalStateOff-AnD-sortArceqlfalse",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/summary/data?sortColumn=terminalStateOff&sortAsc=false",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"summary",
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "terminalStateOff"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnwithterminalStateOff-AnD-sortArcNull",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var errorMessages = [\r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\",\r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"\r",
+							"]\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Errors Messages\", function () {\r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) {\r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i])\r",
+							"    }   \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/summary/data?sortColumn=terminalStateOff&sortAsc=",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"summary",
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "terminalStateOff"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnwithterminalStateOff-AnD-sortArcMissing",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Error Message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)    \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/summary/data?sortColumn=terminalStateOff",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"summary",
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "terminalStateOff"
+						},
+						{
+							"key": "sortAsc",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnwithterminalStateInCharger-AnD-sortArceqltrue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/summary/data?sortColumn=terminalStateInCharger&sortAsc=true",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"summary",
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "terminalStateInCharger"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnwithterminalStateInCharger-AnD-sortArceqlfalse",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/summary/data?sortColumn=terminalStateInCharger&sortAsc=false",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"summary",
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "terminalStateInCharger"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnwithterminalStateInCharger-AnD-sortArcNull",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var errorMessages = [\r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\",\r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"\r",
+							"]\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Errors Messages\", function () {\r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) {\r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i])\r",
+							"    }   \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/summary/data?sortColumn=terminalStateInCharger&sortAsc=",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"summary",
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "terminalStateInCharger"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnwithterminalStateInCharger-AnD-sortArcMissing",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Error Message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)    \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/summary/data?sortColumn=terminalStateInCharger",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"summary",
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "terminalStateInCharger"
+						},
+						{
+							"key": "sortAsc",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnwithterminalStateSleeping-AnD-sortArceqltrue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/summary/data?sortColumn=terminalStateSleeping&sortAsc=true",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"summary",
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "terminalStateSleeping"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnwithterminalStateSleeping-AnD-sortArceqlfalse",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/summary/data?sortColumn=terminalStateSleeping&sortAsc=false",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"summary",
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "terminalStateSleeping"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnwithterminalStateSleeping-AnD-sortArcNull",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var errorMessages = [\r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\",\r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"\r",
+							"]\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Errors Messages\", function () {\r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) {\r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i])\r",
+							"    }   \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/summary/data?sortColumn=terminalStateSleeping&sortAsc=",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"summary",
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "terminalStateSleeping"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnwithterminalStateSleeping-AnD-sortArcMissing",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Error Message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)    \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/summary/data?sortColumn=terminalStateSleeping",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"summary",
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "terminalStateSleeping"
+						},
+						{
+							"key": "sortAsc",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnwithterminalStateOn-AnD-sortArceqltrue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/summary/data?sortColumn=terminalStateOn&sortAsc=true",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"summary",
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "terminalStateOn"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnwithterminalStateOn-AnD-sortArceqlfalse",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/summary/data?sortColumn=terminalStateOn&sortAsc=false",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"summary",
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "terminalStateOn"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnwithterminalStateOn-AnD-sortArcNull",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var errorMessages = [\r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\",\r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"\r",
+							"]\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Errors Messages\", function () {\r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) {\r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i])\r",
+							"    }   \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/summary/data?sortColumn=terminalStateOn&sortAsc=",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"summary",
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "terminalStateOn"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnwithterminalStateOn-AnD-sortArcMissing",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Error Message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)    \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/summary/data?sortColumn=terminalStateOn",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"summary",
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "terminalStateOn"
+						},
+						{
+							"key": "sortAsc",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnwithterminalStateSerialLoad-AnD-sortArceqltrue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/summary/data?sortColumn=terminalStateSerialLoad&sortAsc=true",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"summary",
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "terminalStateSerialLoad"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnwithterminalStateSerialLoad-AnD-sortArceqlfalse",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/summary/data?sortColumn=terminalStateSerialLoad&sortAsc=false",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"summary",
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "terminalStateSerialLoad"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnwithterminalStateSerialLoad-AnD-sortArcNull",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var errorMessages = [\r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\",\r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"\r",
+							"]\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Errors Messages\", function () {\r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) {\r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i])\r",
+							"    }   \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/summary/data?sortColumn=terminalStateSerialLoad&sortAsc=",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"summary",
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "terminalStateSerialLoad"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnwithterminalStateSerialLoad-AnD-sortArcMissing",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Error Message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)    \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/summary/data?sortColumn=terminalStateSerialLoad",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"summary",
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "terminalStateSerialLoad"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnwithterminalStatePendingTerminalMigration-AnD-sortArceqltrue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/summary/data?sortColumn=terminalStatePendingTerminalMigration&sortAsc=true",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"summary",
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "terminalStatePendingTerminalMigration"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnwithterminalStatePendingTerminalMigration-AnD-sortArceqlfalse",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/summary/data?sortColumn=terminalStatePendingTerminalMigration&sortAsc=false",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"summary",
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "terminalStatePendingTerminalMigration"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnwithterminalStatePendingTerminalMigration-AnD-sortArcNull",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var errorMessages = [\r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\",\r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"\r",
+							"]\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Errors Messages\", function () {\r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) {\r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i])\r",
+							"    }   \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/summary/data?sortColumn=terminalStatePendingTerminalMigration&sortAsc=",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"summary",
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "terminalStatePendingTerminalMigration"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnwithterminalStatePendingTerminalMigration-AnD-sortArcMissing",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Error Message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)    \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/summary/data?sortColumn=terminalStatePendingTerminalMigration",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"summary",
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "terminalStatePendingTerminalMigration"
+						},
+						{
+							"key": "sortAsc",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnwithterminalDisabled-AnD-sortArceqlttrue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/summary/data?sortColumn=terminalDisabled&sortAsc=true",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"summary",
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "terminalDisabled"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnwithterminalDisabled-AnD-sortArcFalse",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/summary/data?sortColumn=terminalDisabled&sortAsc=false",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"summary",
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "terminalDisabled"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnwithterminalDisabled-AnD-sortArcNull",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var errorMessages = [\r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\",\r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"\r",
+							"]\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Errors Messages\", function () {\r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) {\r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i])\r",
+							"    }   \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/summary/data?sortColumn=terminalDisabled&sortAsc=",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"summary",
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "terminalDisabled"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnwithterminalDisabled-AnD-sortArcMissing",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Error Message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)    \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/summary/data?sortColumn=terminalDisabled",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"summary",
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "terminalDisabled"
+						},
+						{
+							"key": "sortAsc",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-missingsortColumn-And-nullsortAsc",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Invalid value for parameter sortAsc. It should be either true or false.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Error Message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)    \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/summary/data?sortAsc=",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"summary",
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "terminalDisabled",
+							"disabled": true
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-missingsortColumn-And-sortAsceqltrue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Invalid value for parameter sortColumn. It should not be null or empty if sortAsc is provided.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Error Message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)    \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/summary/data?sortAsc=true",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"summary",
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "terminalDisabled",
+							"disabled": true
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-missingsortColumn-And-sortAsceqlfalse",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Invalid value for parameter sortColumn. It should not be null or empty if sortAsc is provided.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Error Message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)    \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/summary/data?sortAsc=false",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"summary",
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "terminalDisabled",
+							"disabled": true
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-missingsortColumn-And-MissingsortAsc",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/summary/data",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"summary",
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "terminalDisabled",
+							"disabled": true
+						},
+						{
+							"key": "sortAsc",
+							"value": "false",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

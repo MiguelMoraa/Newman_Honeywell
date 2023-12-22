@@ -1,0 +1,3012 @@
+{
+	"info": {
+		"_postman_id": "c03124f8-ddf1-437b-b6ad-c690f91007d2",
+		"name": "PSnF_Voices",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22861454",
+		"_collection_link": "https://martian-eclipse-381947.postman.co/workspace/VCNG-automation~60598d72-d6bf-4ec8-9ccc-e86c28b839db/collection/22861454-c03124f8-ddf1-437b-b6ad-c690f91007d2?action=share&creator=22861454&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Get-Data-Only-viewId-And-SiteId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}voices/data?viewId=-3025&siteId=-1",
+					"host": [
+						"{{baseURL}}voices"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "viewId",
+							"value": "-3025"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-Only-viewId-And-Null-SiteId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"siteId property cannot be null or empty.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate not find source file\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(responseMessage)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}voices/data?viewId=-3025&siteId=",
+					"host": [
+						"{{baseURL}}voices"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "viewId",
+							"value": "-3025"
+						},
+						{
+							"key": "siteId",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-Only-viewId-And-invalid-SiteId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"Site with id 0 cannot be found.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate not find source file\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(responseMessage)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}voices/data?viewId=-3025&siteId=0",
+					"host": [
+						"{{baseURL}}voices"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "viewId",
+							"value": "-3025"
+						},
+						{
+							"key": "siteId",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-data-siteId-invalid-NotNumeric",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"siteId property is not numeric: invalid\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate not find source file\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(responseMessage)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}voices/data?siteId=invalid",
+					"host": [
+						"{{baseURL}}voices"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "invalid"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-data-siteId-notFound",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"Site with id -5 cannot be found.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate not find source file\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(responseMessage)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}voices/data?siteId=-5",
+					"host": [
+						"{{baseURL}}voices"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-viewId-And-SiteId-Invalid-SortColumn",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"Invalid value for parameter sortColumn. acknowledgedDateTime column does not exist for entity name: voiceModules.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate not find source file\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(responseMessage)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}voices/data?viewId=-3025&siteId=-1&sortColumn=acknowledgedDateTime&sortAsc=true",
+					"host": [
+						"{{baseURL}}voices"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "viewId",
+							"value": "-3025"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "acknowledgedDateTime"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-viewId-And-SiteId-Valid-SortColumn-Null-SortAsc",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate not find source file\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(responseMessage)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}voices/data?viewId=-3025&siteId=-1&sortColumn=voiceModuleDescriptor.localizedDisplayName",
+					"host": [
+						"{{baseURL}}voices"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "viewId",
+							"value": "-3025"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "voiceModuleDescriptor.localizedDisplayName"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-viewId-And-SiteId-And-Null-SortColumn-And-Null-SortAsc",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}voices/data?viewId=-3025&siteId=-1&sortColumn=&sortAsc",
+					"host": [
+						"{{baseURL}}voices"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "viewId",
+							"value": "-3025"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": ""
+						},
+						{
+							"key": "sortAsc",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-viewId-And-SiteId-And-Null-SortColumn-And-Sort-Asc",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"Invalid value for parameter sortColumn. It should not be null or empty if sortAsc is provided.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate not find source file\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(responseMessage)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}voices/data?viewId=-3025&siteId=-1&sortAsc=true",
+					"host": [
+						"{{baseURL}}voices"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "viewId",
+							"value": "-3025"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-viewId-And-SiteId-And-Null-SortColumn-And-Sort-Desc",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"Invalid value for parameter sortColumn. It should not be null or empty if sortAsc is provided.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate not find source file\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(responseMessage)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}voices/data?viewId=-3025&siteId=-1&sortAsc=false",
+					"host": [
+						"{{baseURL}}voices"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "viewId",
+							"value": "-3025"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnvoiceModuleDescriptor.localizedDisplayName-and-sortAscTrue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}voices/data?siteId=-1&sortColumn=voiceModuleDescriptor.localizedDisplayName&sortAsc=true",
+					"host": [
+						"{{baseURL}}voices"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "voiceModuleDescriptor.localizedDisplayName"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnvoiceModuleDescriptor.localizedDisplayName-and-sortAscFalse",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}voices/data?siteId=-1&sortColumn=voiceModuleDescriptor.localizedDisplayName&sortAsc=false",
+					"host": [
+						"{{baseURL}}voices"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "voiceModuleDescriptor.localizedDisplayName"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnvoiceModuleDescriptor.localizedDisplayName-and-sortAscNull",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json() \r",
+							"var errorMessages = [ \r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\", \r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"]\r",
+							"    \r",
+							"pm.test(\"Status code is 400\", function () { \r",
+							"     pm.response.to.have.status(400) })\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate Bad request Message\", function () { \r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) { \r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i]) \r",
+							"    } \r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}voices/data?siteId=-1&sortColumn=voiceModuleDescriptor.localizedDisplayName&sortAsc=",
+					"host": [
+						"{{baseURL}}voices"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "voiceModuleDescriptor.localizedDisplayName"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnvoiceModuleDescriptor.localizedDisplayName-and-missingsortAsc",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json() \r",
+							"var errorMessages = [ \r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\", \r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"]\r",
+							"    \r",
+							"pm.test(\"Status code is 400\", function () { \r",
+							"     pm.response.to.have.status(400) })\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate Bad request Message\", function () { \r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) { \r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i]) \r",
+							"    } \r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}voices/data?siteId=-1&sortColumn=voiceModuleDescriptor.localizedDisplayName&sortAsc=",
+					"host": [
+						"{{baseURL}}voices"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "voiceModuleDescriptor.localizedDisplayName"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnGender-and-sortAscTrue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}voices/data?siteId=-1&sortColumn=gender&sortAsc=true",
+					"host": [
+						"{{baseURL}}voices"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "gender"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnGender-and-sortAscFalse",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}voices/data?siteId=-1&sortColumn=gender&sortAsc=false",
+					"host": [
+						"{{baseURL}}voices"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "gender"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnGender-and-sortAscNull",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json() \r",
+							"var errorMessages = [ \r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\", \r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"]\r",
+							"    \r",
+							"pm.test(\"Status code is 400\", function () { \r",
+							"     pm.response.to.have.status(400) })\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate Bad request Message\", function () { \r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) { \r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i]) \r",
+							"    } \r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}voices/data?siteId=-1&sortColumn=gender&sortAsc=",
+					"host": [
+						"{{baseURL}}voices"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "gender"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnGender-and-missingsortAsc",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json() \r",
+							"var errorMessages = [ \r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\", \r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"]\r",
+							"    \r",
+							"pm.test(\"Status code is 400\", function () { \r",
+							"     pm.response.to.have.status(400) })\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate Bad request Message\", function () { \r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) { \r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i]) \r",
+							"    } \r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}voices/data?siteId=-1&sortColumn=gender&sortAsc=",
+					"host": [
+						"{{baseURL}}voices"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "gender"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnFirmware.name\t-and-sortAscTrue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}voices/data?siteId=-1&sortColumn=firmware.name&sortAsc=true",
+					"host": [
+						"{{baseURL}}voices"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "firmware.name"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnFirmware.name\t-and-sortAscFalse",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}voices/data?siteId=-1&sortColumn=firmware.name&sortAsc=false",
+					"host": [
+						"{{baseURL}}voices"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "firmware.name"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnFfrmware.name-and-sortAscNull",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json() \r",
+							"var errorMessages = [ \r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\", \r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"]\r",
+							"    \r",
+							"pm.test(\"Status code is 400\", function () { \r",
+							"     pm.response.to.have.status(400) })\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate Bad request Message\", function () { \r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) { \r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i]) \r",
+							"    } \r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}voices/data?siteId=-1&sortColumn=firmware.name&sortAsc=",
+					"host": [
+						"{{baseURL}}voices"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "firmware.name"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnFirmware.name\t-and-missingsortAsc",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json() \r",
+							"var errorMessages = [ \r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\", \r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"]\r",
+							"    \r",
+							"pm.test(\"Status code is 400\", function () { \r",
+							"     pm.response.to.have.status(400) })\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate Bad request Message\", function () { \r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) { \r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i]) \r",
+							"    } \r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}voices/data?siteId=-1&sortColumn=firmware.name&sortAsc=",
+					"host": [
+						"{{baseURL}}voices"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "firmware.name"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-data-submittedFilterCriterion-voiceModuleDescriptor.localizedDisplayName",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}voices/data?siteId=-1&submittedFilterCriterion=%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%33%37%30%31%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%63%68%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d",
+					"host": [
+						"{{baseURL}}voices"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%33%37%30%31%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%63%68%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-data-submittedFilterCriterion-Gender",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}voices/data?siteId=-1&submittedFilterCriterion=%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%33%37%30%32%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%33%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%32%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d",
+					"host": [
+						"{{baseURL}}voices"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%33%37%30%32%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%33%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%32%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-data-submittedFilterCriterion-Firmware.Name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}voices/data?siteId=-1&submittedFilterCriterion=%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%33%37%30%31%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%45%6e%67%6c%69%73%68%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d\n",
+					"host": [
+						"{{baseURL}}voices"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%33%37%30%31%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%45%6e%67%6c%69%73%68%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d\n"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-submittedFilterCriterion-All-parameters",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}voices/data?viewId=-3025&siteId=-1&sortColumn=voiceModuleDescriptor.localizedDisplayName&sortAsc=false&limit=117&submittedFilterCriterion=%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%33%37%30%32%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%33%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%33%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d",
+					"host": [
+						"{{baseURL}}voices"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "viewId",
+							"value": "-3025"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "voiceModuleDescriptor.localizedDisplayName"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						},
+						{
+							"key": "limit",
+							"value": "117"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%33%37%30%32%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%33%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%33%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-Invalid-SubmittedFilterCriterion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"Invalid value for parameter submittedFilterCriterion: JSONArray[0] is not a JSONObject..\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate not find source file\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(responseMessage)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}voices/data?viewId=-3025&siteId=-1&sortColumn=voiceModuleDescriptor.localizedDisplayName&sortAsc=false&limit=117&submittedFilterCriterion=10",
+					"host": [
+						"{{baseURL}}voices"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "viewId",
+							"value": "-3025"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "voiceModuleDescriptor.localizedDisplayName"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						},
+						{
+							"key": "limit",
+							"value": "117"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-Invalid-SubmittedFilterCriterion-Missing-ColumnID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"Invalid value for parameter submittedFilterCriterion: JSONObject[\\\"columnId\\\"] not found..\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate not find source file\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(responseMessage)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}voices/data?viewId=-3025&siteId=-1&sortColumn=voiceModuleDescriptor.localizedDisplayName&sortAsc=false&limit=117&submittedFilterCriterion=%7b%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%33%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%33%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d",
+					"host": [
+						"{{baseURL}}voices"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "viewId",
+							"value": "-3025"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "voiceModuleDescriptor.localizedDisplayName"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						},
+						{
+							"key": "limit",
+							"value": "117"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7b%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%33%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%33%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-Invalid-SubmittedFilterCriterion-Missing-OperandID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"Invalid value for parameter submittedFilterCriterion: JSONObject[\\\"operandId\\\"] not found..\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate not find source file\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(responseMessage)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}voices/data?viewId=-3025&siteId=-1&sortColumn=voiceModuleDescriptor.localizedDisplayName&sortAsc=false&limit=117&submittedFilterCriterion=%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%33%37%30%32%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%33%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d",
+					"host": [
+						"{{baseURL}}voices"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "viewId",
+							"value": "-3025"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "voiceModuleDescriptor.localizedDisplayName"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						},
+						{
+							"key": "limit",
+							"value": "117"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%33%37%30%32%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%33%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-Invalid-SubmittedFilterCriterion-Missing-Value1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"Invalid value for parameter submittedFilterCriterion: JSONObject[\\\"value1\\\"] not found..\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate not find source file\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(responseMessage)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}voices/data?viewId=-3025&siteId=-1&sortColumn=voiceModuleDescriptor.localizedDisplayName&sortAsc=false&limit=117&submittedFilterCriterion=%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%33%37%30%32%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%33%31%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d",
+					"host": [
+						"{{baseURL}}voices"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "viewId",
+							"value": "-3025"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "voiceModuleDescriptor.localizedDisplayName"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						},
+						{
+							"key": "limit",
+							"value": "117"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%33%37%30%32%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%33%31%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-Invalid-SubmittedFilterCriterion-Missing-Value2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"Invalid value for parameter submittedFilterCriterion: JSONObject[\\\"value2\\\"] not found..\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate not find source file\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(responseMessage)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}voices/data?viewId=-3025&siteId=-1&sortColumn=voiceModuleDescriptor.localizedDisplayName&sortAsc=false&limit=117&submittedFilterCriterion=%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%33%37%30%32%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%33%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%33%22%7d",
+					"host": [
+						"{{baseURL}}voices"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "viewId",
+							"value": "-3025"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "voiceModuleDescriptor.localizedDisplayName"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						},
+						{
+							"key": "limit",
+							"value": "117"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%33%37%30%32%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%33%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%33%22%7d"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-data-offset-valid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}voices/data?siteId=-1&offset=5",
+					"host": [
+						"{{baseURL}}voices"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "offset",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-data-offset-invalid-NotNumeric",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"offset property is not numeric: invalid\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate not find source file\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(responseMessage)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}voices/data?siteId=-1&offset=invalid",
+					"host": [
+						"{{baseURL}}voices"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "offset",
+							"value": "invalid"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-data-offset-negativeNumber",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"offset property value cannot be negative.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate not find source file\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(responseMessage)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}voices/data?siteId=-1&offset=-54",
+					"host": [
+						"{{baseURL}}voices"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "offset",
+							"value": "-54"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-data-limit-valid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}voices/data?siteId=-1&limit=5",
+					"host": [
+						"{{baseURL}}voices"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "limit",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-data-limit-invalid-NotNumeric",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"limit property is not numeric: invalid\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate not find source file\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(responseMessage)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}voices/data?siteId=-1&limit=invalid",
+					"host": [
+						"{{baseURL}}voices"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "limit",
+							"value": "invalid"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-data-limit-negativeNumber",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"limit property value cannot be negative.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate not find source file\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(responseMessage)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}voices/data?siteId=-1&limit=-56",
+					"host": [
+						"{{baseURL}}voices"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "limit",
+							"value": "-56"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-data-limit-valid-and-offset-valid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}voices/data?siteId=-1&limit=5&offset=5",
+					"host": [
+						"{{baseURL}}voices"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "limit",
+							"value": "5"
+						},
+						{
+							"key": "offset",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

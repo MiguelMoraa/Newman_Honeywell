@@ -1,0 +1,1837 @@
+<!DOCTYPE html>
+<html lang="en" style="overflow-y: scroll;">
+<head>
+  <meta charset="UTF-8">
+  <title>Newman Summary Report</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/default.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.css"/>
+
+<style>
+code.renderMarkdown table, code.renderMarkdown th, code.renderMarkdown td {
+    border: 1px solid black;
+    width: max-content;
+    padding: .75rem;
+}
+
+.theme-dark {
+    --background-color: #222;
+    --bg-card-deck: #444444;
+    --text-color: #ccd2d8;
+    --tab-border: solid 1px #444;
+    --success: #3c9372;
+    --failure: #c24a3f;
+    --warning: #d28c23;
+    --info: #4083b6;
+    --badge-outline: #3c9372;
+    --badge-bg: #cdd3db;
+    --badge-text: #ccd2d9;
+    --failure-row: #c24a3f;
+    --warning-row: #d28c23;
+    --card-bg: #444;
+    --card-footer: #4f5758;
+    --form-input: #ececb5;
+    --hov-text: #d2dae5;
+    --h4-text: #ccd1d9;
+}
+
+.theme-light {
+    --tab-border: solid 1px #fff;
+    --text-color: #000000;
+    --success: #42a745;
+    --failure: #dc3544;
+    --warning: #f4c10b;
+    --info: #49a1b8;
+    --badge-outline: #040411;
+    --badge-bg: #f8f9fa;
+    --badge-text: #fff;
+    --failure-row: #f5c6cb;
+    --warning-row: #ffeeba;
+    --card-bg: #f7f7f7;
+    --hov-text: #fff;
+    --h4-text: #ffffff;
+}
+
+body {
+  padding-top:30px;
+  background-color: var(--background-color)!important;
+  color: var(--text-color);
+}
+
+#execution-data {
+  padding: 10px;
+  border: var(--tab-border);
+  border-top: none;
+}
+
+.nav-tabs {
+  padding-top: 10px;
+  height: 105px;
+  overflow-y: auto;
+}
+
+body.theme-dark .card-header {
+    background-color: #444;
+}
+
+body.theme-light .card-header {
+    background-color: #f7f7f7;
+}
+
+.card-footer {
+    padding: .75rem 1.25rem;
+    background-color: var(--card-footer);
+}
+
+.card-deck {
+    background-color: var(--bg-card-deck)!important;
+}
+.form-control {
+    background: var(--form-input);
+}
+
+.custom-tab {
+  padding: 10px 15px;
+  margin-right: 0px;
+  height: 47px;
+  width: 69px;
+  text-align: center;
+  border: var(--tab-border);
+  border-bottom: none;
+  cursor:pointer;
+}
+
+body.theme-dark .text-white {
+    color: #ccd2d9!important;
+}
+h4 {
+    color: var(--h4-text);
+}
+
+body.theme-dark h1 {
+    color: #ccd2da;
+}
+
+body.theme-dark .bg-light>td {
+    background: #4f5858!important;
+}
+
+body.theme-dark .hljs {
+    background: #0a0a0ab0!important;
+    color: #8d8787!important;
+}
+
+.bg-info {
+    background-color: var(--info)!important;
+}
+.bg-success {
+    background-color: var(--success)!important;
+}
+
+.alert-success {
+    background-color: var(--success)!important;
+}
+
+.alert-warning {
+    background-color: var(--warning)!important;
+}
+
+.alert-info {
+    background-color: var(--info)!important;
+}
+
+.bg-warning {
+    background-color: var(--warning)!important;
+}
+
+.badge-warning {
+    color: var(--badge-text)!important;
+    background-color: var(--warning)!important;
+}
+
+.table-warning>td {
+    background-color: var(--warning-row);
+}
+
+.alert-danger {
+    background-color: var(--failure)!important;
+}
+
+body.theme-dark .alert-dark {
+    background-color: #636467!important;
+}
+
+body.theme-dark .text-dark {
+    color: #d1dae4!important;
+}
+
+body.theme-dark .badge-light {
+    color: #212529;
+    background-color: #cdd3db;
+}
+
+body.theme-light .badge-light {
+    color: #212529;
+    background-color: #f8f9fa;
+}
+body.theme-light .bg-danger {
+    background-color: var(--failure)!important;
+}
+
+body.theme-dark .bg-danger {
+    background-color: var(--failure)!important;
+}
+
+.table-danger>td {
+    background-color: var(--failure-row);
+}
+
+body.theme-dark .table .thead-light th {
+    background-color: #4f5858!important;
+    border-color: #dee2e6!important;
+    color: #ccd2d8!important;
+}
+
+.itPassed {
+  background: var(--success);
+  color: white;
+}
+.itFailed {
+  background: var(--failure);
+  color: white;
+}
+
+.resultsInfoPass {
+  color: var(--success);
+  padding-top: 4px;
+}
+
+.resultsInfoFail {
+  color: var(--failure);
+  padding-top: 4px;
+}
+
+.badge-outline-success {
+  color: var(--success);
+  border: 1px solid var(--success);
+  background-color: transparent;
+}
+
+.badge-outline {
+  color: var(--badge-outline);
+  border: 1px solid var(--badge-outline);
+  background-color: transparent;
+}
+
+.btn-outline-success {
+    color: var(--success)!important;
+    border-color: var(--success)!important;
+}
+
+.backToTop:hover {
+  background-color: var(--success);
+  border-color: var(--success);
+  color: var(--hov-text)!important;
+}
+
+.btn-outline-success:hover {
+  background-color: var(--success);
+  border-color: var(--success);
+  color: var(--hov-text)!important;
+}
+
+.btn-outline-secondary {
+  background-color: var(--success)!important;
+  color: var(--hov-text)!important;
+}
+
+body.theme-dark .env-heading {
+    color: #ccd2d9!important;
+}
+
+body, html {
+  height:100%;
+}
+
+.card {
+  overflow:hidden;
+}
+
+body.theme-dark .card-body {
+    background-color: #444;
+}
+
+body.theme-light .card-body {
+    background-color: #f7f7f7;
+}
+
+body.theme-dark .card-body .bg-danger {
+    background-color: var(--failure)!important;
+}
+
+body.theme-light .card-body .bg-danger {
+    background-color: var(--failure)!important;
+}
+
+.card-body .rotate {
+  z-index: 8;
+  float: right;
+  height: 100%;
+}
+
+.card-body .rotate i {
+  color: #14141426;
+  position: absolute;
+  left: 0;
+  left: auto;
+  right: -10px;
+  bottom: 0;
+  display: block;
+  -webkit-transform: rotate(-44deg);
+  -moz-transform: rotate(-44deg);
+  -o-transform: rotate(-44deg);
+  -ms-transform: rotate(-44deg);
+  transform: rotate(-44deg);
+}
+
+.dyn-height {
+  max-height:350px;
+  overflow-y:auto;
+}
+
+.nav-pills .nav-link.active {
+  background-color: transparent!important;
+}
+
+.backToTop {
+  display: none;
+  position: fixed;
+  bottom: 10px;
+  right: 20px;
+  z-index: 99;
+  font-size: 15px;
+  outline: none;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 4px;
+}
+
+.card-header .fa {
+  transition: .3s transform ease-in-out;
+}
+.card-header .collapsed .fa {
+  transform: rotate(90deg);
+}
+
+.single-line-tabs {
+  padding-top: 10px;
+  height: 60px;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 20px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 0px;
+  bottom: 4px;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  box-shadow: 0 0px 15px #2020203d;
+  background: white;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+input:checked + .slider {
+  background-color: #4083b6;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #4083b6;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(24px);
+  -ms-transform: translateX(24px);
+  transform: translateX(24px);
+  background: white;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+table.dataTable td, table.dataTable tr {
+    vertical-align: middle;
+}
+
+body.theme-dark code {
+    color: #ccd2d8!important;
+}
+
+body.theme-light code {
+    color: #000000!important;
+}
+
+.text-wrap {
+    word-wrap: break-word; 
+    min-width: 600px; 
+    max-width: 600px; 
+    white-space: normal;
+}
+
+</style>
+</head>
+<body class="theme-dark">
+<script>
+    function setTheme(themeName) {
+        localStorage.setItem('theme', themeName);
+        document.body.className = themeName;
+    }
+
+    function toggleTheme() {
+        if (localStorage.getItem('theme') === 'theme-light') {
+            setTheme('theme-dark');
+        } else {
+            setTheme('theme-light');
+        }
+    }
+</script>
+  <div class="container">
+        <div class="container">
+            <label>Light</label>
+            <label id="switch" class="switch">
+                <input type="checkbox" onchange="toggleTheme()" id="slider">
+                <span class="slider round"></span>
+            </label>
+            <label>Dark</label>
+        </div>
+        <div class="card">
+        <div class="card-header">
+            <ul class="nav nav-pills mb-3 nav-justified" id="pills-tab" role="tablist">
+            <li class="nav-item bg-info active" data-toggle="tooltip" title="Click to view the Summary">
+                <a class="nav-link text-white" id="pills-summary-tab" data-toggle="pill" href="#pills-summary" role="tab" aria-controls="pills-summary" aria-selected="true">Summary</a>
+            </li>
+            <li class="nav-item bg-success" data-toggle="tooltip" title="Click to view the Requests">
+                <a class="nav-link text-white" id="pills-requests-tab" data-toggle="pill" href="#pills-requests" role="tab" aria-controls="pills-requests" aria-selected="false">Total Requests <span class="badge badge-light">3</span></a>
+            </li>
+            <li class="nav-item bg-danger" data-toggle="tooltip" title="Click to view the Failed Tests">
+                <a class="nav-link text-white" id="pills-failed-tab" data-toggle="pill" href="#pills-failed" role="tab" aria-controls="pills-failed" aria-selected="false">Failed Tests <span class="badge badge-light">2</span></a>
+            </li>
+            <li class="nav-item bg-warning" data-toggle="tooltip" title="Click to view the Skipped Tests">
+                <a class="nav-link text-white" id="pills-skipped-tab" data-toggle="pill" href="#pills-skipped" role="tab" aria-controls="pills-skipped" aria-selected="false">Skipped Tests <span class="badge badge-light">0</span></a>
+            </li>
+            </ul>
+        <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-summary" role="tabcard" aria-labelledby="pills-summary-tab">
+<div class="row">
+  <div class="col-md-9 col-lg-12 main">
+   <h1 class="display-2 text-center">Newman Run Dashboard</h1>
+   <h5 class="text-center">Thursday, 18 May 2023 13:51:16</h5>
+   <div class="row">
+    <div class="col-lg-3 col-md-6">
+     <div class="card text-white card-success">
+      <div class="card-body bg-danger">
+       <div class="rotate">
+        <i class="fa fa-retweet fa-5x"></i>
+       </div>
+       <h6 class="text-uppercase">Total Iterations</h6>
+       <h1 class="display-1">1</h1>
+      </div>
+     </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+     <div class="card text-white card-danger">
+      <div class="card-body bg-success">
+       <div class="rotate">
+        <i class="fa fa-list fa-4x"></i>
+       </div>
+       <h6 class="text-uppercase">Total Assertions</h6>
+       <h1 class="display-1">5</h1>
+      </div>
+     </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+     <div class="card text-white card-info">
+      <div class="card-body bg-danger">
+       <div class="rotate">
+        <i class="fa fa-plus-circle fa-5x"></i>
+       </div>
+       <h6 class="text-uppercase">Total Failed Tests</h6>
+       <h1 class="display-1">2</h1>
+      </div>
+     </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+     <div class="card text-white card-warning">
+      <div class="card-body bg-success">
+       <div class="rotate">
+        <i class="fa fa-share fa-5x"></i>
+       </div>
+       <h6 class="text-uppercase">Total Skipped Tests</h6>
+       <h1 class="display-1">0</h1>
+      </div>
+     </div>
+    </div>
+   </div>
+   <hr>
+    <div class="row">
+    <div class="col">
+        <div class="row">
+        <div class="col-sm-12 mb-3">
+            <div class="card border-info">
+                <div class="card-body">
+                <h5 class="card-title text-uppercase text-white text-center bg-info">File Information</h5>
+                <span><i class="fas fa-file-code"></i></span><strong> Collection:</strong> Sites<br>
+                
+                <span><i class="fas fa-file-code"></i></span><strong> Environment:</strong> VCNG<br>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="row">
+        <div class="col-sm-12 mb-3">
+            <div class="card border-info">
+                <div class="card-body">
+                <h5 class="card-title text-uppercase text-white text-center bg-info">Timings and Data</h5>
+                <span><i class="fas fa-stopwatch"></i></span><strong> Total run duration:</strong> 2.9s<br>
+                <span><i class="fas fa-database"></i></span><strong> Total data received:</strong> 26.26KB<br>
+                <span><i class="fas fa-stopwatch"></i></span><strong> Average response time:</strong> 868ms<br>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="row">
+        <div class="col-sm-12 mb-3">
+            <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead class="thead-inverse">
+                    <tr class="text-center">
+                        <th class="text-uppercase">Summary Item</th>
+                        <th class="text-uppercase">Total</th>
+                        <th class="text-uppercase">Failed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Requests</td>
+                        <td class="text-center">3</td>
+                        <td class="text-center">0</td>
+                    </tr>
+                    <tr>
+                        <td>Prerequest Scripts</td>
+                        <td class="text-center">1</td>
+                        <td class="text-center">0</td>
+                    </tr>
+                    <tr>
+                        <td>Test Scripts</td>
+                        <td class="text-center">3</td>
+                        <td class="text-center">0</td>
+                    </tr>
+                    <tr class="table-danger">
+                        <td>Assertions</td>
+                        <td class="text-center">5</td>
+                        <td class="text-center">2</td>
+                    </tr>
+                    <tr class="">
+                        <td>Skipped Tests</td>
+                        <td class="text-center">0</td>
+                        <td class="text-center">-</td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+        </div>
+    <hr>
+   </div>
+   </div>
+  </div>
+ </div>
+        </div>
+            <div class="tab-pane fade" id="pills-failed" role="tabcard" aria-labelledby="pills-failed-tab">
+                <button id="topOfFailuresScreen" class="btn btn-outline-success btn-sm backToTop" onclick="topFunction()">Go To Top</button>
+
+                    <div class="btn-group float-right" role="group" aria-label="Button Group">
+                        <button id="openAllFailed" class="btn btn-outline-success btn-sm float-right" style="text-align: center; width: 185px;">Expand All Failed Tests</button>
+                    </div>
+                    <br>
+                    <br>
+
+                    <div class="alert alert-danger text-uppercase text-center">
+                        <h4>Showing 2 Failures</h4>
+                    </div>
+                    <div class="col-sm-12 mb-3">
+                    <div class="card-deck">
+                        <div class="card border-danger">
+                            <div class="card-header bg-danger">
+                                <a data-toggle="collapse" href="#" data-target="#fails-collapse-a3b971be-2b25-4d34-8ecd-ba5a9b312809" aria-expanded="false" aria-controls="collapse" id="fails-a3b971be-2b25-4d34-8ecd-ba5a9b312809" class="collapsed text-white z-block">
+                                    Iteration 1 - AssertionError - Sites - PUT Upate Invalid site <i class="float-lg-right fa fa-chevron-down" style="padding-top:5px;"></i>
+                                </a>
+                            </div>
+                            <div id="fails-collapse-a3b971be-2b25-4d34-8ecd-ba5a9b312809" class="collapse" aria-labelledby="fails-a3b971be-2b25-4d34-8ecd-ba5a9b312809">
+                            <div class="card-body">
+                                <h5 ><strong>Failed Test:</strong> Status code is 200</h5>
+                            <hr>
+                            <h5 class="card-title text-uppercase text-white text-center bg-danger">Assertion Error Message</h5>
+                            <div>
+                                <pre><code >expected response to have status code 200 but got 400</code></pre>
+                            </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col-sm-12 mb-3">
+                    <div class="card-deck">
+                        <div class="card border-danger">
+                            <div class="card-header bg-danger">
+                                <a data-toggle="collapse" href="#" data-target="#fails-collapse-13184759-2281-4ccf-b94d-7c9f62628c63" aria-expanded="false" aria-controls="collapse" id="fails-13184759-2281-4ccf-b94d-7c9f62628c63" class="collapsed text-white z-block">
+                                    Iteration 1 - TypeError - Sites - PUT Upate Invalid site <i class="float-lg-right fa fa-chevron-down" style="padding-top:5px;"></i>
+                                </a>
+                            </div>
+                            <div id="fails-collapse-13184759-2281-4ccf-b94d-7c9f62628c63" class="collapse" aria-labelledby="fails-13184759-2281-4ccf-b94d-7c9f62628c63">
+                            <div class="card-body">
+                                <h5 ><strong>Failed Test:</strong> Validate Update Site successfully</h5>
+                            <hr>
+                            <h5 class="card-title text-uppercase text-white text-center bg-danger">Assertion Error Message</h5>
+                            <div>
+                                <pre><code >Cannot read properties of undefined (reading &#x27;msg&#x27;)</code></pre>
+                            </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+            </div>
+
+            <div class="tab-pane fade" id="pills-skipped" role="tabcard" aria-labelledby="pills-skipped-tab">
+                <button id="topOfSkippedScreen" class="btn btn-outline-success btn-sm backToTop" onclick="topFunction()">Go To Top</button>
+
+                <div class="alert alert-success text-uppercase text-center">
+                    <br><br><h1 class="text-center">There are no skipped tests <span><i class="far fa-thumbs-up"></i></span></h1><br><br>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="pills-requests" role="tabcard" aria-labelledby="pills-requests-tab">
+
+            <button id="topOfRequestsScreen" class="btn btn-outline-success btn-sm backToTop" onclick="topFunction()">Go To Top</button>
+
+            <div class="btn-group float-right" role="group" aria-label="Button Group">
+                <button id="showOnlyFailures" class="btn btn-outline-success btn-sm float-right" style="text-align: center; width:160px;">Show Failed Iterations</button>
+                <button id="openAll" class="btn btn-outline-success btn-sm float-right" style="text-align: center; width: 140px;">Expand Folders</button>
+                <button id="openAllRequests" class="btn btn-outline-success btn-sm float-right" style="text-align: center; width: 140px;">Expand Requests</button>
+            </div>
+
+    <div class="text-uppercase" id="execution-menu">
+        <h5>1 Iteration available to view</h5>
+        
+        <nav class="table-responsive">
+        <ul class="nav single-line-tabs" id="iterationList">
+        </ul>
+        </nav>
+    </div>
+    <h6 class="text-uppercase text-muted" id="iterationSelected" style="padding-top: 10px;"></h6>
+	<div class="tab-content" id="execution-data">
+            <div id="folder-5535458b-5b50-4545-bfd7-22c0b24abaa0" class="card-deck iteration-0">
+            <div class="row iteration-0">
+                <div class="col-sm-12 mb-3 iteration-0">
+                <div class="card iteration-0">
+                    <div class="card-header  bg-success iteration-0">
+                        <a data-toggle="collapse" href="#" data-target="#collapse-5535458b-5b50-4545-bfd7-22c0b24abaa0" aria-expanded="false" aria-controls="collapse" id="requests-5535458b-5b50-4545-bfd7-22c0b24abaa0" class="collapsed text-white z-block">
+                    Iteration: 1 - GET Site Details <i class="float-lg-right fa fa-chevron-down" style="padding-top: 5px;"></i>
+                </a>
+                    </div>
+                    <div id="collapse-5535458b-5b50-4545-bfd7-22c0b24abaa0" class="collapse" aria-labelledby="requests-5535458b-5b50-4545-bfd7-22c0b24abaa0">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-12 mb-3">
+                                <div class="card-deck">
+                                <div class="card border-info" style="width: 50rem;">
+                                    <div class="card-body">
+                                    <h5 class="card-title text-uppercase text-white text-center bg-info">Request Information</h5>
+                                    <span><i class="fas fa-info-circle"></i></span><strong> Request Method:</strong> <span class="badge-outline-success badge badge-success"> GET</span><br>
+                                    <span><i class="fas fa-info-circle"></i></span><strong> Request URL:</strong> <a href="https://voiceconsole-qa.honeywell.com/VoiceConsole-7qsl/services/sites" target="_blank">https://voiceconsole-qa.honeywell.com/VoiceConsole-7qsl/services/sites</a><br>
+                                    </div>
+                                </div>
+                                <div class="card border-info" style="width: 50rem;">
+                                    <div class="card-body">
+                                    <h5 class="card-title text-uppercase text-white text-center bg-info">Response Information</h5>
+                                    <span><i class="fas fa-info-circle"></i></span><strong> Response Code:</strong> <span class="float-right badge-outline badge badge-success"> 200 - OK</span><br>
+                                    <span><i class="fas fa-stopwatch"></i></span><strong> Mean time per request:</strong> <span class="float-right badge-outline badge badge-success"> 1451ms</span><br>
+                                    <span><i class="fas fa-database"></i></span><strong> Mean size per request:</strong> <span class="float-right badge-outline badge badge-success"> 25.93KB</span><br>
+                                    <hr>
+                                    <h5 class="card-title text-uppercase text-white text-center bg-info">Test Pass Percentage</h5>
+                                    <div>
+                                        <div class="progress" style="height: 40px;">
+                                            <div class="progress-bar  bg-success" style="width: 100%" role="progressbar">
+                                            <h5 style="padding-top:5px;"><strong>100 %</strong></h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 mb-3">
+                                <div class="card-deck">
+                                <div class="card border-info" style="width: 50rem;">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-uppercase text-white text-center bg-info">Request Headers</h5>
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered">
+                                            <thead class="thead-light text-center"><tr><th>Header Name</th><th>Header Value</th></tr></thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="text-nowrap">Accept</td>
+                                                        <td class="text-wrap">application/json</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Authorization</td>
+                                                        <td class="text-wrap">Basic YWRtaW46YWRtaW4&#x3D;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">User-Agent</td>
+                                                        <td class="text-wrap">PostmanRuntime/7.29.0</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Cache-Control</td>
+                                                        <td class="text-wrap">no-cache</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Postman-Token</td>
+                                                        <td class="text-wrap">9440fe2e-3361-432a-a951-e9df4093b155</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Host</td>
+                                                        <td class="text-wrap">voiceconsole-qa.honeywell.com</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Accept-Encoding</td>
+                                                        <td class="text-wrap">gzip, deflate, br</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Connection</td>
+                                                        <td class="text-wrap">keep-alive</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-sm-12 mb-3">
+                            <div class="card-deck">
+                            <div class="card border-info" style="width: 50rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title text-uppercase text-white text-center bg-info">Response Headers</h5>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                        <thead class="thead-light text-center"><tr><th>Header Name</th><th>Header Value</th></tr></thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-nowrap">date</td>
+                                                    <td class="text-wrap">Thu, 18 May 2023 18:51:15 GMT</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">content-type</td>
+                                                    <td class="text-wrap">application/json;charset&#x3D;UTF-8</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">x-envoy-upstream-service-time</td>
+                                                    <td class="text-wrap">698</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">server</td>
+                                                    <td class="text-wrap">istio-envoy</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">set-cookie</td>
+                                                    <td class="text-wrap">drulecookie&#x3D;&quot;056241b7f29ac319&quot;; HttpOnly</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">transfer-encoding</td>
+                                                    <td class="text-wrap">chunked</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-sm-12 mb-3">
+                            <div class="card-deck">
+                            <div class="card border-info" style="width: 50rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title text-uppercase text-white text-center bg-info">Response Body</h5>
+                                        <div class="dyn-height">
+                                                <pre><code id="copyText-b8eaaafe-513f-4505-8803-4e9d47ba8cfe" class="prettyPrint">{&quot;sites&quot;:{&quot;site&quot;:[{&quot;id&quot;:-1,&quot;name&quot;:&quot;Default&quot;,&quot;description&quot;:&quot;Default Location&quot;,&quot;timeZoneId&quot;:&quot;America\/Kentucky\/Monticello&quot;,&quot;notes&quot;:&quot;Notes for Default Site Location&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;,&quot;eapType&quot;:&quot;EAPTLS&quot;,&quot;credentialAssociation&quot;:&quot;DEVICE&quot;,&quot;credentialType&quot;:&quot;CERTIFICATE&quot;,&quot;usePins&quot;:true,&quot;chargerDisconnect&quot;:true,&quot;restrictedEapType&quot;:&quot;NONE&quot;,&quot;restrictedSSID&quot;:&quot;russid2&quot;,&quot;sitePIN&quot;:11,&quot;serverCredentials&quot;:{&quot;id&quot;:8,&quot;certificateFileName&quot;:&quot;serverCertificate-1_SC-1230215183529&quot;,&quot;md5&quot;:&quot;a75cbdcdabeb1d37d12ed5b19e29e78a&quot;,&quot;valid&quot;:true}},{&quot;id&quot;:1,&quot;name&quot;:&quot;catalyst-test&quot;,&quot;description&quot;:&quot;&quot;,&quot;timeZoneId&quot;:&quot;EST5EDT&quot;,&quot;notes&quot;:&quot;&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:3,&quot;name&quot;:&quot;site_test_old&quot;,&quot;description&quot;:&quot;site_test_old&quot;,&quot;timeZoneId&quot;:&quot;Etc\/GMT+12&quot;,&quot;notes&quot;:&quot;&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;,&quot;eapType&quot;:&quot;PEAPV0&quot;,&quot;credentialAssociation&quot;:&quot;SITE&quot;,&quot;credentialType&quot;:&quot;PASSWORD&quot;,&quot;usePins&quot;:false,&quot;chargerDisconnect&quot;:false,&quot;siteWideUser&quot;:{&quot;id&quot;:3,&quot;userName&quot;:&quot;wVoXR1SJ5ckbTl0SFomMYwqsOCDI242l8BfJBhJybjTd0oC5xv7r8o1kd69w9wVN+41SJaSWK3wC8MobZdNWHw&#x3D;&#x3D;&quot;,&quot;md5&quot;:&quot;6865aeb3a9ed28f9a79ec454b259e5d0&quot;,&quot;valid&quot;:true},&quot;restrictedUser&quot;:{&quot;id&quot;:4,&quot;userName&quot;:&quot;wqRTqNWgw7WM\/UonhH+XBlwav9AO5fA56qrBfv9TgXW7fAqKsbW1L1VkTQ4cPwxMBB8lSf1CWkTOkmoY18MPRw&#x3D;&#x3D;&quot;,&quot;md5&quot;:&quot;187ef4436122d1cc2f40dc2b92f0eba0&quot;,&quot;valid&quot;:true}},{&quot;id&quot;:4,&quot;name&quot;:&quot;Catalyst - Brenda&quot;,&quot;description&quot;:&quot;&quot;,&quot;timeZoneId&quot;:&quot;Etc\/GMT+12&quot;,&quot;notes&quot;:&quot;&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;,&quot;eapType&quot;:&quot;PEAPV0&quot;,&quot;credentialAssociation&quot;:&quot;DEVICE&quot;,&quot;credentialType&quot;:&quot;PASSWORD&quot;,&quot;usePins&quot;:false,&quot;chargerDisconnect&quot;:false,&quot;restrictedUser&quot;:{&quot;id&quot;:2,&quot;userName&quot;:&quot;zdzrXl3EiaM5j2H5rrycMowfSE\/rsabL8ETlH7wXGSU3KF7KOR2CwvRv6rFQ3e9ItByTUltNZBGlxWCGenO\/DA&#x3D;&#x3D;&quot;,&quot;md5&quot;:&quot;4124bc0a9335c27f086f24ba207a4912&quot;,&quot;valid&quot;:true}},{&quot;id&quot;:5,&quot;name&quot;:&quot;site_test_new&quot;,&quot;description&quot;:&quot;site_test_new&quot;,&quot;timeZoneId&quot;:&quot;Etc\/GMT+12&quot;,&quot;notes&quot;:&quot;&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;,&quot;eapType&quot;:&quot;EAPTLS&quot;,&quot;credentialAssociation&quot;:&quot;SITE&quot;,&quot;credentialType&quot;:&quot;CERTIFICATE&quot;,&quot;usePins&quot;:false,&quot;chargerDisconnect&quot;:false,&quot;siteWideUser&quot;:{&quot;id&quot;:5,&quot;userName&quot;:&quot;RH9NBpCy4OkFfH0H0Y6Kc8pQRUtVVKEtTrjf86HInzgljX4Ef8AHPPK1RMCF+zkfjuMTDZ1YwXtNkT6PtmurcQ&#x3D;&#x3D;&quot;,&quot;certificatePassword&quot;:&quot;&quot;,&quot;md5&quot;:&quot;560f9bb94e9f9fc27d85f0175eff2d5c&quot;,&quot;valid&quot;:true},&quot;restrictedUser&quot;:{&quot;id&quot;:1,&quot;userName&quot;:&quot;lOMO0xRfUFG5J2g3QPi4XLSmdLClGnhZH97okqeqK8IuH1tlKpx+3P+FN7DGtrO\/eUX4shcrG3HNIuXZVyVgKw&#x3D;&#x3D;&quot;,&quot;certificatePassword&quot;:&quot;LQqVRoab26rW3ZD4aqkuJhfd\/fsoYex+Hzy0QyWVblSrcYgzLCwrLPxC4bIFDgfTk98ZzZ3GtsIjSS2pyHgzlQ&#x3D;&#x3D;&quot;,&quot;md5&quot;:&quot;dd5f2d43ffd3ca4181c400b012c6ee11&quot;,&quot;valid&quot;:true}},{&quot;id&quot;:6,&quot;name&quot;:&quot;TestSite&quot;,&quot;description&quot;:&quot;&quot;,&quot;timeZoneId&quot;:&quot;Etc\/GMT+12&quot;,&quot;notes&quot;:&quot;&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;,&quot;eapType&quot;:&quot;PEAPV0&quot;,&quot;credentialAssociation&quot;:&quot;SITE&quot;,&quot;credentialType&quot;:&quot;PASSWORD&quot;,&quot;usePins&quot;:false,&quot;chargerDisconnect&quot;:false,&quot;siteWideUser&quot;:{&quot;id&quot;:6,&quot;userName&quot;:&quot;tInQHdH3k1znxkTVW9QBecfm\/myiGDp6ytDmJGVC++2b2isddR03HZHP7PCd1i\/gfoXBi779eAsK7czszNgt5A&#x3D;&#x3D;&quot;,&quot;md5&quot;:&quot;21ad0bd836b90d08f4cf640b4c298e7c&quot;,&quot;valid&quot;:true},&quot;restrictedUser&quot;:{&quot;id&quot;:7,&quot;userName&quot;:&quot;F2+Z0pJHUsp06wJmvyM18vxXEXXPCQiQmHTJkyfJpWCqGgQtbceRmss9m43yksKyu4mMTZtIi8WYJ5r\/\/BpE1g&#x3D;&#x3D;&quot;,&quot;md5&quot;:&quot;4124bc0a9335c27f086f24ba207a4912&quot;,&quot;valid&quot;:true}},{&quot;id&quot;:7,&quot;name&quot;:&quot;DVGsite1&quot;,&quot;description&quot;:&quot;DVGsite1&quot;,&quot;timeZoneId&quot;:&quot;Etc\/GMT+12&quot;,&quot;notes&quot;:&quot;&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:8,&quot;name&quot;:&quot;DVGsite2&quot;,&quot;description&quot;:&quot;DVGsite2&quot;,&quot;timeZoneId&quot;:&quot;Etc\/GMT+12&quot;,&quot;notes&quot;:&quot;&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:9,&quot;name&quot;:&quot;pk-test&quot;,&quot;description&quot;:&quot;PK test site&quot;,&quot;timeZoneId&quot;:&quot;EST5EDT&quot;,&quot;notes&quot;:&quot;&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:10,&quot;name&quot;:&quot;Isaac_Catalyst&quot;,&quot;description&quot;:&quot;Isaac space for test&quot;,&quot;timeZoneId&quot;:&quot;America\/Mexico_City&quot;,&quot;notes&quot;:&quot;&quot;,&quot;shiftStartTime&quot;:&quot;07:00&quot;},{&quot;id&quot;:17,&quot;name&quot;:&quot;david-test&quot;,&quot;description&quot;:&quot;a test site for david rickman&quot;,&quot;timeZoneId&quot;:&quot;Etc\/GMT+12&quot;,&quot;notes&quot;:&quot;&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:20,&quot;name&quot;:&quot;site_eap_demo&quot;,&quot;description&quot;:&quot;site_eap_demo&quot;,&quot;timeZoneId&quot;:&quot;Etc\/GMT+12&quot;,&quot;notes&quot;:&quot;&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;,&quot;eapType&quot;:&quot;EAPTLS&quot;,&quot;credentialAssociation&quot;:&quot;SITE&quot;,&quot;credentialType&quot;:&quot;CERTIFICATE&quot;,&quot;usePins&quot;:true,&quot;chargerDisconnect&quot;:true,&quot;sitePIN&quot;:11,&quot;siteWideUser&quot;:{&quot;id&quot;:31,&quot;userName&quot;:&quot;VHRg39NvVDOReBpAPVPig4s5\/CmbM7uTs2bzB1PjWsK+zZ2iHv+ZzFKdqJJt0xW4URi6JDrloyfhECMQm2h4VFYDNhlvU9pnHTpvehjz0M7zbEzcF79ZN8JyKtWA\/IfJ4AlMffbAoB7Q5sWz7UYxbolXiFIAs8Wrc1nwj6I9tzU&#x3D;&quot;,&quot;certificatePassword&quot;:&quot;qbo0lWnAtbq0nY8jcFFhs3JAx3sTBqWtHhNsU7AzlR23sd9Ec7FAY69OkixIeZczqW5g26bPMhDH9pyLZG0DUwdvgsFDBKG1FopO7Sv1svvIf5ZmfhUJ8fUMdXlWXbASPWn3O4cufzM0hRjqIuVB844V3q9GppThWbFS8NxUIO0&#x3D;&quot;,&quot;md5&quot;:&quot;ce79f41103909158c7b70041743df9b6&quot;,&quot;valid&quot;:true},&quot;serverCredentials&quot;:{&quot;id&quot;:29,&quot;certificateFileName&quot;:&quot;serverCertificate-1_SC20230227161728&quot;,&quot;md5&quot;:&quot;a75cbdcdabeb1d37d12ed5b19e29e78a&quot;,&quot;valid&quot;:true},&quot;restrictedUser&quot;:{&quot;id&quot;:30,&quot;userName&quot;:&quot;0Uq91Kvm3WjfrsBkPs1Ox\/XrWGr28mb8iAAVrlARhgkfLUT39WTolrxbp5ArzEDOKVoPJ54mYzVYk3gtingDLA&#x3D;&#x3D;&quot;,&quot;certificatePassword&quot;:&quot;NBWeKUS9nw7QOuG7lPJTsibZv0vI2+Ao45Rl9Ni71oOeNVHsJ6MtNgp\/fVVApx1qlq43Bwbj+Toi09REXYtA5g&#x3D;&#x3D;&quot;,&quot;md5&quot;:&quot;49011059dad70adbba31abece15f66e3&quot;,&quot;valid&quot;:true}},{&quot;id&quot;:21,&quot;name&quot;:&quot;Test-site.123&quot;,&quot;description&quot;:&quot;test&quot;,&quot;timeZoneId&quot;:&quot;IST&quot;,&quot;notes&quot;:&quot;test&quot;,&quot;shiftStartTime&quot;:&quot;06:00&quot;},{&quot;id&quot;:22,&quot;name&quot;:&quot;Test_Delete&quot;,&quot;description&quot;:&quot;Delete&quot;,&quot;timeZoneId&quot;:&quot;IST&quot;,&quot;notes&quot;:&quot;&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:23,&quot;name&quot;:&quot;US \\ East Coast \\ Florida \\ Orlando Distribution Center&quot;,&quot;description&quot;:&quot;Test1&quot;,&quot;timeZoneId&quot;:&quot;Etc\/GMT+12&quot;,&quot;notes&quot;:&quot;&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:24,&quot;name&quot;:&quot;Miguel&quot;,&quot;description&quot;:&quot;Test1&quot;,&quot;timeZoneId&quot;:&quot;Etc\/GMT+12&quot;,&quot;notes&quot;:&quot;&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;,&quot;eapType&quot;:&quot;EAPTLS&quot;,&quot;credentialAssociation&quot;:&quot;SITE&quot;,&quot;credentialType&quot;:&quot;CERTIFICATE&quot;,&quot;usePins&quot;:true,&quot;chargerDisconnect&quot;:true,&quot;restrictedEapType&quot;:&quot;NONE&quot;,&quot;restrictedSSID&quot;:&quot;russid2&quot;,&quot;sitePIN&quot;:11,&quot;siteWideUser&quot;:{&quot;id&quot;:44,&quot;userName&quot;:&quot;D7UTBD9OijZzjS\/HIV\/t\/zcdsesx+pRLwLR4jyKnmD0tAFF5zmDaCwUzXRNpJrybYwsmv2ISZBMdHb7\/15PvBl8EpHVwiIGFMxBAOlyTOFbtVXn7tkTcP0BJtMhDpADKeGJqmeCfo3hdngD6rNAY4GP5akr7kdL+1pUpF63hqM8&#x3D;&quot;,&quot;certificatePassword&quot;:&quot;vLSYT4uMfIOm9VdgKbzu3ZJvxQOdx2b+W3SJuWBwNvXVEZY+zPrCnOKhjd9QIo1NV1e6Hm7KkSIBuesOOPKV4l+o2FuoR9OPiGeED7r0RQi9Xerukc8B\/+\/nO0FvQl\/fXShdAiMreFtLe9TN21krVZ8JV6hjUckXsfHGzYG2ANM&#x3D;&quot;,&quot;md5&quot;:&quot;eff27d2d315bdd62163a64c8ca0162b0&quot;,&quot;valid&quot;:true},&quot;serverCredentials&quot;:{&quot;id&quot;:35,&quot;certificateFileName&quot;:&quot;serverCertificate-1_SC24230227162248&quot;,&quot;md5&quot;:&quot;a75cbdcdabeb1d37d12ed5b19e29e78a&quot;,&quot;valid&quot;:true},&quot;restrictedUser&quot;:{&quot;id&quot;:36,&quot;userName&quot;:&quot;Y+NO8+WNpiJB\/ehIa47q4AcsChhLlEx6vRwuMrq4cnR2YFQRCmvTDawHzmbQKxSFsdzInAkShM5DuPwJNWg5QA&#x3D;&#x3D;&quot;,&quot;certificatePassword&quot;:&quot;DVpQaRjjWMqg2pRpamMTf2svENJTr96JIawHeAn6DZ44Qb9O6TBGx6z549CcsV1lTsRAiWBZg+yRv1vtNBDmuw&#x3D;&#x3D;&quot;,&quot;md5&quot;:&quot;49011059dad70adbba31abece15f66e3&quot;,&quot;valid&quot;:true}},{&quot;id&quot;:25,&quot;name&quot;:&quot;TEST2&quot;,&quot;description&quot;:&quot;&quot;,&quot;timeZoneId&quot;:&quot;Etc\/GMT+12&quot;,&quot;notes&quot;:&quot;&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;,&quot;eapType&quot;:&quot;EAPTLS&quot;,&quot;credentialAssociation&quot;:&quot;SITE&quot;,&quot;credentialType&quot;:&quot;CERTIFICATE&quot;,&quot;usePins&quot;:true,&quot;chargerDisconnect&quot;:true,&quot;restrictedEapType&quot;:&quot;NONE&quot;,&quot;restrictedSSID&quot;:&quot;russid2&quot;,&quot;sitePIN&quot;:11,&quot;siteWideUser&quot;:{&quot;id&quot;:40,&quot;userName&quot;:&quot;YHLA02VeBP4JrNEOHDdimUzFY3+Fkx1J6ZuitUkyB3eH676qY5ld3aaPji20Bjv7Y1edBjNouLZXFRAljOxabQJ7CI1WC0L3RpxkROdoKXgsP05Wakr2U2ojRhdCs8nPI\/lkO2\/n58k4lrZt8XtCk5mNeeY2jgb1OApQkGfpv0w&#x3D;&quot;,&quot;certificatePassword&quot;:&quot;i4516reWPD1h9JUcsoD8V+pj7D7l+fY82m+vEy0rZSHmH5OSO+vk4CK+KWIaEv6BxX9ci+fbaHoOZYbeKG0WrtAr\/N3GMF3XNWZRvrHw9MTkbVi7\/zHY3ynCl\/OKBxnjwk8sSX7EAtwii1KGYa8p3bimrBwZs9FBqfsIFydx79c&#x3D;&quot;,&quot;md5&quot;:&quot;2f8916ef9f5887ff6130160be8878fdb&quot;,&quot;valid&quot;:true},&quot;serverCredentials&quot;:{&quot;id&quot;:32,&quot;certificateFileName&quot;:&quot;serverCertificate-1_SC25230227204211&quot;,&quot;md5&quot;:&quot;a75cbdcdabeb1d37d12ed5b19e29e78a&quot;,&quot;valid&quot;:true},&quot;restrictedUser&quot;:{&quot;id&quot;:33,&quot;userName&quot;:&quot;mDIe7dLn+wBlbnsmyUA6VjWlPB8m899+rkaVsZYuheajXkU\/mlt1effrj4Yw+diMHXPUQhqYu2r\/r8RWpQs8jg&#x3D;&#x3D;&quot;,&quot;certificatePassword&quot;:&quot;gpE1AU+L7zKF\/TA8BtsFv+F74ZUUotyLwpNkHZFcDzYcg+Zfzr\/v+9vKlm4oiXKR7rcu8lTwIoYTHgf2nF15fw&#x3D;&#x3D;&quot;,&quot;md5&quot;:&quot;869af8b3eb510ad4430124ab1591b317&quot;,&quot;valid&quot;:true}},{&quot;id&quot;:27,&quot;name&quot;:&quot;Vinay Test&quot;,&quot;description&quot;:&quot;&quot;,&quot;timeZoneId&quot;:&quot;Etc\/GMT+12&quot;,&quot;notes&quot;:&quot;&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:28,&quot;name&quot;:&quot;One More&quot;,&quot;description&quot;:&quot;&quot;,&quot;timeZoneId&quot;:&quot;Etc\/GMT+12&quot;,&quot;notes&quot;:&quot;Administrator: Kyle Wright\r\n\r\nSupport: Max Fried&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;,&quot;eapType&quot;:&quot;EAPTLS&quot;,&quot;credentialAssociation&quot;:&quot;SITE&quot;,&quot;credentialType&quot;:&quot;CERTIFICATE&quot;,&quot;usePins&quot;:true,&quot;chargerDisconnect&quot;:true,&quot;restrictedEapType&quot;:&quot;NONE&quot;,&quot;restrictedSSID&quot;:&quot;russid2&quot;,&quot;sitePIN&quot;:11,&quot;siteWideUser&quot;:{&quot;id&quot;:43,&quot;userName&quot;:&quot;v7IlTIeqQDVEpOS+vPBA4IxblP1byDB3SYsj9W4agnU2HJhc0F0KBTqjBHzfvcua8A5ruDFsgQxIDDMKSUnAsy97vpBCrjcdHFDxof1t5d4U+L\/Qew7+KaRBKqLada35wHZmUtxfq7PKH7BJD0d72M3sHEpjit+H+Q7ZfVVfp4o&#x3D;&quot;,&quot;certificatePassword&quot;:&quot;thF32Z4boPxBWvjKK1ZxkQeiIp46QkZZ+iwlFDnLYnpZGoMuQEvUrx+wpmn6CVb3ETneJ\/20hGBYb95UZ+4zT6RJUznGjgj4Gbbhg14PK4rVgcgc4w7\/Trq3ZUkFixFUTgYM9Ip\/xB1k7AEtRTkSUFUh7ohp+PmaEnq0WLKXVcM&#x3D;&quot;,&quot;md5&quot;:&quot;eff27d2d315bdd62163a64c8ca0162b0&quot;,&quot;valid&quot;:true},&quot;serverCredentials&quot;:{&quot;id&quot;:41,&quot;certificateFileName&quot;:&quot;serverCertificate-1_SC28230227180832&quot;,&quot;md5&quot;:&quot;a75cbdcdabeb1d37d12ed5b19e29e78a&quot;,&quot;valid&quot;:true},&quot;restrictedUser&quot;:{&quot;id&quot;:42,&quot;userName&quot;:&quot;d0CTVJOAyU5I+Sao8k\/xFlBbs4DuS53aa+5HMGy3oUmiv7ECrUCXg1FZHEAoxsPRgcXypt6NB+\/Lr9q9DVG97Q&#x3D;&#x3D;&quot;,&quot;certificatePassword&quot;:&quot;FCAN6FOviLw4pC1wmhH9cWBW7Rd1BX+yNaHHG3bAs4ux4E9mPHl+sjeKxw51LP19q5fvsPgIKQFesRCoq9HyTg&#x3D;&#x3D;&quot;,&quot;md5&quot;:&quot;fbf02b6e38663ab67aa635f4d394a060&quot;,&quot;valid&quot;:true}},{&quot;id&quot;:29,&quot;name&quot;:&quot;Site&quot;,&quot;description&quot;:&quot;&quot;,&quot;timeZoneId&quot;:&quot;Etc\/GMT+12&quot;,&quot;notes&quot;:&quot;&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;,&quot;eapType&quot;:&quot;EAPTLS&quot;,&quot;credentialAssociation&quot;:&quot;SITE&quot;,&quot;credentialType&quot;:&quot;CERTIFICATE&quot;,&quot;usePins&quot;:true,&quot;chargerDisconnect&quot;:true,&quot;restrictedEapType&quot;:&quot;NONE&quot;,&quot;restrictedSSID&quot;:&quot;russid2&quot;,&quot;sitePIN&quot;:11,&quot;siteWideUser&quot;:{&quot;id&quot;:47,&quot;userName&quot;:&quot;1D2tBnN7Vv3oti0bpUA3qZhJtlriCVc8vhKQyMBeOFdZrXhlEgBh5XEDj9RyYXNjDkMw\/jjC9dL7ewp8yi3V2xgBPBaRf7E4xbsXAtNa8mxGZvgFiu2lJMyI\/d8k7xE3DFr+8WupS4MtG0mustthjckEIayRnmRbIPKaRWDfUt8&#x3D;&quot;,&quot;certificatePassword&quot;:&quot;XnfmwTyorhK2CESEDG8qma3FncVsy1jejQz90DY+IXfC2XEM\/yvH88LgkeF7WUGp8qFvcscM9cSFNLbAg80fuH+7TiBH+j0OL+UnK8bmX1i0INMiuOru753dnsCzfa+JrZAfSS3NutfQKPI0nut8qwWI5kRfhCH4h5pkAftiyXo&#x3D;&quot;,&quot;md5&quot;:&quot;fb390f24c11a5fbeee139088f9d0f956&quot;,&quot;valid&quot;:true},&quot;serverCredentials&quot;:{&quot;id&quot;:45,&quot;certificateFileName&quot;:&quot;serverCertificate-1_SC29230227232348&quot;,&quot;md5&quot;:&quot;a75cbdcdabeb1d37d12ed5b19e29e78a&quot;,&quot;valid&quot;:true},&quot;restrictedUser&quot;:{&quot;id&quot;:46,&quot;userName&quot;:&quot;I3VLm2TUTXIK2g1Anx00FAsFLd2eMuPcOe7hqBI2ZxrK8MlzJq0nEW4BXCyNswfDvGjZdHJKz1Le8hUpneeUBA&#x3D;&#x3D;&quot;,&quot;certificatePassword&quot;:&quot;y9PZQvzz1JseFJcjgp8s\/qPrPHvs9wNfeIX6fiYMRkN\/8pgW9KMxm3BukMxfjYt8JnId86WZnZfjKw8zHE8OPw&#x3D;&#x3D;&quot;,&quot;md5&quot;:&quot;274b48e7865ada96df73c08c5da12cb7&quot;,&quot;valid&quot;:true}},{&quot;id&quot;:30,&quot;name&quot;:&quot;Marko&quot;,&quot;description&quot;:&quot;&quot;,&quot;timeZoneId&quot;:&quot;America\/New_York&quot;,&quot;notes&quot;:&quot;&quot;,&quot;shiftStartTime&quot;:&quot;08:00&quot;,&quot;eapType&quot;:&quot;EAPTLS&quot;,&quot;credentialAssociation&quot;:&quot;SITE&quot;,&quot;credentialType&quot;:&quot;CERTIFICATE&quot;,&quot;usePins&quot;:false,&quot;chargerDisconnect&quot;:false,&quot;siteWideUser&quot;:{&quot;id&quot;:50,&quot;userName&quot;:&quot;IAMTa7yBilN7Hc7vs+3g3uy5BvEplIZR0EenjcKb\/2tR2EHyCgkaeM8s2LONOXZA3ILf06r9LgOsZM33LxHwvQ&#x3D;&#x3D;&quot;,&quot;certificatePassword&quot;:&quot;&quot;,&quot;md5&quot;:&quot;0c4915713f34c11c07068b327111a25e&quot;,&quot;valid&quot;:true},&quot;restrictedUser&quot;:{&quot;id&quot;:49,&quot;userName&quot;:&quot;I\/ULHN9TQlG3rGRnSlDoBJdDrYSACO\/4wC5594was2SUQS4KqFjcBlCSDnnJBhOBl1Olm+J\/8nnOOW4JmtofBw&#x3D;&#x3D;&quot;,&quot;certificatePassword&quot;:&quot;&quot;,&quot;md5&quot;:&quot;9cee03c4346eb784d9a3c9c8927c1638&quot;,&quot;valid&quot;:true}},{&quot;id&quot;:31,&quot;name&quot;:&quot;site_operator_eap&quot;,&quot;description&quot;:&quot;This is Site1 description&quot;,&quot;timeZoneId&quot;:&quot;Etc\/GMT+12&quot;,&quot;notes&quot;:&quot;&quot;,&quot;shiftStartTime&quot;:&quot;11:01&quot;},{&quot;id&quot;:33,&quot;name&quot;:&quot;Anant-Site&quot;,&quot;description&quot;:&quot;&quot;,&quot;timeZoneId&quot;:&quot;Etc\/GMT+12&quot;,&quot;notes&quot;:&quot;&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:45,&quot;name&quot;:&quot;pk_site_1679996879267&quot;,&quot;description&quot;:&quot;This is pk_site_1679996879267 description&quot;,&quot;timeZoneId&quot;:&quot;Etc\/GMT+12&quot;,&quot;notes&quot;:&quot;This is a bunch of notes for site pk_site_1679996879267&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:46,&quot;name&quot;:&quot;z_pk_site_1679996896936&quot;,&quot;description&quot;:&quot;This is z_pk_site_1679996896936 description&quot;,&quot;timeZoneId&quot;:&quot;Etc\/GMT+12&quot;,&quot;notes&quot;:&quot;This is a bunch of notes for site z_pk_site_1679996896936&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:47,&quot;name&quot;:&quot;z_pk_site_1679996901605&quot;,&quot;description&quot;:&quot;This is z_pk_site_1679996901605 description&quot;,&quot;timeZoneId&quot;:&quot;Etc\/GMT+12&quot;,&quot;notes&quot;:&quot;This is a bunch of notes for site z_pk_site_1679996901605&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:52,&quot;name&quot;:&quot;Funyak-site&quot;,&quot;description&quot;:&quot;&quot;,&quot;timeZoneId&quot;:&quot;Etc\/GMT+12&quot;,&quot;notes&quot;:&quot;&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:66,&quot;name&quot;:&quot;Site 1000923 Test&quot;,&quot;description&quot;:&quot;This is a placeholder for the description.&quot;,&quot;timeZoneId&quot;:&quot;US\/Eastern&quot;,&quot;notes&quot;:&quot;This is a placeholder for the notes.&quot;,&quot;shiftStartTime&quot;:&quot;12:00&quot;},{&quot;id&quot;:67,&quot;name&quot;:&quot;z_pk_site_1681148818320&quot;,&quot;description&quot;:&quot;This is z_pk_site_1681148818320 description&quot;,&quot;timeZoneId&quot;:&quot;Etc\/GMT+12&quot;,&quot;notes&quot;:&quot;This is a bunch of notes for site z_pk_site_1681148818320&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:68,&quot;name&quot;:&quot;z_pk_site_1681150148159&quot;,&quot;description&quot;:&quot;This is z_pk_site_1681150148159 description&quot;,&quot;timeZoneId&quot;:&quot;Etc\/GMT+12&quot;,&quot;notes&quot;:&quot;This is a bunch of notes for site z_pk_site_1681150148159&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:69,&quot;name&quot;:&quot;test0.6965920073848557&quot;,&quot;description&quot;:&quot;This is site test0.6965920073848557 description&quot;,&quot;timeZoneId&quot;:&quot;America\/Kentucky\/Monticello&quot;,&quot;notes&quot;:&quot;Notes for Default Site Location&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:70,&quot;name&quot;:&quot;test0.7853302116910563&quot;,&quot;description&quot;:&quot;This is site test0.7853302116910563 description&quot;,&quot;timeZoneId&quot;:&quot;America\/Kentucky\/Monticello&quot;,&quot;notes&quot;:&quot;Notes for Default Site Location&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:71,&quot;name&quot;:&quot;test0.49867306787543697&quot;,&quot;description&quot;:&quot;This is site test0.49867306787543697 description&quot;,&quot;timeZoneId&quot;:&quot;America\/Kentucky\/Monticello&quot;,&quot;notes&quot;:&quot;Notes for Default Site Location&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:72,&quot;name&quot;:&quot;test0.4253037746962782&quot;,&quot;description&quot;:&quot;This is site test0.4253037746962782 description&quot;,&quot;timeZoneId&quot;:&quot;America\/Kentucky\/Monticello&quot;,&quot;notes&quot;:&quot;Notes for Default Site Location&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:73,&quot;name&quot;:&quot;test0.11508617197755755&quot;,&quot;description&quot;:&quot;This is site test0.11508617197755755 description&quot;,&quot;timeZoneId&quot;:&quot;America\/Kentucky\/Monticello&quot;,&quot;notes&quot;:&quot;Notes for Default Site Location&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:74,&quot;name&quot;:&quot;test0.8330964529722507&quot;,&quot;description&quot;:&quot;This is site test0.8330964529722507 description&quot;,&quot;timeZoneId&quot;:&quot;America\/Kentucky\/Monticello&quot;,&quot;notes&quot;:&quot;Notes for Default Site Location&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:75,&quot;name&quot;:&quot;test0.40318198654283943&quot;,&quot;description&quot;:&quot;This is site test0.40318198654283943 description&quot;,&quot;timeZoneId&quot;:&quot;America\/Kentucky\/Monticello&quot;,&quot;notes&quot;:&quot;Notes for Default Site Location&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:76,&quot;name&quot;:&quot;test0.2777552602248594&quot;,&quot;description&quot;:&quot;This is site test0.2777552602248594 description&quot;,&quot;timeZoneId&quot;:&quot;America\/Kentucky\/Monticello&quot;,&quot;notes&quot;:&quot;Notes for Default Site Location&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:77,&quot;name&quot;:&quot;test0.22252212251717318&quot;,&quot;description&quot;:&quot;This is site test0.22252212251717318 description&quot;,&quot;timeZoneId&quot;:&quot;America\/Kentucky\/Monticello&quot;,&quot;notes&quot;:&quot;Notes for Default Site Location&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:78,&quot;name&quot;:&quot;test0.12150753165456507&quot;,&quot;description&quot;:&quot;This is site test0.12150753165456507 description&quot;,&quot;timeZoneId&quot;:&quot;America\/Kentucky\/Monticello&quot;,&quot;notes&quot;:&quot;Notes for Default Site Location&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:79,&quot;name&quot;:&quot;test0.6152967728606897&quot;,&quot;description&quot;:&quot;This is site test0.6152967728606897 description&quot;,&quot;timeZoneId&quot;:&quot;America\/Kentucky\/Monticello&quot;,&quot;notes&quot;:&quot;Notes for Default Site Location&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:80,&quot;name&quot;:&quot;test0.7404373747619073&quot;,&quot;description&quot;:&quot;This is site test0.7404373747619073 description&quot;,&quot;timeZoneId&quot;:&quot;America\/Kentucky\/Monticello&quot;,&quot;notes&quot;:&quot;Notes for Default Site Location&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:81,&quot;name&quot;:&quot;test0.4993248458080255&quot;,&quot;description&quot;:&quot;This is site test0.4993248458080255 description&quot;,&quot;timeZoneId&quot;:&quot;America\/Kentucky\/Monticello&quot;,&quot;notes&quot;:&quot;Notes for Default Site Location&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:82,&quot;name&quot;:&quot;test0.07368647863189759&quot;,&quot;description&quot;:&quot;This is site test0.07368647863189759 description&quot;,&quot;timeZoneId&quot;:&quot;America\/Kentucky\/Monticello&quot;,&quot;notes&quot;:&quot;Notes for Default Site Location&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:83,&quot;name&quot;:&quot;test0.7359426530730748&quot;,&quot;description&quot;:&quot;This is site test0.7359426530730748 description&quot;,&quot;timeZoneId&quot;:&quot;America\/Kentucky\/Monticello&quot;,&quot;notes&quot;:&quot;Notes for Default Site Location&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:84,&quot;name&quot;:&quot;test0.23680423565930453&quot;,&quot;description&quot;:&quot;This is site test0.23680423565930453 description&quot;,&quot;timeZoneId&quot;:&quot;America\/Kentucky\/Monticello&quot;,&quot;notes&quot;:&quot;Notes for Default Site Location&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:85,&quot;name&quot;:&quot;test0.15568027025964382&quot;,&quot;description&quot;:&quot;This is site test0.15568027025964382 description&quot;,&quot;timeZoneId&quot;:&quot;America\/Kentucky\/Monticello&quot;,&quot;notes&quot;:&quot;Notes for Default Site Location&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:86,&quot;name&quot;:&quot;test0.19216015278152132&quot;,&quot;description&quot;:&quot;This is site test0.19216015278152132 description&quot;,&quot;timeZoneId&quot;:&quot;America\/Kentucky\/Monticello&quot;,&quot;notes&quot;:&quot;Notes for Default Site Location&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:87,&quot;name&quot;:&quot;test0.40655700445324405&quot;,&quot;description&quot;:&quot;This is site test0.40655700445324405 description&quot;,&quot;timeZoneId&quot;:&quot;America\/Kentucky\/Monticello&quot;,&quot;notes&quot;:&quot;Notes for Default Site Location&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:88,&quot;name&quot;:&quot;test0.515486486879267&quot;,&quot;description&quot;:&quot;This is site test0.515486486879267 description&quot;,&quot;timeZoneId&quot;:&quot;America\/Kentucky\/Monticello&quot;,&quot;notes&quot;:&quot;Notes for Default Site Location&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:89,&quot;name&quot;:&quot;test0.3580498768782978&quot;,&quot;description&quot;:&quot;This is site test0.3580498768782978 description&quot;,&quot;timeZoneId&quot;:&quot;America\/Kentucky\/Monticello&quot;,&quot;notes&quot;:&quot;Notes for Default Site Location&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:90,&quot;name&quot;:&quot;test0.1502594122088432&quot;,&quot;description&quot;:&quot;This is site test0.1502594122088432 description&quot;,&quot;timeZoneId&quot;:&quot;America\/Kentucky\/Monticello&quot;,&quot;notes&quot;:&quot;Notes for Default Site Location&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:91,&quot;name&quot;:&quot;test0.9433398412203475&quot;,&quot;description&quot;:&quot;This is site test0.9433398412203475 description&quot;,&quot;timeZoneId&quot;:&quot;America\/Kentucky\/Monticello&quot;,&quot;notes&quot;:&quot;Notes for Default Site Location&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:92,&quot;name&quot;:&quot;test0.7632218971724074&quot;,&quot;description&quot;:&quot;This is site test0.7632218971724074 description&quot;,&quot;timeZoneId&quot;:&quot;America\/Kentucky\/Monticello&quot;,&quot;notes&quot;:&quot;Notes for Default Site Location&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:93,&quot;name&quot;:&quot;test0.4596024386130797&quot;,&quot;description&quot;:&quot;This is site test0.4596024386130797 description&quot;,&quot;timeZoneId&quot;:&quot;America\/Kentucky\/Monticello&quot;,&quot;notes&quot;:&quot;Notes for Default Site Location&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:94,&quot;name&quot;:&quot;test0.5053768250075379&quot;,&quot;description&quot;:&quot;This is site test0.5053768250075379 description&quot;,&quot;timeZoneId&quot;:&quot;America\/Kentucky\/Monticello&quot;,&quot;notes&quot;:&quot;Notes for Default Site Location&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:95,&quot;name&quot;:&quot;test0.24441468449052306&quot;,&quot;description&quot;:&quot;This is site test0.24441468449052306 description&quot;,&quot;timeZoneId&quot;:&quot;America\/Kentucky\/Monticello&quot;,&quot;notes&quot;:&quot;Notes for Default Site Location&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:96,&quot;name&quot;:&quot;test0.7784977306981999&quot;,&quot;description&quot;:&quot;This is site test0.7784977306981999 description&quot;,&quot;timeZoneId&quot;:&quot;America\/Kentucky\/Monticello&quot;,&quot;notes&quot;:&quot;Notes for Default Site Location&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:97,&quot;name&quot;:&quot;test0.966535221244607&quot;,&quot;description&quot;:&quot;This is site test0.966535221244607 description&quot;,&quot;timeZoneId&quot;:&quot;America\/Kentucky\/Monticello&quot;,&quot;notes&quot;:&quot;Notes for Default Site Location&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:98,&quot;name&quot;:&quot;test0.5459598830871211&quot;,&quot;description&quot;:&quot;This is site test0.5459598830871211 description&quot;,&quot;timeZoneId&quot;:&quot;America\/Kentucky\/Monticello&quot;,&quot;notes&quot;:&quot;Notes for Default Site Location&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:99,&quot;name&quot;:&quot;test0.2599487855660554&quot;,&quot;description&quot;:&quot;This is site test0.2599487855660554 description&quot;,&quot;timeZoneId&quot;:&quot;America\/Kentucky\/Monticello&quot;,&quot;notes&quot;:&quot;Notes for Default Site Location&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:100,&quot;name&quot;:&quot;test0.8098563324652048&quot;,&quot;description&quot;:&quot;This is site test0.8098563324652048 description&quot;,&quot;timeZoneId&quot;:&quot;America\/Kentucky\/Monticello&quot;,&quot;notes&quot;:&quot;Notes for Default Site Location&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:101,&quot;name&quot;:&quot;test0.32311758350829334&quot;,&quot;description&quot;:&quot;This is site test0.32311758350829334 description&quot;,&quot;timeZoneId&quot;:&quot;America\/Kentucky\/Monticello&quot;,&quot;notes&quot;:&quot;Notes for Default Site Location&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:102,&quot;name&quot;:&quot;test0.5487351777622751&quot;,&quot;description&quot;:&quot;This is site test0.5487351777622751 description&quot;,&quot;timeZoneId&quot;:&quot;America\/Kentucky\/Monticello&quot;,&quot;notes&quot;:&quot;Notes for Default Site Location&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:103,&quot;name&quot;:&quot;JM_Test&quot;,&quot;description&quot;:&quot;Nunc sed augue lacus viverra vitae congue eu consequat ac felis donec et odio pellentesque diam volutpat commodo sed egestas egestas fringilla phasellus faucibus scelerisque eleifend donec pretium vulputate sapien nec sagittis aliquam malesuada bibendum arcu vitae elementum curabitur vitae nunc sed velit dignissim sodales ut eu sem integer vitae justo eget magna fermentum iaculis eu non diam phasellus vestibulum lorem sed risus ultricies tristique nulla aliquet enim tortor at auctor urna nunc id cursus metus aliquam eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci a scelerisque purus semper eget duis at tellus at urna condimentum mattis pellentesque id nibh tortor id aliquet lectus proin nibh nisl condimentum id venenatis a condimentum vitae sapien pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas sed tempus urna et pharetra pharetra massa massa ultricies mi quis hendrerit dolor magna eget est lorem ipsum dolor sit amet consectetur adipiscing elit pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas integer eget aliquet nibh praesent tristique magna sit amet purus gravida quis blandit turpis cursus in hac habitasse platea dictumst quisque sagittis purus sit amet volutpat consequat mauris nunc congue nisi vitae suscipit tellus. Nunc sed augue lacus viverra vitae congue eu consequat ac felis donec et odio pellentesque diam volutpat commodo sed egestas egestas fringilla phasellus faucibus scelerisque eleifend donec pretium vulputate sapien nec sagittis aliquam malesuada bibendum arcu vitae elementum curabitur vitae nunc sed velit dignissim sodales ut eu sem integer vitae justo eget magna fermentum iaculis eu non diam phasellus vestibulum lorem sed risus ultricies tristique nulla aliquet enim tortor at auctor urna nunc id cursus metus aliquam eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci a scelerisque purus semper eget duis at tellus atu.&quot;,&quot;timeZoneId&quot;:&quot;Etc\/GMT+12&quot;,&quot;notes&quot;:&quot;Nunc sed augue lacus viverra vitae congue eu consequat ac felis donec et odio pellentesque diam volutpat commodo sed egestas egestas fringilla phasellus faucibus scelerisque eleifend donec pretium vulputate sapien nec sagittis aliquam malesuada bibendum arcu vitae elementum curabitur vitae nunc sed velit dignissim sodales ut eu sem integer vitae justo eget magna fermentum iaculis eu non diam phasellus vestibulum lorem sed risus ultricies tristique nulla aliquet enim tortor at auctor urna nunc id cursus metus aliquam eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci a scelerisque purus semper eget duis at tellus at urna condimentum mattis pellentesque id nibh tortor id aliquet lectus proin nibh nisl condimentum id venenatis a condimentum vitae sapien pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas sed tempus urna et pharetra pharetra massa massa ultricies mi quis hendrerit dolor magna eget est lorem ipsum dolor sit amet consectetur adipiscing elit pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas integer eget aliquet nibh praesent tristique magna sit amet purus gravida quis blandit turpis cursus in hac habitasse platea dictumst quisque sagittis purus sit amet volutpat consequat mauris nunc congue nisi vitae suscipit tellus. Nunc sed augue lacus viverra vitae congue eu consequat ac felis donec et odio pellentesque diam volutpat commodo sed egestas egestas fringilla phasellus faucibus scelerisque eleifend donec pretium vulputate sapien nec sagittis aliquam malesuada bibendum arcu vitae elementum curabitur vitae nunc sed velit dignissim sodales ut eu sem integer vitae justo eget magna fermentum iaculis eu non diam phasellus vestibulum lorem sed risus ultricies tristique nulla aliquet enim tortor at auctor urna nunc id cursus metus aliquam eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci a scelerisque purus semper eget duis at tellus atu.&quot;,&quot;shiftStartTime&quot;:&quot;11:00&quot;},{&quot;id&quot;:105,&quot;name&quot;:&quot;test0.8282484487401189&quot;,&quot;description&quot;:&quot;This is site test0.8282484487401189 description&quot;,&quot;timeZoneId&quot;:&quot;America\/Kentucky\/Monticello&quot;,&quot;notes&quot;:&quot;Notes for Default Site Location&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:106,&quot;name&quot;:&quot;test0.2905763385713578&quot;,&quot;description&quot;:&quot;This is site test0.2905763385713578 description&quot;,&quot;timeZoneId&quot;:&quot;America\/Kentucky\/Monticello&quot;,&quot;notes&quot;:&quot;Notes for Default Site Location&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:107,&quot;name&quot;:&quot;test0.2905873489820401&quot;,&quot;description&quot;:&quot;This is site test0.2905873489820401 description&quot;,&quot;timeZoneId&quot;:&quot;America\/Kentucky\/Monticello&quot;,&quot;notes&quot;:&quot;Notes for Default Site Location&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:108,&quot;name&quot;:&quot;test0.8618772322664592&quot;,&quot;description&quot;:&quot;This is site test0.8618772322664592 description&quot;,&quot;timeZoneId&quot;:&quot;America\/Kentucky\/Monticello&quot;,&quot;notes&quot;:&quot;Notes for Default Site Location&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:109,&quot;name&quot;:&quot;test0.5751708557912203&quot;,&quot;description&quot;:&quot;This is site test0.5751708557912203 description&quot;,&quot;timeZoneId&quot;:&quot;America\/Kentucky\/Monticello&quot;,&quot;notes&quot;:&quot;Notes for Default Site Location&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:110,&quot;name&quot;:&quot;test0.9619295893255011&quot;,&quot;description&quot;:&quot;This is site test0.9619295893255011 description&quot;,&quot;timeZoneId&quot;:&quot;America\/Kentucky\/Monticello&quot;,&quot;notes&quot;:&quot;Notes for Default Site Location&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:111,&quot;name&quot;:&quot;test0.9239237589204286&quot;,&quot;description&quot;:&quot;This is site test0.9239237589204286 description&quot;,&quot;timeZoneId&quot;:&quot;America\/Kentucky\/Monticello&quot;,&quot;notes&quot;:&quot;Notes for Default Site Location&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:112,&quot;name&quot;:&quot;test0.10658308139030548&quot;,&quot;description&quot;:&quot;This is site test0.10658308139030548 description&quot;,&quot;timeZoneId&quot;:&quot;America\/Kentucky\/Monticello&quot;,&quot;notes&quot;:&quot;Notes for Default Site Location&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:113,&quot;name&quot;:&quot;test0.24926585924240618&quot;,&quot;description&quot;:&quot;This is site test0.24926585924240618 description&quot;,&quot;timeZoneId&quot;:&quot;America\/Kentucky\/Monticello&quot;,&quot;notes&quot;:&quot;Notes for Default Site Location&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:117,&quot;name&quot;:&quot;test0.5428998831223266&quot;,&quot;description&quot;:&quot;This is site test0.5428998831223266 description&quot;,&quot;timeZoneId&quot;:&quot;America\/Kentucky\/Monticello&quot;,&quot;notes&quot;:&quot;Notes for Default Site Location&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:118,&quot;name&quot;:&quot;nodata&quot;,&quot;description&quot;:&quot;&quot;,&quot;timeZoneId&quot;:&quot;Etc\/GMT+12&quot;,&quot;notes&quot;:&quot;&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;},{&quot;id&quot;:119,&quot;name&quot;:&quot;test0.03484568439237545&quot;,&quot;description&quot;:&quot;This is site test0.03484568439237545 description&quot;,&quot;timeZoneId&quot;:&quot;America\/Kentucky\/Monticello&quot;,&quot;notes&quot;:&quot;Notes for Default Site Location&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;}]}}</code></pre>
+                                        </div>
+                                        <div class="card-footer">
+                                            <button class="btn btn-outline-secondary btn-sm copyButton" type="button" data-clipboard-action="copy" data-clipboard-target="#copyText-b8eaaafe-513f-4505-8803-4e9d47ba8cfe">Copy to Clipboard</button>
+                                        </div>
+                                </div>
+                            </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="card border-info">
+                                <div class="card-body">
+                                <h5 class="card-title text-uppercase text-white text-center bg-info">Test Information</h5>
+                                    <div class="table-responsive text-nowrap">
+                                        <table class="datatable table table-hover">
+                                        <thead><tr class="text-center"><th>Name</th><th>Passed</th><th>Failed</th><th>Skipped</th></tr></thead>
+                                            <tbody>
+                                                <tr >
+                                                    <td >Status code is 200</td>
+                                                    <td class="text-center bg-success">1</td>
+                                                    <td class="text-center ">0</td>
+                                                    <td class="text-center ">0</td>
+                                                </tr>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr class="bg-light">
+                                                    <td><strong>Total</strong></td>
+                                                    <td class="text-center">1</td>
+                                                    <td class="text-center">0</td>
+                                                    <td class="text-center">0</td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                    <div class="row d-none">
+                                    <div class="col-sm-12 mb-3">
+                                        <div class="card-deck">
+                                        <div class="card border-danger" style="width: 50rem;">
+                                            <div class="card-body">
+                                                <h5 class="card-title text-uppercase text-white text-center bg-danger">Test Failure</h5>
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover">
+                                                    <thead><tr class="text-nowrap"><th>Test Name</th><th>Assertion Error</th></tr></thead>
+                                                        <tbody>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+            <div id="folder-427c6b49-9af6-40d1-b483-53ce79c046ba" class="card-deck iteration-0">
+            <div class="row iteration-0">
+                <div class="col-sm-12 mb-3 iteration-0">
+                <div class="card iteration-0">
+                    <div class="card-header  bg-success iteration-0">
+                        <a data-toggle="collapse" href="#" data-target="#collapse-427c6b49-9af6-40d1-b483-53ce79c046ba" aria-expanded="false" aria-controls="collapse" id="requests-427c6b49-9af6-40d1-b483-53ce79c046ba" class="collapsed text-white z-block">
+                    Iteration: 1 - POST New Site <i class="float-lg-right fa fa-chevron-down" style="padding-top: 5px;"></i>
+                </a>
+                    </div>
+                    <div id="collapse-427c6b49-9af6-40d1-b483-53ce79c046ba" class="collapse" aria-labelledby="requests-427c6b49-9af6-40d1-b483-53ce79c046ba">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-12 mb-3">
+                                <div class="card-deck">
+                                <div class="card border-info" style="width: 50rem;">
+                                    <div class="card-body">
+                                    <h5 class="card-title text-uppercase text-white text-center bg-info">Request Information</h5>
+                                    <span><i class="fas fa-info-circle"></i></span><strong> Request Method:</strong> <span class="badge-outline-success badge badge-success"> POST</span><br>
+                                    <span><i class="fas fa-info-circle"></i></span><strong> Request URL:</strong> <a href="https://voiceconsole-qa.honeywell.com/VoiceConsole-7qsl/services/sites" target="_blank">https://voiceconsole-qa.honeywell.com/VoiceConsole-7qsl/services/sites</a><br>
+                                    </div>
+                                </div>
+                                <div class="card border-info" style="width: 50rem;">
+                                    <div class="card-body">
+                                    <h5 class="card-title text-uppercase text-white text-center bg-info">Response Information</h5>
+                                    <span><i class="fas fa-info-circle"></i></span><strong> Response Code:</strong> <span class="float-right badge-outline badge badge-success"> 200 - OK</span><br>
+                                    <span><i class="fas fa-stopwatch"></i></span><strong> Mean time per request:</strong> <span class="float-right badge-outline badge badge-success"> 589ms</span><br>
+                                    <span><i class="fas fa-database"></i></span><strong> Mean size per request:</strong> <span class="float-right badge-outline badge badge-success"> 268B</span><br>
+                                    <hr>
+                                    <h5 class="card-title text-uppercase text-white text-center bg-info">Test Pass Percentage</h5>
+                                    <div>
+                                        <div class="progress" style="height: 40px;">
+                                            <div class="progress-bar  bg-success" style="width: 100%" role="progressbar">
+                                            <h5 style="padding-top:5px;"><strong>100 %</strong></h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 mb-3">
+                                <div class="card-deck">
+                                <div class="card border-info" style="width: 50rem;">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-uppercase text-white text-center bg-info">Request Headers</h5>
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered">
+                                            <thead class="thead-light text-center"><tr><th>Header Name</th><th>Header Value</th></tr></thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="text-nowrap">Accept</td>
+                                                        <td class="text-wrap">application/json</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Authorization</td>
+                                                        <td class="text-wrap">Basic YWRtaW46YWRtaW4&#x3D;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Content-Type</td>
+                                                        <td class="text-wrap">application/json</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">User-Agent</td>
+                                                        <td class="text-wrap">PostmanRuntime/7.29.0</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Cache-Control</td>
+                                                        <td class="text-wrap">no-cache</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Postman-Token</td>
+                                                        <td class="text-wrap">fdbab04c-3886-47b8-9c7b-2dc3ed4feff1</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Host</td>
+                                                        <td class="text-wrap">voiceconsole-qa.honeywell.com</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Accept-Encoding</td>
+                                                        <td class="text-wrap">gzip, deflate, br</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Connection</td>
+                                                        <td class="text-wrap">keep-alive</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Content-Length</td>
+                                                        <td class="text-wrap">296</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Cookie</td>
+                                                        <td class="text-wrap">drulecookie&#x3D;&quot;056241b7f29ac319&quot;</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-sm-12 mb-3">
+                            <div class="card-deck">
+                            <div class="card border-info" style="width: 50rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title text-uppercase text-white text-center bg-info">Request Body</h5>
+                                        <div class="dyn-height">
+                                            <pre><code id="copyReqText-1" class="prettyPrint">{
+            &quot;site&quot;: {
+                &quot;name&quot;: test0.13777851262296226,
+                &quot;description&quot;: &quot;This is site test0.13777851262296226 description&quot;,
+                &quot;timeZoneId&quot;: &quot;America/Kentucky/Monticello&quot;,
+                &quot;notes&quot;: &quot;Notes for Default Site Location&quot;,
+                &quot;shiftStartTime&quot;: &quot;00:00&quot;
+            }
+            
+        }
+        
+        </code></pre>
+                                        </div>
+                                        <div class="card-footer">
+                                            <button class="btn btn-outline-secondary btn-sm copyButton" type="button" data-clipboard-action="copy" data-clipboard-target="#copyReqText-1">Copy to Clipboard</button>
+                                        </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-sm-12 mb-3">
+                            <div class="card-deck">
+                            <div class="card border-info" style="width: 50rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title text-uppercase text-white text-center bg-info">Response Headers</h5>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                        <thead class="thead-light text-center"><tr><th>Header Name</th><th>Header Value</th></tr></thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-nowrap">set-cookie</td>
+                                                    <td class="text-wrap">JSESSIONID&#x3D;40625EF1DBF048CCD8EF64BAABD2E5E2; Path&#x3D;/VoiceConsole-7qsl; HttpOnly</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">date</td>
+                                                    <td class="text-wrap">Thu, 18 May 2023 18:51:16 GMT</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">content-type</td>
+                                                    <td class="text-wrap">application/json;charset&#x3D;UTF-8</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">x-envoy-upstream-service-time</td>
+                                                    <td class="text-wrap">467</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">server</td>
+                                                    <td class="text-wrap">istio-envoy</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">transfer-encoding</td>
+                                                    <td class="text-wrap">chunked</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-sm-12 mb-3">
+                            <div class="card-deck">
+                            <div class="card border-info" style="width: 50rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title text-uppercase text-white text-center bg-info">Response Body</h5>
+                                        <div class="dyn-height">
+                                                <pre><code id="copyText-ad8637fc-b65f-4244-835c-a2191a4e27a0" class="prettyPrint">{&quot;response&quot;:{&quot;dataObjects&quot;:{&quot;@xsi.type&quot;:&quot;site&quot;,&quot;id&quot;:122,&quot;name&quot;:&quot;test0.13777851262296226&quot;,&quot;description&quot;:&quot;This is site test0.13777851262296226 description&quot;,&quot;timeZoneId&quot;:&quot;America\/Kentucky\/Monticello&quot;,&quot;notes&quot;:&quot;Notes for Default Site Location&quot;,&quot;shiftStartTime&quot;:&quot;00:00&quot;}}}</code></pre>
+                                        </div>
+                                        <div class="card-footer">
+                                            <button class="btn btn-outline-secondary btn-sm copyButton" type="button" data-clipboard-action="copy" data-clipboard-target="#copyText-ad8637fc-b65f-4244-835c-a2191a4e27a0">Copy to Clipboard</button>
+                                        </div>
+                                </div>
+                            </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="card border-info">
+                                <div class="card-body">
+                                <h5 class="card-title text-uppercase text-white text-center bg-info">Test Information</h5>
+                                    <div class="table-responsive text-nowrap">
+                                        <table class="datatable table table-hover">
+                                        <thead><tr class="text-center"><th>Name</th><th>Passed</th><th>Failed</th><th>Skipped</th></tr></thead>
+                                            <tbody>
+                                                <tr >
+                                                    <td >Status code is 200</td>
+                                                    <td class="text-center bg-success">1</td>
+                                                    <td class="text-center ">0</td>
+                                                    <td class="text-center ">0</td>
+                                                </tr>
+                                                <tr >
+                                                    <td >Validate Site is created</td>
+                                                    <td class="text-center bg-success">1</td>
+                                                    <td class="text-center ">0</td>
+                                                    <td class="text-center ">0</td>
+                                                </tr>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr class="bg-light">
+                                                    <td><strong>Total</strong></td>
+                                                    <td class="text-center">2</td>
+                                                    <td class="text-center">0</td>
+                                                    <td class="text-center">0</td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                    <div class="row d-none">
+                                    <div class="col-sm-12 mb-3">
+                                        <div class="card-deck">
+                                        <div class="card border-danger" style="width: 50rem;">
+                                            <div class="card-body">
+                                                <h5 class="card-title text-uppercase text-white text-center bg-danger">Test Failure</h5>
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover">
+                                                    <thead><tr class="text-nowrap"><th>Test Name</th><th>Assertion Error</th></tr></thead>
+                                                        <tbody>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+            <div id="folder-90c2df5c-4e5a-411b-816d-81f0ad95291f" class="card-deck iteration-0">
+            <div class="row iteration-0">
+                <div class="col-sm-12 mb-3 iteration-0">
+                <div class="card iteration-0">
+                    <div class="card-header  bg-danger iteration-0">
+                        <a data-toggle="collapse" href="#" data-target="#collapse-90c2df5c-4e5a-411b-816d-81f0ad95291f" aria-expanded="false" aria-controls="collapse" id="requests-90c2df5c-4e5a-411b-816d-81f0ad95291f" class="collapsed text-white z-block">
+                    Iteration: 1 - PUT Upate Invalid site <i class="float-lg-right fa fa-chevron-down" style="padding-top: 5px;"></i>
+                </a>
+                    </div>
+                    <div id="collapse-90c2df5c-4e5a-411b-816d-81f0ad95291f" class="collapse" aria-labelledby="requests-90c2df5c-4e5a-411b-816d-81f0ad95291f">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-12 mb-3">
+                                <div class="card-deck">
+                                <div class="card border-info" style="width: 50rem;">
+                                    <div class="card-body">
+                                    <h5 class="card-title text-uppercase text-white text-center bg-info">Request Information</h5>
+                                    <span><i class="fas fa-info-circle"></i></span><strong> Request Method:</strong> <span class="badge-outline-success badge badge-success"> PUT</span><br>
+                                    <span><i class="fas fa-info-circle"></i></span><strong> Request URL:</strong> <a href="https://voiceconsole-qa.honeywell.com/VoiceConsole-7qsl/services/sites" target="_blank">https://voiceconsole-qa.honeywell.com/VoiceConsole-7qsl/services/sites</a><br>
+                                    </div>
+                                </div>
+                                <div class="card border-info" style="width: 50rem;">
+                                    <div class="card-body">
+                                    <h5 class="card-title text-uppercase text-white text-center bg-info">Response Information</h5>
+                                    <span><i class="fas fa-info-circle"></i></span><strong> Response Code:</strong> <span class="float-right badge-outline badge badge-success"> 400 - Bad Request</span><br>
+                                    <span><i class="fas fa-stopwatch"></i></span><strong> Mean time per request:</strong> <span class="float-right badge-outline badge badge-success"> 564ms</span><br>
+                                    <span><i class="fas fa-database"></i></span><strong> Mean size per request:</strong> <span class="float-right badge-outline badge badge-success"> 69B</span><br>
+                                    <hr>
+                                    <h5 class="card-title text-uppercase text-white text-center bg-info">Test Pass Percentage</h5>
+                                    <div>
+                                        <div class="progress" style="height: 40px;">
+                                            <div class="progress-bar  bg-danger" style="width: 100%" role="progressbar">
+                                            <h5 style="padding-top:5px;"><strong>0 %</strong></h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 mb-3">
+                                <div class="card-deck">
+                                <div class="card border-info" style="width: 50rem;">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-uppercase text-white text-center bg-info">Request Headers</h5>
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered">
+                                            <thead class="thead-light text-center"><tr><th>Header Name</th><th>Header Value</th></tr></thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="text-nowrap">Cookie</td>
+                                                        <td class="text-wrap">JSESSIONID&#x3D;BB280124E343D028B5A89329C618BE84; drulecookie&#x3D;&quot;056241b7f29ac319&quot;; JSESSIONID&#x3D;40625EF1DBF048CCD8EF64BAABD2E5E2</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Accept</td>
+                                                        <td class="text-wrap">application/json</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Authorization</td>
+                                                        <td class="text-wrap">Basic YWRtaW46YWRtaW4&#x3D;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Content-Type</td>
+                                                        <td class="text-wrap">application/json</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">User-Agent</td>
+                                                        <td class="text-wrap">PostmanRuntime/7.29.0</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Cache-Control</td>
+                                                        <td class="text-wrap">no-cache</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Postman-Token</td>
+                                                        <td class="text-wrap">c6787aea-1ae3-4e22-a579-65132263e939</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Host</td>
+                                                        <td class="text-wrap">voiceconsole-qa.honeywell.com</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Accept-Encoding</td>
+                                                        <td class="text-wrap">gzip, deflate, br</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Connection</td>
+                                                        <td class="text-wrap">keep-alive</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Content-Length</td>
+                                                        <td class="text-wrap">150</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-sm-12 mb-3">
+                            <div class="card-deck">
+                            <div class="card border-info" style="width: 50rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title text-uppercase text-white text-center bg-info">Request Body</h5>
+                                        <div class="dyn-height">
+                                            <pre><code id="copyReqText-2" class="prettyPrint">{
+          &quot;site&quot;: {
+            &quot;id&quot;: 59,
+            &quot;timeZoneId&quot;: &quot;Etc/GMT+11&quot;,
+            &quot;description&quot;: &quot;This is Site1 description&quot;,
+            &quot;shiftStartTime&quot;: &quot;11:01&quot;
+          }
+        }</code></pre>
+                                        </div>
+                                        <div class="card-footer">
+                                            <button class="btn btn-outline-secondary btn-sm copyButton" type="button" data-clipboard-action="copy" data-clipboard-target="#copyReqText-2">Copy to Clipboard</button>
+                                        </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-sm-12 mb-3">
+                            <div class="card-deck">
+                            <div class="card border-info" style="width: 50rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title text-uppercase text-white text-center bg-info">Response Headers</h5>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                        <thead class="thead-light text-center"><tr><th>Header Name</th><th>Header Value</th></tr></thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-nowrap">set-cookie</td>
+                                                    <td class="text-wrap">JSESSIONID&#x3D;BB280124E343D028B5A89329C618BE84;Path&#x3D;/VoiceConsole-7qsl;HttpOnly;SameSite&#x3D;Lax;secure</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">date</td>
+                                                    <td class="text-wrap">Thu, 18 May 2023 18:51:16 GMT</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">content-type</td>
+                                                    <td class="text-wrap">application/json;charset&#x3D;UTF-8</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">x-envoy-upstream-service-time</td>
+                                                    <td class="text-wrap">439</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">server</td>
+                                                    <td class="text-wrap">istio-envoy</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">transfer-encoding</td>
+                                                    <td class="text-wrap">chunked</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-sm-12 mb-3">
+                            <div class="card-deck">
+                            <div class="card border-info" style="width: 50rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title text-uppercase text-white text-center bg-info">Response Body</h5>
+                                        <div class="dyn-height">
+                                                <pre><code id="copyText-1003101e-f882-42ca-b518-cb422bfd5eda" class="prettyPrint">{&quot;response&quot;:{&quot;errors&quot;:{&quot;msg&quot;:&quot;site.id with id 59 cannot be found.&quot;}}}</code></pre>
+                                        </div>
+                                        <div class="card-footer">
+                                            <button class="btn btn-outline-secondary btn-sm copyButton" type="button" data-clipboard-action="copy" data-clipboard-target="#copyText-1003101e-f882-42ca-b518-cb422bfd5eda">Copy to Clipboard</button>
+                                        </div>
+                                </div>
+                            </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="card border-info">
+                                <div class="card-body">
+                                <h5 class="card-title text-uppercase text-white text-center bg-info">Test Information</h5>
+                                    <div class="table-responsive text-nowrap">
+                                        <table class="datatable table table-hover">
+                                        <thead><tr class="text-center"><th>Name</th><th>Passed</th><th>Failed</th><th>Skipped</th></tr></thead>
+                                            <tbody>
+                                                <tr >
+                                                    <td >Status code is 200</td>
+                                                    <td class="text-center ">0</td>
+                                                    <td class="text-center bg-danger">1</td>
+                                                    <td class="text-center ">0</td>
+                                                </tr>
+                                                <tr >
+                                                    <td >Validate Update Site successfully</td>
+                                                    <td class="text-center ">0</td>
+                                                    <td class="text-center bg-danger">1</td>
+                                                    <td class="text-center ">0</td>
+                                                </tr>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr class="bg-light">
+                                                    <td><strong>Total</strong></td>
+                                                    <td class="text-center">0</td>
+                                                    <td class="text-center">2</td>
+                                                    <td class="text-center">0</td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                    <div class="row ">
+                                    <div class="col-sm-12 mb-3">
+                                        <div class="card-deck">
+                                        <div class="card border-danger" style="width: 50rem;">
+                                            <div class="card-body">
+                                                <h5 class="card-title text-uppercase text-white text-center bg-danger">Test Failures</h5>
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover">
+                                                    <thead><tr class="text-nowrap"><th>Test Name</th><th>Assertion Error</th></tr></thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="w-45 text-nowrap ">Status code is 200</td>
+                                                                <td class="w-55"><pre><code >expected response to have status code 200 but got 400</code></pre></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="w-45 text-nowrap ">Validate Update Site successfully</td>
+                                                                <td class="w-55"><pre><code >Cannot read properties of undefined (reading &#x27;msg&#x27;)</code></pre></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/remarkable/1.7.1/remarkable.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<!-- Set slider initial position depending on the localstorage state -->
+
+<script>
+(function () {
+  var sliderChecked = true;
+  if (localStorage.getItem('theme') === 'theme-light') {
+    setTheme('theme-light');
+    sliderChecked = false;
+  } else {
+    setTheme('theme-dark');
+    sliderChecked = true;
+  }
+  $(document).ready( function () {
+    document.getElementById('slider').checked = sliderChecked;
+  });
+})();
+</script>
+
+<!-- Data Table Configuration -->
+
+<script>
+$(document).ready( function () {
+    $('.datatable').DataTable({
+        "retrieve": true,
+        "paging": false,
+        "info": false,
+        "fixedColumns":   {
+            "heightMatch": 'none'
+        }
+    });
+});
+</script>
+
+<!-- Tooltip Configuration -->
+
+<script>
+$(document).ready(function() {
+    $('[data-toggle="tooltip"]').tooltip({
+        trigger : 'hover'
+    })
+})
+</script>
+
+<!-- Show/Hide The Folders -->
+
+<script>
+$('#openAll').on('click', function(e) {
+let clickCount = $(this).data("clickCount") || 1
+switch (clickCount){
+    case 1:
+            $('#folder-7ac5e1ae-01bc-4b7c-84a4-dd265de48209-iteration-0').removeClass('collapsed')
+            $('#folder-collapse-7ac5e1ae-01bc-4b7c-84a4-dd265de48209-iteration-0').addClass('show')
+        $('#openAll').html("Collapse Folders");
+        break;
+    case 2:
+            $('#folder-7ac5e1ae-01bc-4b7c-84a4-dd265de48209-iteration-0').addClass('collapsed')
+            $('#folder-collapse-7ac5e1ae-01bc-4b7c-84a4-dd265de48209-iteration-0').removeClass('show')
+        $('#openAll').html("Expand Folders");
+        break;
+}
+clickCount = clickCount > 1 ? 1 : ++clickCount;
+$(this).data("clickCount", clickCount)
+})
+</script>
+
+<!-- Show/Hide The Requests -->
+
+<script>
+$('#openAllRequests').on('click', function(e) {
+let clickCount = $(this).data("clickCount") || 1
+switch (clickCount){
+    case 1:
+            $('#requests-5535458b-5b50-4545-bfd7-22c0b24abaa0').removeClass('collapsed')
+            $('#collapse-5535458b-5b50-4545-bfd7-22c0b24abaa0').removeClass('collapsed')
+            $('#requests-5535458b-5b50-4545-bfd7-22c0b24abaa0').addClass('show')
+            $('#collapse-5535458b-5b50-4545-bfd7-22c0b24abaa0').addClass('show')
+            $('#requests-427c6b49-9af6-40d1-b483-53ce79c046ba').removeClass('collapsed')
+            $('#collapse-427c6b49-9af6-40d1-b483-53ce79c046ba').removeClass('collapsed')
+            $('#requests-427c6b49-9af6-40d1-b483-53ce79c046ba').addClass('show')
+            $('#collapse-427c6b49-9af6-40d1-b483-53ce79c046ba').addClass('show')
+            $('#requests-90c2df5c-4e5a-411b-816d-81f0ad95291f').removeClass('collapsed')
+            $('#collapse-90c2df5c-4e5a-411b-816d-81f0ad95291f').removeClass('collapsed')
+            $('#requests-90c2df5c-4e5a-411b-816d-81f0ad95291f').addClass('show')
+            $('#collapse-90c2df5c-4e5a-411b-816d-81f0ad95291f').addClass('show')
+        $('#openAllRequests').html("Collapse Requests");
+        break;
+    case 2:
+            $('#requests-5535458b-5b50-4545-bfd7-22c0b24abaa0').addClass('collapsed')
+            $('#collapse-5535458b-5b50-4545-bfd7-22c0b24abaa0').addClass('collapsed')
+            $('#requests-5535458b-5b50-4545-bfd7-22c0b24abaa0').removeClass('show')
+            $('#collapse-5535458b-5b50-4545-bfd7-22c0b24abaa0').removeClass('show')
+            $('#requests-427c6b49-9af6-40d1-b483-53ce79c046ba').addClass('collapsed')
+            $('#collapse-427c6b49-9af6-40d1-b483-53ce79c046ba').addClass('collapsed')
+            $('#requests-427c6b49-9af6-40d1-b483-53ce79c046ba').removeClass('show')
+            $('#collapse-427c6b49-9af6-40d1-b483-53ce79c046ba').removeClass('show')
+            $('#requests-90c2df5c-4e5a-411b-816d-81f0ad95291f').addClass('collapsed')
+            $('#collapse-90c2df5c-4e5a-411b-816d-81f0ad95291f').addClass('collapsed')
+            $('#requests-90c2df5c-4e5a-411b-816d-81f0ad95291f').removeClass('show')
+            $('#collapse-90c2df5c-4e5a-411b-816d-81f0ad95291f').removeClass('show')
+        $('#openAllRequests').html("Expand Requests");
+        break;
+}
+clickCount = clickCount > 1 ? 1 : ++clickCount;
+$(this).data("clickCount", clickCount)
+})
+</script>
+
+<!-- Show/Hide The Skipped Tests -->
+
+<script>
+$('#openAllSkipped').on('click', function(e) {
+let clickCount = $(this).data("clickCount") || 1
+switch (clickCount){
+    case 1:
+            $('#skipped-5535458b-5b50-4545-bfd7-22c0b24abaa0').removeClass('collapsed')
+            $('#skipped-collapse-5535458b-5b50-4545-bfd7-22c0b24abaa0').removeClass('collapsed')
+            $('#skipped-5535458b-5b50-4545-bfd7-22c0b24abaa0').addClass('show')
+            $('#skipped-collapse-5535458b-5b50-4545-bfd7-22c0b24abaa0').addClass('show')
+            $('#skipped-427c6b49-9af6-40d1-b483-53ce79c046ba').removeClass('collapsed')
+            $('#skipped-collapse-427c6b49-9af6-40d1-b483-53ce79c046ba').removeClass('collapsed')
+            $('#skipped-427c6b49-9af6-40d1-b483-53ce79c046ba').addClass('show')
+            $('#skipped-collapse-427c6b49-9af6-40d1-b483-53ce79c046ba').addClass('show')
+            $('#skipped-90c2df5c-4e5a-411b-816d-81f0ad95291f').removeClass('collapsed')
+            $('#skipped-collapse-90c2df5c-4e5a-411b-816d-81f0ad95291f').removeClass('collapsed')
+            $('#skipped-90c2df5c-4e5a-411b-816d-81f0ad95291f').addClass('show')
+            $('#skipped-collapse-90c2df5c-4e5a-411b-816d-81f0ad95291f').addClass('show')
+        $('#openAllSkipped').html("Collapse All Skipped Tests");
+        break;
+    case 2:
+            $('#skipped-5535458b-5b50-4545-bfd7-22c0b24abaa0').addClass('collapsed')
+            $('#skipped-collapse-5535458b-5b50-4545-bfd7-22c0b24abaa0').addClass('collapsed')
+            $('#skipped-5535458b-5b50-4545-bfd7-22c0b24abaa0').removeClass('show')
+            $('#skipped-collapse-5535458b-5b50-4545-bfd7-22c0b24abaa0').removeClass('show')
+            $('#skipped-427c6b49-9af6-40d1-b483-53ce79c046ba').addClass('collapsed')
+            $('#skipped-collapse-427c6b49-9af6-40d1-b483-53ce79c046ba').addClass('collapsed')
+            $('#skipped-427c6b49-9af6-40d1-b483-53ce79c046ba').removeClass('show')
+            $('#skipped-collapse-427c6b49-9af6-40d1-b483-53ce79c046ba').removeClass('show')
+            $('#skipped-90c2df5c-4e5a-411b-816d-81f0ad95291f').addClass('collapsed')
+            $('#skipped-collapse-90c2df5c-4e5a-411b-816d-81f0ad95291f').addClass('collapsed')
+            $('#skipped-90c2df5c-4e5a-411b-816d-81f0ad95291f').removeClass('show')
+            $('#skipped-collapse-90c2df5c-4e5a-411b-816d-81f0ad95291f').removeClass('show')
+        $('#openAllSkipped').html("Expand All Skipped Tests");
+        break;
+}
+clickCount = clickCount > 1 ? 1 : ++clickCount;
+$(this).data("clickCount", clickCount)
+})
+</script>
+
+<!-- Show/Hide The Failures -->
+
+<script>
+$('#openAllFailed').on('click', function(e) {
+let clickCount = $(this).data("clickCount") || 1
+let failedItemContent
+let failedItemHeading
+switch (clickCount){
+    case 1:
+            failedItemHeading = $('#fails-a3b971be-2b25-4d34-8ecd-ba5a9b312809');
+            failedItemContent = $("#fails-collapse-a3b971be-2b25-4d34-8ecd-ba5a9b312809");
+            failedItemHeading.removeClass('collapsed')
+            failedItemContent.removeClass('collapsed')
+            failedItemHeading.addClass('show')
+            failedItemContent.addClass('show')
+            failedItemHeading = $('#fails-13184759-2281-4ccf-b94d-7c9f62628c63');
+            failedItemContent = $("#fails-collapse-13184759-2281-4ccf-b94d-7c9f62628c63");
+            failedItemHeading.removeClass('collapsed')
+            failedItemContent.removeClass('collapsed')
+            failedItemHeading.addClass('show')
+            failedItemContent.addClass('show')
+        $('#openAllFailed').html("Collapse All Failed Tests");
+        break;
+    case 2:
+            failedItemHeading = $('#fails-a3b971be-2b25-4d34-8ecd-ba5a9b312809');
+            failedItemContent = $("#fails-collapse-a3b971be-2b25-4d34-8ecd-ba5a9b312809");
+            failedItemHeading.removeClass('show')
+            failedItemContent.removeClass('show')
+            failedItemHeading.addClass('collapsed')
+            failedItemContent.addClass('collapsed')
+            failedItemHeading = $('#fails-13184759-2281-4ccf-b94d-7c9f62628c63');
+            failedItemContent = $("#fails-collapse-13184759-2281-4ccf-b94d-7c9f62628c63");
+            failedItemHeading.removeClass('show')
+            failedItemContent.removeClass('show')
+            failedItemHeading.addClass('collapsed')
+            failedItemContent.addClass('collapsed')
+        $('#openAllFailed').html("Expand All Failed Tests");
+        break;
+}
+clickCount = clickCount > 1 ? 1 : ++clickCount;
+$(this).data("clickCount", clickCount)
+})
+</script>
+
+<!-- Pretty Print the Response Body-->
+
+<script>
+function isJSON(data)
+{
+    var ret = true;
+    try {
+            JSON.parse(data);
+    }catch(e) {
+            ret = false;
+    }
+    return ret;
+}
+
+function isXML(data)
+{
+    return (data.length > 0 && data[0] === '<');
+}
+
+// see https://gist.github.com/sente/1083506/d2834134cd070dbcc08bf42ee27dabb746a1c54d#gistcomment-2254622
+function formatXML(data) {
+    const PADDING = ' '.repeat(2); // set desired indent size here
+    const reg = /(>)(<)(\/*)/g;
+    let pad = 0;
+    xml = data.replace(reg, '$1\r\n$2$3');
+
+    return xml.split('\r\n').map((node, index) => {
+        let indent = 0;
+        if (node.match(/.+<\/\w[^>]*>$/)) {
+            indent = 0;
+        } else if (node.match(/^<\/\w/) && pad > 0) {
+            pad -= 1;
+        } else if (node.match(/^<\w[^>]*[^\/]>.*$/)) {
+            indent = 1;
+        } else {
+            indent = 0;
+        }
+
+        pad += indent;
+        return PADDING.repeat(pad - indent) + node;
+    }).join('\r\n');
+}
+
+$(".prettyPrint").each(function () {
+        var data = $(this).text();
+        // Verify whether data is JSON
+        if(isJSON(data))
+        {
+                obj = JSON.parse(data);
+                data = JSON.stringify(obj, null, 2);
+        }
+        else if(isXML(data)) {
+            data = formatXML(data);
+        }
+        $(this).text(data);
+});
+</script>
+
+
+<!-- Copy Response Body To Clipboard -->
+
+<script>
+    var clipboard = new ClipboardJS('.copyButton');
+
+    clipboard.on('success', function(e) {
+        e.clearSelection();
+        $(".copyButton").addClass("bg-success text-white")
+        e.trigger.textContent = '✔ Copied!';
+        window.setTimeout(function() {
+            $(".copyButton").removeClass("bg-success text-white")
+            e.trigger.textContent = 'Copy to Clipboard';
+        }, 2000);
+    });
+    clipboard.on('error', function(e) {
+        e.clearSelection();
+        $(".copyButton").addClass("bg-danger text-white")
+        e.trigger.textContent = '✗ Not Copied';
+        window.setTimeout(function() {
+            $(".copyButton").removeClass("bg-danger text-white")
+            e.trigger.textContent = 'Copy to Clipboard';
+        }, 2000);
+    });
+
+</script>
+
+<!-- Render the Description Markdown and link in the test failures -->
+
+<script>
+    const remarkable = new Remarkable();
+
+    const descriptions = document.querySelectorAll(".renderMarkdown");
+    descriptions.forEach(description => {
+        description.innerHTML = renderHtmlFromMarkdown(description.textContent);
+    });
+    function renderHtmlFromMarkdown(markdown) {
+        return remarkable.render(trim(markdown));
+    }
+    function trim(string) {
+        return string ? string.replace(/^ +| +$/gm, "") : string;
+    }
+</script>
+
+<!-- Show/Hide The Toggles When Scrolling The Page -->
+
+<script>
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    document.getElementById("topOfRequestsScreen").style.display = "block";
+    document.getElementById("topOfFailuresScreen").style.display = "block";
+    document.getElementById("topOfSkippedScreen").style.display = "block";
+    document.getElementById("openAll").style.display = "none";
+    document.getElementById("openAllRequests").style.display = "none";
+
+
+    document.getElementById("showOnlyFailures").style.display = "none";
+    document.getElementById("openAllFailed").style.display = "none";
+  } else {
+    document.getElementById("topOfRequestsScreen").style.display = "none";
+    document.getElementById("topOfFailuresScreen").style.display = "none";
+    document.getElementById("topOfSkippedScreen").style.display = "none";
+    document.getElementById("openAll").style.display = "block";
+    document.getElementById("openAllRequests").style.display = "block";
+
+    document.getElementById("showOnlyFailures").style.display = "block";
+    document.getElementById("openAllFailed").style.display = "block";
+  }
+}
+
+function topFunction() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+</script>
+
+<!-- Creates The Iteration Tabs -->
+
+<script type="text/javascript">
+    "use strict";
+
+window.onload = function () {
+
+  // set display for all blocks of response
+  var allItems = document.querySelectorAll('[class*=iteration-]');
+  allItems.forEach(function(elem){
+    elem.style.display = 'block';
+  });
+
+   
+  let totalIterations = 1;
+   
+
+  let menu = document.querySelector('#execution-menu .nav');
+
+  for(var i = 0; i < totalIterations; i++)
+  {
+    let li = document.createElement('li');
+    li.appendChild(document.createTextNode((i + 1)));
+    li.setAttribute('id', 'iteration-' + i);
+    li.classList.add("custom-tab");
+    li.classList.add("itPassed");
+
+    li.addEventListener('click', function() {
+      //set display to none for all except row
+      let allItems = document.querySelectorAll('[class*=iteration-]:not(.row)');
+      allItems.forEach(function(elem) {
+        elem.style.display = 'none';
+      })
+
+      let allMenus = document.querySelectorAll('[id*=iteration-]');
+      allMenus.forEach(function(elem){
+        elem.style.borderBottom = 'none';
+      })
+
+      this.style.borderBottom = 'solid 3px #032a33';
+
+      let items = document.querySelectorAll("." + this.id + ':not(.row)');
+      items.forEach(function(elem) {
+        elem.style.display = elem.style.display == 'block' ? 'none' : 'block';
+      })
+    });
+    menu.appendChild(li);
+  }
+
+  //shows first tab data
+  document.getElementById('iteration-0').click();
+  document.getElementById('iterationSelected').innerHTML = `Iteration ${document.getElementById('iteration-0').innerHTML} selected`
+
+    $("#iteration-0").removeClass('itPassed').addClass('itFailed')
+}
+</script>
+
+<!-- Create the Selected Iteration Label -->
+
+<script>
+$(document).ready(function(){
+    $(function() {
+        $("#iterationList li").click(function() {
+            document.getElementById('iterationSelected').innerHTML = "Iteration " + this.innerHTML + " selected"
+        });
+    });
+});
+</script>
+
+<!-- Filter Action for the Iterations -->
+
+<script>
+$("#filterInput").on("input paste", function() {
+    var value = $(this).val();
+    $("#iterationList li").filter(function() {
+	    $("#showOnlyFailures").data("clickCount") ? $("#showOnlyFailures").click():null;
+        $(this).toggle($(this).text().indexOf(value) > -1)
+    });
+});
+</script>
+
+<!-- Showing the Failed Interations -->
+
+<script>
+$('#showOnlyFailures').on('click', function(e) {
+    let clickCount = $(this).data("clickCount") || 1
+	$("#filterInput").val()!="" && clickCount==1 ? $("#filterInput").val('').trigger('input'): null;
+    let selectedIteration = $('#iterationList li').filter(function () {
+        return $(this).css('border-bottom').indexOf("solid") > -1 && $(this).hasClass('itFailed');
+    });
+    selectedIteration.length || clickCount > 1 ? null : $("#iterationList li.itFailed")[0].click()
+    $("#iterationList li.itPassed").toggle()
+    $("div.bg-success [id*=requests]").parents('[class^="row iteration-"]').toggle();
+    clickCount = clickCount > 1 ? 1 : ++clickCount;
+    clickCount > 1 ? $("#showOnlyFailures").html("Show All Iterations") : $("#showOnlyFailures").html("Show Failed Iterations");
+    $(this).data("clickCount", clickCount)
+})
+</script>
+</body>
+</html>

@@ -1,0 +1,4236 @@
+{
+	"info": {
+		"_postman_id": "c3e2fa01-41eb-4161-9cce-dbfd83df120f",
+		"name": "PSnF_Tasks",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22861454",
+		"_collection_link": "https://martian-eclipse-381947.postman.co/workspace/VCNG-automation~60598d72-d6bf-4ec8-9ccc-e86c28b839db/collection/22861454-c3e2fa01-41eb-4161-9cce-dbfd83df120f?action=share&creator=22861454&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Get-Data-siteId-valid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}tasks/data?siteId=-1",
+					"host": [
+						"{{baseURL}}tasks"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-siteId-invalid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var siteId = pm.collectionVariables.get(\"siteId\")\r",
+							"const errorMessage = \"siteId property is not numeric: \" + siteId\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Error Message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)    \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}tasks/data?siteId={{siteId}}",
+					"host": [
+						"{{baseURL}}tasks"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "{{siteId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-siteId-notFound",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var siteId = pm.collectionVariables.get(\"siteNotFound\")\r",
+							"const errorMessage = \"Site with id \" + siteId + \" cannot be found.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Error Message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)    \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}tasks/data?siteId={{siteNotFound}}",
+					"host": [
+						"{{baseURL}}tasks"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "{{siteNotFound}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-siteId-missing",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"siteId property cannot be null or empty.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Error Message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)    \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}tasks/data",
+					"host": [
+						"{{baseURL}}tasks"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "{{siteNotFound}}",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data Invalid-columnid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var columnId = pm.collectionVariables.get(\"columnId\")\r",
+							"const errorMessage = \"Column with id \" + columnId + \" cannot be found.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Error Message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)    \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}tasks/data?viewId=-3017&sortColumn=name&sortAsc=true&limit=22&offset=5&submittedFilterCriterion=%7B%22viewId%22:%22-9999%22,%20%22columnId%22:%22{{columnId}}%22,%20%22operandId%22:%22-31%22,%20%22value1%22:%222%22,%20%22value2%22:%22%22,%20%22critNum%22:2,%20%22locked%22:false%7D&siteId=-1",
+					"host": [
+						"{{baseURL}}tasks"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "viewId",
+							"value": "-3017"
+						},
+						{
+							"key": "sortColumn",
+							"value": "name"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "limit",
+							"value": "22"
+						},
+						{
+							"key": "offset",
+							"value": "5"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%22viewId%22:%22-9999%22,%20%22columnId%22:%22{{columnId}}%22,%20%22operandId%22:%22-31%22,%20%22value1%22:%222%22,%20%22value2%22:%22%22,%20%22critNum%22:2,%20%22locked%22:false%7D"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-SortColumName-And-sortAscTrue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}tasks/data?sortColumn=name&sortAsc=true&siteId=-1",
+					"host": [
+						"{{baseURL}}tasks"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "name"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnName-and-sortAscFalse",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}tasks/data?sortColumn=name&sortAsc=false&siteId=-1",
+					"host": [
+						"{{baseURL}}tasks"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "name"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnName-and-sortAscNull",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var errorMessages = [\r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\",\r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"\r",
+							"]\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Errors Messages\", function () {\r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) {\r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i])\r",
+							"    }   \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}tasks/data?siteId=-1&sortColumn=name&sortAsc=",
+					"host": [
+						"{{baseURL}}tasks"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "name"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnName-and-sortAscMissing",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Error Message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)    \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}tasks/data?sortColumn=name&siteId=-1",
+					"host": [
+						"{{baseURL}}tasks"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "name"
+						},
+						{
+							"key": "sortAsc",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnTaskType-and-sortAscTrue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}tasks/data?sortColumn=taskType&sortAsc=true&siteId=-1",
+					"host": [
+						"{{baseURL}}tasks"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "taskType"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnTaskType-and-sortAscFalse",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}tasks/data?sortColumn=taskType&sortAsc=false&siteId=-1",
+					"host": [
+						"{{baseURL}}tasks"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "taskType"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnTaskType-and-sortAscNull",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var errorMessages = [\r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\",\r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"\r",
+							"]\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Errors Messages\", function () {\r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) {\r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i])\r",
+							"    }   \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}tasks/data?sortColumn=taskType&sortAsc=&siteId=-1",
+					"host": [
+						"{{baseURL}}tasks"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "taskType"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnTaskType-and-sortAscMissing",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Error Message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)    \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}tasks/data?sortColumn=taskType&siteId=-1",
+					"host": [
+						"{{baseURL}}tasks"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "taskType"
+						},
+						{
+							"key": "sortAsc",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnFormat-and-sortAscTrue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}tasks/data?sortColumn=format&sortAsc=true&siteId=-1",
+					"host": [
+						"{{baseURL}}tasks"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "format"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnFormat-and-sortAscFalse",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}tasks/data?sortColumn=format&siteId=-1&sortAsc=false",
+					"host": [
+						"{{baseURL}}tasks"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "format"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnFormat-and-sortAscNull",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Error Message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)    \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}tasks/data?sortColumn=format&siteId=-1&sortAsc",
+					"host": [
+						"{{baseURL}}tasks"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "format"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortAsc",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnFormat-and-sortAscMissing",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Error Message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)    \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}tasks/data?siteId=-1&sortColumn=format",
+					"host": [
+						"{{baseURL}}tasks"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortAsc",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "format"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnComponentList-and-sortAscTrue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}tasks/data?sortColumn=componentList&sortAsc=true&siteId=-1",
+					"host": [
+						"{{baseURL}}tasks"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "componentList"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnComponentList-and-sortAscFalse",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}tasks/data?sortColumn=componentList&sortAsc=false&siteId=-1",
+					"host": [
+						"{{baseURL}}tasks"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "componentList"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnComponentList-and-sortAscNull",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var errorMessages = [\r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\",\r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"\r",
+							"]\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Errors Messages\", function () {\r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) {\r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i])\r",
+							"    }   \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}tasks/data?sortColumn=componentList&sortAsc=&siteId=-1",
+					"host": [
+						"{{baseURL}}tasks"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "componentList"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-sortColumnComponentList-and-sortAscMissing",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Error Message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)    \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}tasks/data?sortColumn=componentList&siteId=-1",
+					"host": [
+						"{{baseURL}}tasks"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "sortColumn",
+							"value": "componentList"
+						},
+						{
+							"key": "sortAsc",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data Invalid-Limit-Parameter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var siteId = pm.collectionVariables.get(\"limitInvalid\")\r",
+							"const errorMessage = \"limit property is not numeric: \" + siteId\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Error Message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)    \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}tasks/data?viewId=-3017&limit={{limitInvalid}}&siteId=-1",
+					"host": [
+						"{{baseURL}}tasks"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "viewId",
+							"value": "-3017"
+						},
+						{
+							"key": "limit",
+							"value": "{{limitInvalid}}"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data Negative-Limit-And-Offset-Parameter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var errorMessages = [\r",
+							"    \"limit property value cannot be negative.\",\r",
+							"    \"offset property value cannot be negative.\"\r",
+							"]\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Errors Messages\", function () {\r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) {\r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i])\r",
+							"    }   \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}tasks/data?viewId=-3017&limit=-1&offset=-2&siteId=-1",
+					"host": [
+						"{{baseURL}}tasks"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "viewId",
+							"value": "-3017"
+						},
+						{
+							"key": "limit",
+							"value": "-1"
+						},
+						{
+							"key": "offset",
+							"value": "-2"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data Invalid-Offset-Parameter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var siteId = pm.collectionVariables.get(\"offSetInvalid\")\r",
+							"const errorMessage = \"offset property is not numeric: \" + siteId\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Error Message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)    \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}tasks/data?offset={{offSetInvalid}}&siteId=-1",
+					"host": [
+						"{{baseURL}}tasks"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "offset",
+							"value": "{{offSetInvalid}}"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data Negative-Offset-Parameter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"offset property value cannot be negative.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Error Message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)    \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}tasks/data?offset=-2&siteId=-1",
+					"host": [
+						"{{baseURL}}tasks"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "offset",
+							"value": "-2"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data Invalid-SubmittedFilterCriterion-Parameter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Invalid value for parameter submittedFilterCriterion: JSONArray[0] is not a JSONObject..\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Error Message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)    \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}tasks/data?viewId=-3017&sortColumn=invalid_sortColumn&sortAsc=true&limit=22&offset=5&submittedFilterCriterion=invalid_submittedFilterCriterion&siteId=-1",
+					"host": [
+						"{{baseURL}}tasks"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "viewId",
+							"value": "-3017"
+						},
+						{
+							"key": "sortColumn",
+							"value": "invalid_sortColumn"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "limit",
+							"value": "22"
+						},
+						{
+							"key": "offset",
+							"value": "5"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "invalid_submittedFilterCriterion"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data Null-SubmittedFilterCriterion-Parameter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}tasks/data?viewId=-3017&sortColumn=name&sortAsc=true&limit=22&offset=5&submittedFilterCriterion=&siteId=-1",
+					"host": [
+						"{{baseURL}}tasks"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "viewId",
+							"value": "-3017"
+						},
+						{
+							"key": "sortColumn",
+							"value": "name"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "limit",
+							"value": "22"
+						},
+						{
+							"key": "offset",
+							"value": "5"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": ""
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data Missing-SubmittedFilterCriterion-Parameter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}tasks/data?viewId=-3017&sortColumn=name&sortAsc=true&limit=22&offset=5&siteId=-1",
+					"host": [
+						"{{baseURL}}tasks"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "viewId",
+							"value": "-3017"
+						},
+						{
+							"key": "sortColumn",
+							"value": "name"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "limit",
+							"value": "22"
+						},
+						{
+							"key": "offset",
+							"value": "5"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data Invalid-SubmittedFilterCriterion-OperandType-Parameter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"does not match column taskType data type. Cannot be filtered.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Error Message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).contains(errorMessage)    \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}tasks/data?viewId=-3017&sortColumn=name&sortAsc=true&limit=22&offset=5&submittedFilterCriterion=%7B%22viewId%22:%22-3017%22,%20%22columnId%22:%22-42003%22,%20%22operandId%22:%22-1%22,%20%22value1%22:%222%22,%20%22value2%22:%22%22,%20%22critNum%22:2,%20%22locked%22:false%7D&siteId=-1",
+					"host": [
+						"{{baseURL}}tasks"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "viewId",
+							"value": "-3017"
+						},
+						{
+							"key": "sortColumn",
+							"value": "name"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "limit",
+							"value": "22"
+						},
+						{
+							"key": "offset",
+							"value": "5"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%22viewId%22:%22-3017%22,%20%22columnId%22:%22-42003%22,%20%22operandId%22:%22-1%22,%20%22value1%22:%222%22,%20%22value2%22:%22%22,%20%22critNum%22:2,%20%22locked%22:false%7D"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data 3 filters",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}tasks/data?viewId=-3017&submittedFilterCriterion=%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%32%30%30%32%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%76%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d%2c%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%32%30%30%33%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%33%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%32%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d%2c%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%32%30%30%37%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%33%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%30%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d%0a&siteId=-1",
+					"host": [
+						"{{baseURL}}tasks"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "viewId",
+							"value": "-3017"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%32%30%30%32%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%76%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d%2c%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%32%30%30%33%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%33%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%32%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d%2c%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%32%30%30%37%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%33%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%30%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d%0a"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data 3 filters sort descending",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}tasks/data?viewId=-3017&sortAsc=false&sortColumn=name&submittedFilterCriterion=%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%32%30%30%32%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%76%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d%2c%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%32%30%30%33%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%33%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%32%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d%2c%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%32%30%30%37%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%33%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%30%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d%0a&siteId=-1",
+					"host": [
+						"{{baseURL}}tasks"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "viewId",
+							"value": "-3017"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						},
+						{
+							"key": "sortColumn",
+							"value": "name"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%32%30%30%32%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%76%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d%2c%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%32%30%30%33%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%33%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%32%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d%2c%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%32%30%30%37%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%33%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%30%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d%0a"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data 4 filters",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}tasks/data?viewId=-3017&submittedFilterCriterion=%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%32%30%30%33%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%33%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%32%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d%2c%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%32%30%30%32%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%76%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d%2c%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%32%30%30%37%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%33%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%30%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d%2c%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%32%30%30%38%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%33%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%30%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d%0a&siteId=-1",
+					"host": [
+						"{{baseURL}}tasks"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "viewId",
+							"value": "-3017"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%32%30%30%33%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%33%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%32%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d%2c%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%32%30%30%32%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%76%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d%2c%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%32%30%30%37%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%33%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%30%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d%2c%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%32%30%30%38%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%33%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%30%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d%0a"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data 5 filters",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}tasks/data?viewId=-3017&submittedFilterCriterion=%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%32%30%30%33%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%33%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%32%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d%2c%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%32%30%30%32%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%76%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d%2c%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%32%30%30%37%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%33%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%30%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d%2c%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%32%30%30%38%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%33%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%30%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d%2c%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%32%30%30%34%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%31%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d%0a&siteId=-1",
+					"host": [
+						"{{baseURL}}tasks"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "viewId",
+							"value": "-3017"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%32%30%30%33%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%33%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%32%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d%2c%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%32%30%30%32%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%76%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d%2c%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%32%30%30%37%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%33%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%30%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d%2c%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%32%30%30%38%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%33%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%30%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d%2c%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%32%30%30%34%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%31%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d%0a"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data 5 filters-No-Result",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"No data to display.\"\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							" pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate response Message\", function () {\r",
+							"    pm.expect(jsonData.response.success.msg).eql(responseMessage)    \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}tasks/data?viewId=-3017&submittedFilterCriterion=%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%32%30%30%33%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%33%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%32%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d%2c%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%32%30%30%32%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%76%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d%2c%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%32%30%30%37%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%33%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%30%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d%2c%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%32%30%30%38%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%33%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%30%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d%2c%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%32%30%30%34%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%30%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d%0a&siteId=-1",
+					"host": [
+						"{{baseURL}}tasks"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "viewId",
+							"value": "-3017"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%32%30%30%33%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%33%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%32%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d%2c%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%32%30%30%32%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%76%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d%2c%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%32%30%30%37%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%33%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%30%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d%2c%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%32%30%30%38%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%33%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%30%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d%2c%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%32%30%30%34%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%30%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d%0a"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data Task-Name-starts-with-filter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}tasks/data?viewId=-3017&submittedFilterCriterion=%7B%22%76%69%65%77%49%64%22%3A%22%2D%33%30%31%37%22%2C%20%22%63%6F%6C%75%6D%6E%49%64%22%3A%22%2D%34%32%30%30%32%22%2C%20%22%6F%70%65%72%61%6E%64%49%64%22%3A%22%2D%31%22%2C%20%22%76%61%6C%75%65%31%22%3A%22%65%6E%22%2C%20%22%76%61%6C%75%65%32%22%3A%22%22%7D&siteId=-1",
+					"host": [
+						"{{baseURL}}tasks"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "viewId",
+							"value": "-3017"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%22%76%69%65%77%49%64%22%3A%22%2D%33%30%31%37%22%2C%20%22%63%6F%6C%75%6D%6E%49%64%22%3A%22%2D%34%32%30%30%32%22%2C%20%22%6F%70%65%72%61%6E%64%49%64%22%3A%22%2D%31%22%2C%20%22%76%61%6C%75%65%31%22%3A%22%65%6E%22%2C%20%22%76%61%6C%75%65%32%22%3A%22%22%7D"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data Task-Name-ends-with-filter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}tasks/data?viewId=-3017&submittedFilterCriterion=%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%32%30%30%32%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%32%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%34%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d&siteId=-1",
+					"host": [
+						"{{baseURL}}tasks"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "viewId",
+							"value": "-3017"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%34%32%30%30%32%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%32%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%34%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data Task-Name-contains-filter-and-sort-desc",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}tasks/data?viewId=-3017&sortColumn=name&sortAsc=false&submittedFilterCriterion=%7B%22%76%69%65%77%49%64%22%3A%22%2D%33%30%31%37%22%2C%20%22%63%6F%6C%75%6D%6E%49%64%22%3A%22%2D%34%32%30%30%32%22%2C%20%22%6F%70%65%72%61%6E%64%49%64%22%3A%22%2D%33%22%2C%20%22%76%61%6C%75%65%31%22%3A%22%76%6F%69%63%65%22%2C%20%22%76%61%6C%75%65%32%22%3A%22%22%7D&siteId=-1",
+					"host": [
+						"{{baseURL}}tasks"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "viewId",
+							"value": "-3017"
+						},
+						{
+							"key": "sortColumn",
+							"value": "name"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%22%76%69%65%77%49%64%22%3A%22%2D%33%30%31%37%22%2C%20%22%63%6F%6C%75%6D%6E%49%64%22%3A%22%2D%34%32%30%30%32%22%2C%20%22%6F%70%65%72%61%6E%64%49%64%22%3A%22%2D%33%22%2C%20%22%76%61%6C%75%65%31%22%3A%22%76%6F%69%63%65%22%2C%20%22%76%61%6C%75%65%32%22%3A%22%22%7D"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data Task-Name-equal-to-filter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}tasks/data?viewId=-3017&submittedFilterCriterion=%7B%22%76%69%65%77%49%64%22%3A%22%2D%33%30%31%37%22%2C%20%22%63%6F%6C%75%6D%6E%49%64%22%3A%22%2D%34%32%30%30%32%22%2C%20%22%6F%70%65%72%61%6E%64%49%64%22%3A%22%2D%34%22%2C%20%22%76%61%6C%75%65%31%22%3A%22%70%65%6F%50%6C%65%32%30%63%76%22%2C%20%22%76%61%6C%75%65%32%22%3A%22%22%7D&siteId=-1",
+					"host": [
+						"{{baseURL}}tasks"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "viewId",
+							"value": "-3017"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%22%76%69%65%77%49%64%22%3A%22%2D%33%30%31%37%22%2C%20%22%63%6F%6C%75%6D%6E%49%64%22%3A%22%2D%34%32%30%30%32%22%2C%20%22%6F%70%65%72%61%6E%64%49%64%22%3A%22%2D%34%22%2C%20%22%76%61%6C%75%65%31%22%3A%22%70%65%6F%50%6C%65%32%30%63%76%22%2C%20%22%76%61%6C%75%65%32%22%3A%22%22%7D"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data Task-Name-filters",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}tasks/data?viewId=-3017&submittedFilterCriterion=%7B%22viewId%22:%22-3017%22,%20%22columnId%22:%22-42002%22,%20%22operandId%22:%22-3%22,%20%22value1%22:%22voice%22,%20%22value2%22:%22%22,%20%22critNum%22:13,%20%22locked%22:false,%20%22id%22:%2210054%22%7D,%7B%22viewId%22:%22-3017%22,%20%22columnId%22:%22-42006%22,%20%22operandId%22:%22-1%22,%20%22value1%22:%22ct%22,%20%22value2%22:%22%22,%20%22critNum%22:14,%20%22locked%22:false,%20%22id%22:%2210055%22%7D,%7B%22viewId%22:%22-3017%22,%20%22columnId%22:%22-42003%22,%20%22operandId%22:%22-31%22,%20%22value1%22:%222%22,%20%22value2%22:%22%22,%20%22critNum%22:15,%20%22locked%22:false%7D&siteId=-1",
+					"host": [
+						"{{baseURL}}tasks"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "viewId",
+							"value": "-3017"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%22viewId%22:%22-3017%22,%20%22columnId%22:%22-42002%22,%20%22operandId%22:%22-3%22,%20%22value1%22:%22voice%22,%20%22value2%22:%22%22,%20%22critNum%22:13,%20%22locked%22:false,%20%22id%22:%2210054%22%7D,%7B%22viewId%22:%22-3017%22,%20%22columnId%22:%22-42006%22,%20%22operandId%22:%22-1%22,%20%22value1%22:%22ct%22,%20%22value2%22:%22%22,%20%22critNum%22:14,%20%22locked%22:false,%20%22id%22:%2210055%22%7D,%7B%22viewId%22:%22-3017%22,%20%22columnId%22:%22-42003%22,%20%22operandId%22:%22-31%22,%20%22value1%22:%222%22,%20%22value2%22:%22%22,%20%22critNum%22:15,%20%22locked%22:false%7D"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data InUse-filter-EqualTo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}tasks/data?viewId=-3017&submittedFilterCriterion=\n%7B%22viewId%22:%22-3017%22,%20%22columnId%22:%22-42007%22,%20%22operandId%22:%22-31%22,%20%22value1%22:%220%22,%20%22value2%22:%22%22,%20%22critNum%22:6,%20%22locked%22:false%7D&siteId=-1",
+					"host": [
+						"{{baseURL}}tasks"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "viewId",
+							"value": "-3017"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "\n%7B%22viewId%22:%22-3017%22,%20%22columnId%22:%22-42007%22,%20%22operandId%22:%22-31%22,%20%22value1%22:%220%22,%20%22value2%22:%22%22,%20%22critNum%22:6,%20%22locked%22:false%7D"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data InUse-filter-Not-EqualTo-No",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}tasks/data?viewId=-3017&submittedFilterCriterion=\n%7B%22viewId%22:%22-3017%22,%20%22columnId%22:%22-42007%22,%20%22operandId%22:%22-32%22,%20%22value1%22:%220%22,%20%22value2%22:%22%22,%20%22critNum%22:6,%20%22locked%22:false%7D&siteId=-1",
+					"host": [
+						"{{baseURL}}tasks"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "viewId",
+							"value": "-3017"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "\n%7B%22viewId%22:%22-3017%22,%20%22columnId%22:%22-42007%22,%20%22operandId%22:%22-32%22,%20%22value1%22:%220%22,%20%22value2%22:%22%22,%20%22critNum%22:6,%20%22locked%22:false%7D"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data InUse-filter-Not-EqualTo-Yes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}tasks/data?viewId=-3017&submittedFilterCriterion=\n%7B%22viewId%22:%22-3017%22,%20%22columnId%22:%22-42007%22,%20%22operandId%22:%22-32%22,%20%22value1%22:%221%22,%20%22value2%22:%22%22,%20%22critNum%22:7,%20%22locked%22:false%7D&siteId=-1",
+					"host": [
+						"{{baseURL}}tasks"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "viewId",
+							"value": "-3017"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "\n%7B%22viewId%22:%22-3017%22,%20%22columnId%22:%22-42007%22,%20%22operandId%22:%22-32%22,%20%22value1%22:%221%22,%20%22value2%22:%22%22,%20%22critNum%22:7,%20%22locked%22:false%7D"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-Limit-0",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"No data to display.\"\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							" pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate response Message\", function () {\r",
+							"    pm.expect(jsonData.response.success.msg).eql(responseMessage)    \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}tasks/data?limit=0&siteId=-1",
+					"host": [
+						"{{baseURL}}tasks"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "0"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-Limit-2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}tasks/data?viewId=-3017&sortColumn=name&sortAsc=true&limit=2&siteId=-1",
+					"host": [
+						"{{baseURL}}tasks"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "viewId",
+							"value": "-3017"
+						},
+						{
+							"key": "sortColumn",
+							"value": "name"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "limit",
+							"value": "2"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-Limit-5000-And-Offset-5000",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}tasks/data?viewId=-3017&sortColumn=name&sortAsc=true&limit=5000&offset=5000&siteId=-1",
+					"host": [
+						"{{baseURL}}tasks"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "viewId",
+							"value": "-3017"
+						},
+						{
+							"key": "sortColumn",
+							"value": "name"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "limit",
+							"value": "5000"
+						},
+						{
+							"key": "offset",
+							"value": "5000"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-Limit-2-And-Offset-4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}tasks/data?viewId=-3017&sortColumn=name&sortAsc=true&limit=2&offset=4&siteId=-1",
+					"host": [
+						"{{baseURL}}tasks"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "viewId",
+							"value": "-3017"
+						},
+						{
+							"key": "sortColumn",
+							"value": "name"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "limit",
+							"value": "2"
+						},
+						{
+							"key": "offset",
+							"value": "4"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-Limit-2-And-Offset-2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}tasks/data?viewId=-3017&sortColumn=name&sortAsc=true&limit=2&offset=2&siteId=-1",
+					"host": [
+						"{{baseURL}}tasks"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "viewId",
+							"value": "-3017"
+						},
+						{
+							"key": "sortColumn",
+							"value": "name"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "limit",
+							"value": "2"
+						},
+						{
+							"key": "offset",
+							"value": "2"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-Limit-2-And-Offset-3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}tasks/data?viewId=-3017&sortColumn=name&sortAsc=true&limit=2&offset=3&siteId=-1",
+					"host": [
+						"{{baseURL}}tasks"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "viewId",
+							"value": "-3017"
+						},
+						{
+							"key": "sortColumn",
+							"value": "name"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "limit",
+							"value": "2"
+						},
+						{
+							"key": "offset",
+							"value": "3"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Data-Limit-2-And-Offset-1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}tasks/data?viewId=-3017&sortColumn=name&sortAsc=true&limit=2&offset=1&siteId=-1",
+					"host": [
+						"{{baseURL}}tasks"
+					],
+					"path": [
+						"data"
+					],
+					"query": [
+						{
+							"key": "viewId",
+							"value": "-3017"
+						},
+						{
+							"key": "sortColumn",
+							"value": "name"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "limit",
+							"value": "2"
+						},
+						{
+							"key": "offset",
+							"value": "1"
+						},
+						{
+							"key": "siteId",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "siteId",
+			"value": "invalid",
+			"type": "string"
+		},
+		{
+			"key": "siteNotFound",
+			"value": "-5",
+			"type": "string"
+		},
+		{
+			"key": "offSetInvalid",
+			"value": "invalid",
+			"type": "string"
+		},
+		{
+			"key": "limitInvalid",
+			"value": "invalid",
+			"type": "string"
+		},
+		{
+			"key": "columnId",
+			"value": "-11122",
+			"type": "string"
+		}
+	]
+}

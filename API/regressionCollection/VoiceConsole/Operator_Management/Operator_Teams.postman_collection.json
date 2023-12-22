@@ -1,0 +1,584 @@
+{
+	"info": {
+		"_postman_id": "271718f1-73f2-4be2-b970-3a8eb1e7f78d",
+		"name": "Operator Teams",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14803454"
+	},
+	"item": [
+		{
+			"name": "Feltch Operator Teams",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}operatorteams?site=24",
+					"host": [
+						"{{baseURL}}operatorteams"
+					],
+					"query": [
+						{
+							"key": "site",
+							"value": "24"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Move Operator Teams",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"operatorteam\":{ \r\n        \"teams\":[13], \r\n        \"currentSite\":\"24\", \r\n        \"destinationSite\":\"4\", \r\n        \"removeFromOrigin\":\"true\" \r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}operatorteams/movetosite",
+					"host": [
+						"{{baseURL}}operatorteams"
+					],
+					"path": [
+						"movetosite"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Move All Operators Teams",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"operatorteam\":{  \r\n        \"currentSite\":\"4\", \r\n        \"destinationSite\":\"24\", \r\n        \"removeFromOrigin\":\"true\" \r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}operatorteams/movealltosite",
+					"host": [
+						"{{baseURL}}operatorteams"
+					],
+					"path": [
+						"movealltosite"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Move All Operators Teams Keep in site",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"operatorteam\":{  \r\n        \"currentSite\":\"24\", \r\n        \"destinationSite\":\"4\", \r\n        \"removeFromOrigin\":\"false\" \r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}operatorteams/movealltosite",
+					"host": [
+						"{{baseURL}}operatorteams"
+					],
+					"path": [
+						"movealltosite"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Move unexisted Teams",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"There are no Operator Teams to move or add.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Verify Error Message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"operatorteam\":{  \r\n        \"currentSite\":\"29\", \r\n        \"destinationSite\":\"24\", \r\n        \"removeFromOrigin\":\"true\" \r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}operatorteams/movealltosite",
+					"host": [
+						"{{baseURL}}operatorteams"
+					],
+					"path": [
+						"movealltosite"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove Operator from Teams",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Operator not found in the operator team.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Verify Error Message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"operatorteam\":{ \r\n        \"id\":\"13\", \r\n        \"members\":[\"2693\"] \r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}operatorteams/removeoperator",
+					"host": [
+						"{{baseURL}}operatorteams"
+					],
+					"path": [
+						"removeoperator"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove Invalid Operator from Teams",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Operator not found in the operator team.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Verify Error Message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"operatorteam\":{ \r\n        \"id\":\"13\", \r\n        \"members\":[\"1234\"] \r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}operatorteams/removeoperator",
+					"host": [
+						"{{baseURL}}operatorteams"
+					],
+					"path": [
+						"removeoperator"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove noNumeric Operator from Team",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Invalid Operator id.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Verify Error Message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"operatorteam\":{ \r\n        \"id\":\"13\", \r\n        \"members\":[\"ABC\"] \r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}operatorteams/removeoperator",
+					"host": [
+						"{{baseURL}}operatorteams"
+					],
+					"path": [
+						"removeoperator"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove Operator from Invalid Team",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Operator Team Id : Field must be a number.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Verify Error Message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"operatorteam\":{ \r\n        \"id\":\"ABC\", \r\n        \"members\":[\"2694\"] \r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}operatorteams/removeoperator",
+					"host": [
+						"{{baseURL}}operatorteams"
+					],
+					"path": [
+						"removeoperator"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

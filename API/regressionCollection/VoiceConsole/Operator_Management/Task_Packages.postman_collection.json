@@ -1,0 +1,461 @@
+{
+	"info": {
+		"_postman_id": "caeac80d-2154-4f18-bf9b-f32066ee014c",
+		"name": "Task_Packages",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14803454"
+	},
+	"item": [
+		{
+			"name": "Task Package not found",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Task Package not found in system. It may have been deleted already.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Task Package not found\", function() {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/1131?operatorIDs=1129,1135",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"1131"
+					],
+					"query": [
+						{
+							"key": "operatorIDs",
+							"value": "1129,1135"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Task Package Associated",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var message = \"Task Package 65 associated with 1 operators successfully.\"\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Task Package Associated\", function () {\r",
+							"    pm.expect(jsonData.response.success.msg).eql(message)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/65?operatorIDs=1129,1135",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"65"
+					],
+					"query": [
+						{
+							"key": "operatorIDs",
+							"value": "1129,1135"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Associate Invalid Task Package",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var message = \"Provided Task Package Id is invalid\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Associate Invalid Task Package\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(message)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/ABC?operatorIDs=1129,1135",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"ABC"
+					],
+					"query": [
+						{
+							"key": "operatorIDs",
+							"value": "1129,1135"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Associate Empty Task Package",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var message = \"Provided Task Package Id is invalid\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Associate Empty Task Package\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(message)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/operatorIDs=1129,1135",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"operatorIDs=1129,1135"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Associate Empty Operator ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var message = \"At least one operator Id is required\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Associate Empty Operator ID\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(message)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/84?operatorIDs=",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"84"
+					],
+					"query": [
+						{
+							"key": "operatorIDs",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Associate Invalid Operator ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Failed to associate Operator 1,129 to Task Package 84.\"\r",
+							"const successMessage = \"Task Package 84 associated with 1 operators successfully.\"\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Associate Invalid Operator ID\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"    pm.expect(jsonData.response.success.msg).eql(successMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/84?operatorIDs=1129,1135",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"84"
+					],
+					"query": [
+						{
+							"key": "operatorIDs",
+							"value": "1129,1135"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Associate nonNumeric Invalid Operator ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var message = \"One or more of given Operator IDs were invalid.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Associate nonNumeric Invalid Operator ID\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(message)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}taskpackages/84?operatorIDs=ABC,1456",
+					"host": [
+						"{{baseURL}}taskpackages"
+					],
+					"path": [
+						"84"
+					],
+					"query": [
+						{
+							"key": "operatorIDs",
+							"value": "ABC,1456"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

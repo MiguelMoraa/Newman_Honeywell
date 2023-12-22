@@ -1,0 +1,1142 @@
+{
+	"info": {
+		"_postman_id": "27788597-29bb-4b99-96ec-ab7f608a1579",
+		"name": "VCNG_Move_Entities_To_site",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8450069"
+	},
+	"item": [
+		{
+			"name": "Devices_All_params_null",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password1}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/services/devices/move",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"services",
+						"devices",
+						"move"
+					],
+					"query": [
+						{
+							"key": "sourceSiteId",
+							"value": "invalid_sourceSiteId",
+							"disabled": true
+						},
+						{
+							"key": "destinationSiteId",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "moveMethod",
+							"value": "move",
+							"disabled": true
+						},
+						{
+							"key": "ids",
+							"value": "1,2",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Devices_Invalid_sourceSiteId_And_Null_destinationSiteId",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password1}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/services/devices/move?sourceSiteId=invalid_sourceSiteId&moveMethod=move",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"services",
+						"devices",
+						"move"
+					],
+					"query": [
+						{
+							"key": "sourceSiteId",
+							"value": "invalid_sourceSiteId"
+						},
+						{
+							"key": "destinationSiteId",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "moveMethod",
+							"value": "move"
+						},
+						{
+							"key": "ids",
+							"value": "1,2",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Devices_non-numeric_sourceSiteId_And_Null_destinationSiteId",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password1}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/services/devices/move?sourceSiteId=12a&moveMethod=move",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"services",
+						"devices",
+						"move"
+					],
+					"query": [
+						{
+							"key": "sourceSiteId",
+							"value": "12a"
+						},
+						{
+							"key": "destinationSiteId",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "moveMethod",
+							"value": "move"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Devices_Invalid_destinationSiteId_And_Null_invalid_sourceSiteId",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password1}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/services/devices/move?destinationSiteId=invalid_sourceSiteId",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"services",
+						"devices",
+						"move"
+					],
+					"query": [
+						{
+							"key": "sourceSiteId",
+							"value": "invalid_sourceSiteId",
+							"disabled": true
+						},
+						{
+							"key": "destinationSiteId",
+							"value": "invalid_sourceSiteId"
+						},
+						{
+							"key": "moveMethod",
+							"value": "move",
+							"disabled": true
+						},
+						{
+							"key": "ids",
+							"value": "1,2",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Devices_non-numeric_destinationSiteId_And_Null_sourceSiteId",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password1}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/services/devices/move?destinationSiteId=12a&moveMethod=move",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"services",
+						"devices",
+						"move"
+					],
+					"query": [
+						{
+							"key": "sourceSiteId",
+							"value": "12a",
+							"disabled": true
+						},
+						{
+							"key": "destinationSiteId",
+							"value": "12a"
+						},
+						{
+							"key": "moveMethod",
+							"value": "move"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Devices_same_sourceSiteId_And_destinationSiteId",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password1}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/services/devices/move?sourceSiteId=1&destinationSiteId=1&moveMethod=move",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"services",
+						"devices",
+						"move"
+					],
+					"query": [
+						{
+							"key": "sourceSiteId",
+							"value": "1"
+						},
+						{
+							"key": "destinationSiteId",
+							"value": "1"
+						},
+						{
+							"key": "moveMethod",
+							"value": "move"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Devices_non-numeric_destinationSiteId_And_Null_sourceSiteId",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password1}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/services/devices/move?destinationSiteId=12a&moveMethod=move",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"services",
+						"devices",
+						"move"
+					],
+					"query": [
+						{
+							"key": "sourceSiteId",
+							"value": "12a",
+							"disabled": true
+						},
+						{
+							"key": "destinationSiteId",
+							"value": "12a"
+						},
+						{
+							"key": "moveMethod",
+							"value": "move"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Devices_non-existent_sourceSiteId",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password1}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/services/devices/move?sourceSiteId=1000&moveMethod=move",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"services",
+						"devices",
+						"move"
+					],
+					"query": [
+						{
+							"key": "sourceSiteId",
+							"value": "1000"
+						},
+						{
+							"key": "destinationSiteId",
+							"value": "2000",
+							"disabled": true
+						},
+						{
+							"key": "moveMethod",
+							"value": "move"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Devices_non-existent_destinationSiteId",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password1}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/services/devices/move?sourceSiteId=-1&destinationSiteId=2000&moveMethod=move",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"services",
+						"devices",
+						"move"
+					],
+					"query": [
+						{
+							"key": "sourceSiteId",
+							"value": "-1"
+						},
+						{
+							"key": "destinationSiteId",
+							"value": "2000"
+						},
+						{
+							"key": "moveMethod",
+							"value": "move"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Devices_unauthorized_sourceSiteId_And_destinationSiteId",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{username7}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/services/devices/move?moveMethod=move&sourceSiteId=-1&destinationSiteId=5",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"services",
+						"devices",
+						"move"
+					],
+					"query": [
+						{
+							"key": "moveMethod",
+							"value": "move"
+						},
+						{
+							"key": "ids",
+							"value": "1,  2, s",
+							"disabled": true
+						},
+						{
+							"key": "sourceSiteId",
+							"value": "-1"
+						},
+						{
+							"key": "destinationSiteId",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Devices_System_tag_sourceSiteId",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password1}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/services/devices/move?sourceSiteId=-463&destinationSiteId=1&moveMethod=move",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"services",
+						"devices",
+						"move"
+					],
+					"query": [
+						{
+							"key": "sourceSiteId",
+							"value": "-463"
+						},
+						{
+							"key": "destinationSiteId",
+							"value": "1"
+						},
+						{
+							"key": "moveMethod",
+							"value": "move"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Devices_All_tag_sourceSiteId",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password1}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/services/devices/move?sourceSiteId=-927&destinationSiteId=-463&moveMethod=move",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"services",
+						"devices",
+						"move"
+					],
+					"query": [
+						{
+							"key": "sourceSiteId",
+							"value": "-927"
+						},
+						{
+							"key": "destinationSiteId",
+							"value": "-463"
+						},
+						{
+							"key": "moveMethod",
+							"value": "move"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Devices_duplicate_ids",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password1}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/services/devices/move?sourceSiteId=-1&destinationSiteId=1&moveMethod=move&ids=1,2, 3, 3, 2, 1  , 4, 3,4",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"services",
+						"devices",
+						"move"
+					],
+					"query": [
+						{
+							"key": "sourceSiteId",
+							"value": "-1"
+						},
+						{
+							"key": "destinationSiteId",
+							"value": "1"
+						},
+						{
+							"key": "moveMethod",
+							"value": "move"
+						},
+						{
+							"key": "ids",
+							"value": "1,2, 3, 3, 2, 1  , 4, 3,4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Devices_invalid_moveMethod",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password1}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/services/devices/move?sourceSiteId=-1&destinationSiteId=1&moveMethod=invalid_move",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"services",
+						"devices",
+						"move"
+					],
+					"query": [
+						{
+							"key": "sourceSiteId",
+							"value": "-1"
+						},
+						{
+							"key": "destinationSiteId",
+							"value": "1"
+						},
+						{
+							"key": "moveMethod",
+							"value": "invalid_move"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Devices_moveMethod_add_for_devices",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password1}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/services/devices/move?sourceSiteId=-1&destinationSiteId=1&moveMethod=add",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"services",
+						"devices",
+						"move"
+					],
+					"query": [
+						{
+							"key": "sourceSiteId",
+							"value": "-1"
+						},
+						{
+							"key": "destinationSiteId",
+							"value": "1"
+						},
+						{
+							"key": "moveMethod",
+							"value": "add"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Devices_non-numeric_ids",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password1}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/services/devices/move?sourceSiteId=-1&destinationSiteId=1&moveMethod=move&ids=1,  2, s",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"services",
+						"devices",
+						"move"
+					],
+					"query": [
+						{
+							"key": "sourceSiteId",
+							"value": "-1"
+						},
+						{
+							"key": "destinationSiteId",
+							"value": "1"
+						},
+						{
+							"key": "moveMethod",
+							"value": "move"
+						},
+						{
+							"key": "ids",
+							"value": "1,  2, s"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Devices_move_failure_device_name_already_exists_with_spaces",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password1}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/services/devices/move?moveMethod=move&sourceSiteId= 10       &destinationSiteId=1     ",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"services",
+						"devices",
+						"move"
+					],
+					"query": [
+						{
+							"key": "moveMethod",
+							"value": "move"
+						},
+						{
+							"key": "ids",
+							"value": "10004,1,10006",
+							"disabled": true
+						},
+						{
+							"key": "sourceSiteId",
+							"value": " 10       "
+						},
+						{
+							"key": "destinationSiteId",
+							"value": "1     "
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Devices_move_all_devices",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password1}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/services/devices/move?moveMethod=move&sourceSiteId=-1&destinationSiteId=1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"services",
+						"devices",
+						"move"
+					],
+					"query": [
+						{
+							"key": "moveMethod",
+							"value": "move"
+						},
+						{
+							"key": "sourceSiteId",
+							"value": "-1"
+						},
+						{
+							"key": "destinationSiteId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Devices_move_with_no_devices_at_sourceSite",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password1}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/services/devices/move?sourceSiteId=3&destinationSiteId=1&moveMethod=move",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"services",
+						"devices",
+						"move"
+					],
+					"query": [
+						{
+							"key": "sourceSiteId",
+							"value": "3"
+						},
+						{
+							"key": "destinationSiteId",
+							"value": "1"
+						},
+						{
+							"key": "moveMethod",
+							"value": "move"
+						},
+						{
+							"key": "ids",
+							"value": "1,  2,",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Devices_move_partial_success_device_not_found_with_spaces",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password1}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/services/devices/move?sourceSiteId=1&destinationSiteId=-1&moveMethod=move&ids=2, 5 , 100, 200,10003  ,10004,10008,5,10006,100099, 10005, 2",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"services",
+						"devices",
+						"move"
+					],
+					"query": [
+						{
+							"key": "sourceSiteId",
+							"value": "1"
+						},
+						{
+							"key": "destinationSiteId",
+							"value": "-1"
+						},
+						{
+							"key": "moveMethod",
+							"value": "move"
+						},
+						{
+							"key": "ids",
+							"value": "2, 5 , 100, 200,10003  ,10004,10008,5,10006,100099, 10005, 2"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

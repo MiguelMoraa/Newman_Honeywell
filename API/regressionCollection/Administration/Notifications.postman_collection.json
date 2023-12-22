@@ -1,0 +1,599 @@
+{
+	"info": {
+		"_postman_id": "fe45b66c-d364-43b3-9f62-fbd35c539285",
+		"name": "VCNG-Notifications-Edit (ready)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22861454",
+		"_collection_link": "https://martian-eclipse-381947.postman.co/workspace/VCNG-automation~60598d72-d6bf-4ec8-9ccc-e86c28b839db/collection/22861454-fe45b66c-d364-43b3-9f62-fbd35c539285?action=share&creator=22861454&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "fetchNotification",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate success request\", function() { \r",
+							"    pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/847",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"847"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fetchNotificationNotNumeric",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var notNumeric = pm.environment.get(\"limitInvalid\")\r",
+							"const errorMessage = \"id property is not numeric: \" + notNumeric\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Error Message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)    \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/invalid?=",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"invalid"
+					],
+					"query": [
+						{
+							"key": null,
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fetchNotificationNotExist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var Notification = pm.environment.get(\"siteNotFound\")\r",
+							"const errorMessage = \"Notification with id \" + Notification + \" cannot be found.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Error Message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)    \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/-5",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"-5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addNotification",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const successMessage = \"Critical notification created successfully.\"\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							" pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Success Message\", function () {\r",
+							"    pm.expect(jsonData.response.success.msg).eql(successMessage)    \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/-1/addTest",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"-1",
+						"addTest"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addNotificationInvalidSite",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Invalid Site ID\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Error Message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)    \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/-31/addTest",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"-31",
+						"addTest"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addNotificatiionAcknowledgedAlready",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMsg = \"has already been acknowledged.\"\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate success request\", function() { \r",
+							"    pm.expect(jsonData.response.errors.msg).contain(errorMsg)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/ack?ids=919",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"ack"
+					],
+					"query": [
+						{
+							"key": "ids",
+							"value": "919"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addNotificatiionAcknowledged",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMsg = \"was acknowledged.\"\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate success request\", function() { \r",
+							"    pm.expect(jsonData.response.success.msg).contain(errorMsg)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/ack?ids=851",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"ack"
+					],
+					"query": [
+						{
+							"key": "ids",
+							"value": "851"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Notificatiion_Acknowledged_more_than_one",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var limit = jsonData.response.success.length\r",
+							"const successMessages = \"was acknowledged.\"\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							" pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Success Messages\", function () {\r",
+							"    for(let i = 0 ; i < limit ; i++) {\r",
+							"        pm.expect(jsonData.response.success[i][\"msg\"]).contain(successMessages)\r",
+							"    }   \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/ack?ids=855,856,857",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"ack"
+					],
+					"query": [
+						{
+							"key": "ids",
+							"value": "855,856,857"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Notificatiion_Acknowledged_Somesuccess_and_SomeAlreadyAck",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const errorMessages = \"Notification not found in system. It may have been deleted already.\"\r",
+							"var jsonData = pm.response.json()\r",
+							"var code = pm.response.code\r",
+							"\r",
+							"if (code == \"500\")\r",
+							"{\r",
+							"    pm.test(\"Status code is 500\", function()\r",
+							"    {\r",
+							"        pm.response.to.have.status(500)   \r",
+							"    })\r",
+							"\r",
+							"    pm.test(\"Validate Error Message\", function()\r",
+							"    {\r",
+							"        pm.expect(jsonData.response.errors.msg).eql(errorMessages)\r",
+							"    })\r",
+							"}\r",
+							"\r",
+							"else\r",
+							"{    \r",
+							"    pm.test(\"Status code is 200\", function () \r",
+							"    {\r",
+							"        pm.response.to.have.status(200)\r",
+							"    })\r",
+							"        var limitSuccess = jsonData.response.success.length\r",
+							"        var limitErrors = jsonData.response.errors.length\r",
+							"        const successMessage = \"was acknowledged.\" \r",
+							"        const errorMessages2 = \"has already been acknowledged.\" \r",
+							"\r",
+							"        if (limitErrors > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Error Message\", function()\r",
+							"        {\r",
+							"           for(let i = 0 ; i < limitErrors ; i++)\r",
+							"           {\r",
+							"               pm.expect(jsonData.response.errors[i][\"msg\"]).contain(errorMessages2)\r",
+							"           } \r",
+							"        })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate Error Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.errors.msg).contain(errorMessages2)\r",
+							"            })\r",
+							"        }\r",
+							"                \r",
+							"        if (limitSuccess > \"0\")\r",
+							"        { \r",
+							"             pm.test(\"Validate Many Success Messages\", function ()\r",
+							"        {\r",
+							"            for(let i = 0 ; i < limitSuccess ; i++)\r",
+							"            {\r",
+							"                pm.expect(jsonData.response.success[i][\"msg\"]).contain(successMessage)\r",
+							"            }\r",
+							"        })\r",
+							"        }  \r",
+							"\r",
+							"        else\r",
+							"        {\r",
+							"             pm.test(\"Validate Success Messages\", function ()\r",
+							"        {\r",
+							"            pm.expect(jsonData.response.success.msg).contain(successMessage)\r",
+							"        })\r",
+							"        }\r",
+							"           \r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/ack?ids=918,919,1006",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"ack"
+					],
+					"query": [
+						{
+							"key": "ids",
+							"value": "918,919,1006"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "{{password}}",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "{{username}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

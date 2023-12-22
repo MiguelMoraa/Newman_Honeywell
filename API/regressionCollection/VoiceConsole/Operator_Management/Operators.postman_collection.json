@@ -1,0 +1,455 @@
+{
+	"info": {
+		"_postman_id": "f53f9959-9496-440d-b905-3aef51365e4c",
+		"name": "Operators",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14803454"
+	},
+	"item": [
+		{
+			"name": "Fletch All Operators for a Site",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}operators/site?site=24",
+					"host": [
+						"{{baseURL}}operators"
+					],
+					"path": [
+						"site"
+					],
+					"query": [
+						{
+							"key": "site",
+							"value": "24"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Exist Operator Name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Operator Name Tester already exists.\"\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate existing Operator ID\", function () {\r",
+							"    pm.expect(jsonData.error.msg).eql(errorMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"operator\": {\r\n        \"name\": \"Tester\",\r\n        \"operatorID\": \"Tester\",\r\n        \"spokenName\": \"Tester\",\r\n        \"pin\": 123456,\r\n        \"notes\": \"\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}operators?site=24",
+					"host": [
+						"{{baseURL}}operators"
+					],
+					"query": [
+						{
+							"key": "site",
+							"value": "24"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Exist Operator ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Operator ID Tester already exists.\"\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate existing Operator ID\", function () {\r",
+							"    pm.expect(jsonData.error.msg).eql(errorMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"operator\": {\r\n        \"name\": {{operatorName}},\r\n        \"operatorID\": \"Tester\",\r\n        \"spokenName\": \"Tester\",\r\n        \"pin\": 123456,\r\n        \"notes\": \"\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}operators?site=24",
+					"host": [
+						"{{baseURL}}operators"
+					],
+					"query": [
+						{
+							"key": "site",
+							"value": "24"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create  Operator in Invalid Site",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Invalid Site ID\"\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate create Operator into invalid site\", function () {\r",
+							"    pm.expect(jsonData.error.msg).eql(errorMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"operator\": {\r\n        \"name\": {{operatorName}},\r\n        \"operatorID\": \"Tester\",\r\n        \"spokenName\": \"Tester\",\r\n        \"pin\": 123456,\r\n        \"notes\": \"\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}operators?site=2",
+					"host": [
+						"{{baseURL}}operators"
+					],
+					"query": [
+						{
+							"key": "site",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create New Operator with exisiting PIN",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Operator Number 123456 already exists.\"\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate create new Operator w Exisiting PIN\", function () {\r",
+							"    pm.expect(jsonData.error.msg).eql(errorMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var number = Math.random()\r",
+							"\r",
+							"pm.environment.set(\"operatorName\", \"test\" + number)\r",
+							"pm.environment.set(\"operatorID\", \"test\" + number)\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"operator\": {\r\n        \"name\": {{operatorName}},\r\n        \"operatorID\": {{operatorID}},\r\n        \"spokenName\": {{operatorName}},\r\n        \"pin\": 123456,\r\n        \"notes\": \"This is a bunch of note for the operator  {{operatorName}}\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}operators?site=24",
+					"host": [
+						"{{baseURL}}operators"
+					],
+					"query": [
+						{
+							"key": "site",
+							"value": "24"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create New Operator",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var operatorName = pm.environment.get(\"operatorName\")\r",
+							"const notesResponse = \"This is a bunch of notes for the operator \" + operatorName\r",
+							"var number = Math.random()\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate create new Operator\", function () {\r",
+							"    pm.expect(jsonData.operator.notes).eql(notesResponse)\r",
+							"})\r",
+							"\r",
+							"var operatorId = jsonData.operator.id\r",
+							"pm.environment.set(\"operatorIDResponse\", operatorId)\r",
+							"pm.environment.set(\"operatorName\", \"test\" + number)\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var number = Math.random()\r",
+							"\r",
+							"pm.environment.set(\"operatorName\", \"test\" + number)\r",
+							"pm.environment.set(\"operatorID\", \"test\" + number)\r",
+							"pm.environment.set(\"pinNumber\", \"test\" + number)\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"operator\": {\r\n        \"name\": {{operatorName}},\r\n        \"operatorID\": {{operatorID}},\r\n        \"spokenName\": {{operatorName}},\r\n        \"pin\": {{pinNumber}},\r\n        \"notes\": \"This is a bunch of notes for the operator {{operatorName}}\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}operators?site=24",
+					"host": [
+						"{{baseURL}}operators"
+					],
+					"query": [
+						{
+							"key": "site",
+							"value": "24"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

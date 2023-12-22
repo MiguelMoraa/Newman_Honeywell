@@ -1,0 +1,4286 @@
+{
+	"info": {
+		"_postman_id": "3f1266bf-e8c3-4f50-8326-12a074ee61f9",
+		"name": "Sites",
+		"description": "This collection tests the CRUD (Create, Read, Update, Delete) functionality for the Sites API.\n\nIt tests Creating, Reading, Updating and Deleting new and existing sites that may or may not use the EAP (Extensible Authentication Protocol) protocol.\n\nNOTES:\n\nAny site using EAP must ALWAYS be created with a \"restricted user\"\n\nIf creating an EAP site using EAPTLS type and \"Site Credentials\" the site must be created with a \"site wide user\"\n\nA server certificate is OPTIONAL for all EAP sites.\n\n**The SItes API currently only supports \"SITE\" and \"Device\" credential types. We are not supporting \"Operator\" credentials at this time.**",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14803454"
+	},
+	"item": [
+		{
+			"name": "Skip the following tests until Clear created id's array",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"postman.setNextRequest(\"Clean up Created Sites Array\")\r",
+							"\r",
+							"pm.test(\"Skipping questionable tests\", function () {\r",
+							" \r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}sites",
+					"host": [
+						"{{baseURL}}sites"
+					]
+				},
+				"description": "This is being used to skip questionable tests"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Site Wide Site with wrong eapType and restrictedEapType",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Violation of UNIQUE KEY constraint 'voc_cons_site_name'. Cannot insert duplicate key in object 'dbo.voc_site'. The duplicate key value is (Site Restricted NONE).\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"pm.test(\"Create Site Wide Site EAP eapType NONE\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site\": {\r\n        \"name\": \"Site Restricted NONE\",\r\n        \"shiftStartTime\": \"00:00\",\r\n        \"timeZoneId\": \"EST\",\r\n        \"notes\" : \"This site is configured with the restricted EAP type set to NONE.\",\r\n        \"eapType\": \"abc\",\r\n        \"restrictedEapType\" : \"abc\",\r\n        \"restrictedSSID\" :  \"testSSID\",\r\n        \"credentialAssociation\": \"SITE\",\r\n        \"chargerDisconnect\": false,\r\n        \"usePins\" : true,\r\n        \"sitePIN\" : \"1234\",\r\n        \"siteWideUser\": {\r\n            \"userName\": \"SiteWide-User\"\r\n        },\r\n        \"restrictedUser\": {\r\n            \"userName\": \"Restricted-User\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}sites",
+					"host": [
+						"{{baseURL}}sites"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Site Wide EAP with missing certificateKeyFileContents and certificateFileContents",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"\r",
+							"pm.test(\"Create Site Wide EAP with wrong Certificate - Not sure if this test is valid\", function () {\r",
+							"    pm.expect(true).to.eql(false)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site\": {\r\n        \"name\": {{siteName}},\r\n        \"shiftStartTime\": \"00:00\",\r\n        \"timeZoneId\": \"EST\",\r\n        \"eapType\": \"EAPTLS\",\r\n        \"restrictedEapType\" : \"EAPTLS\",\r\n        \"credentialAssociation\": \"SITE\",\r\n        \"chargerDisconnect\": false,\r\n        \"usePins\" : true,\r\n        \"sitePIN\" : \"1234\",\r\n        \"siteWideUser\": {\r\n            \"userName\": \"SiteWide-User\",\r\n            \"certificatePassword\" : \"foobar\"\r\n        },\r\n        \"restrictedUser\": {\r\n            \"userName\": \"Restricted-User\",\r\n            \"certificatePassword\" : \"foobar\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}sites",
+					"host": [
+						"{{baseURL}}sites"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Clean up Created Sites Array",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(\"Check result for: Clean up Created Sites Array\")\r",
+							"var jsonData = pm.response.json()\r",
+							"\r",
+							" theCreatedSites = pm.collectionVariables.get(\"createdSiteIds\")\r",
+							" if (0 !== theCreatedSites.length) {\r",
+							"\r",
+							"    pm.test(\"Status code is 200\", function () {\r",
+							"        pm.response.to.have.status(200)\r",
+							"    })\r",
+							"\r",
+							"    pm.test(\"Has property errors\", function () {\r",
+							"        pm.expect(jsonData.response).to.not.have.property(\"errors\")\r",
+							"    })\r",
+							"\r",
+							"    console.log(\"The following sites were deleted: \" + sitesToDelete)\r",
+							"    pm.test(\"Clear Variables\", function () {\r",
+							"        console.log(\"Clearing variables\")\r",
+							"        pm.collectionVariables.set(\"sitesToDelete\", \"\")\r",
+							"        pm.collectionVariables.set(\"createdSiteIds\", \"\")\r",
+							"    })\r",
+							"}\r",
+							"else\r",
+							"{\r",
+							"    console.log(\"No sites were deleted.\")\r",
+							"    pm.test(\"Status code is 400\", function () {\r",
+							"        pm.response.to.have.status(400)\r",
+							"    })\r",
+							"}\r",
+							"console.log(\"Exiting check result for: Clean up Created Sites Array\")"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"console.log(\"Running Pre-request script to clear created sites array\")\r",
+							"// Create a list of sites to delete for this delete request.\r",
+							"// NOTE: This list can be empty if no test were run.\r",
+							"if (pm.collectionVariables.get(\"createdSiteIds\"))\r",
+							"{\r",
+							"    createdSiteIds = pm.collectionVariables.get(\"createdSiteIds\")\r",
+							"\r",
+							"    if (0 !== createdSiteIds.length)\r",
+							"    {\r",
+							"        console.log(\"Creating an array of sites to delete.\")\r",
+							"        createdSiteIds = JSON.parse(pm.collectionVariables.get(\"createdSiteIds\"))\r",
+							"        sitesToDelete = \"\"\r",
+							"        for (let i = 0; i < createdSiteIds.length; i++) {\r",
+							"            sitesToDelete = sitesToDelete + createdSiteIds[i]\r",
+							"            if (i !== createdSiteIds.length -1)\r",
+							"                sitesToDelete = sitesToDelete + \",\"\r",
+							"        }\r",
+							"        console.log (\"Sites to be deleted: \" + sitesToDelete)\r",
+							"        pm.collectionVariables.set(\"sitesToDelete\",  sitesToDelete)\r",
+							"    }\r",
+							"    else\r",
+							"    {\r",
+							"        console.log(\"Did not find any sites to delete.\")\r",
+							"    }\r",
+							"}\r",
+							"console.log(\"Exiting pre-request for: Clean up Created Sites Array\")"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}sites?ids={{sitesToDelete}}",
+					"host": [
+						"{{baseURL}}sites"
+					],
+					"query": [
+						{
+							"key": "ids",
+							"value": "{{sitesToDelete}}"
+						}
+					]
+				},
+				"description": "This request is used to clean up any sites that were created by this collection before attempting to run the collection. NOTE: This is NOT fool proof. It can fail."
+			},
+			"response": [
+				{
+					"name": "Clean up Created Sites Array",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}sites",
+							"host": [
+								"{{baseURL}}sites"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "raw",
+					"header": [
+						{
+							"key": "Accept",
+							"value": "*/*"
+						},
+						{
+							"key": "accept-encoding",
+							"value": "gzip, deflate, br"
+						},
+						{
+							"key": "connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "host",
+							"value": "localhost:80"
+						},
+						{
+							"key": "postman-token",
+							"value": "40b9e6ff-3c92-4c8e-8ab8-36c2dc9381b3"
+						},
+						{
+							"key": "user-agent",
+							"value": "PostmanRuntime/7.32.2"
+						},
+						{
+							"key": "WWW-Authenticate",
+							"value": "Basic realm=realm"
+						},
+						{
+							"key": "Content-Type",
+							"value": ";charset=UTF-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "0"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 02 Jun 2023 17:38:11 GMT"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				}
+			]
+		},
+		{
+			"name": "Fetch all Sites",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Fletch all Sites\", function () {\r",
+							"    pm.expect(jsonData.sites.site[0][name]).eql(\"Default\")\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}sites",
+					"host": [
+						"{{baseURL}}sites"
+					]
+				},
+				"description": "GET a list of all sites that are currently found in Voice Console."
+			},
+			"response": []
+		},
+		{
+			"name": "Create Site Regression site",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Has property dataObjects\", function () {\r",
+							"    pm.expect(jsonData.response).to.have.property(\"dataObjects\")\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Has correct name: \" + jsonData.response.dataObjects.name, function () {\r",
+							"    pm.expect(jsonData.response.dataObjects.name).to.eql(\"A Site for Regression Testing\")\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Has correct description name: \" + jsonData.response.dataObjects.description, function () {\r",
+							"    pm.expect(jsonData.response.dataObjects.description).to.eql(\"This is the description for A Regression Testing Site.\")\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Has correct timeZoneId: \" + jsonData.response.dataObjects.timeZoneId, function () {\r",
+							"    pm.expect(jsonData.response.dataObjects.timeZoneId).to.eql(\"America/Kentucky/Monticello\")\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Has correct notes: \" + jsonData.response.dataObjects.notes, function () {\r",
+							"    pm.expect(jsonData.response.dataObjects.notes).to.eql(\"Notes for A Regression Testing Site.\")\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Has correct shiftStartTime: \" + jsonData.response.dataObjects.shiftStartTime, function () {\r",
+							"    pm.expect(jsonData.response.dataObjects.shiftStartTime).to.eql(\"00:00\")\r",
+							"})\r",
+							"\r",
+							"var createdSiteIds = new Array()\r",
+							"createdSiteIds = pm.collectionVariables.get(\"createdSiteIds\")\r",
+							"if (0 === createdSiteIds.length){\r",
+							"    console.log(\"Creating new array\")\r",
+							"    createdSiteIds = new Array()\r",
+							"} else {\r",
+							"    createdSiteIds = JSON.parse(pm.collectionVariables.get(\"createdSiteIds\"))\r",
+							"}\r",
+							"\r",
+							"createdSiteIds.push(jsonData.response.dataObjects.id)\r",
+							"pm.collectionVariables.set(\"createdSiteIds\",  JSON.stringify(createdSiteIds))\r",
+							"console.log(\"Created Site id's = \" + pm.collectionVariables.get(\"createdSiteIds\"))"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site\": {\r\n        \"name\": \"A Site for Regression Testing\",\r\n        \"description\": \"This is the description for A Regression Testing Site.\",\r\n        \"timeZoneId\": \"America/Kentucky/Monticello\",\r\n        \"notes\": \"Notes for A Regression Testing Site.\",\r\n        \"shiftStartTime\": \"00:00\"\r\n    }\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}sites",
+					"host": [
+						"{{baseURL}}sites"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Site using EAPTLS with SITE credentials",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"pm.test(\"Has property dataObjects\", function () {\r",
+							"    pm.expect(jsonData.response).to.have.property(\"dataObjects\")\r",
+							"})\r",
+							"pm.test(\"Has correct site name: \" + jsonData.response.dataObjects.name, function () {\r",
+							"        pm.expect(jsonData.response.dataObjects.name).to.eql(\"An EAP TLS Site With SITE Credentials\")\r",
+							"})\r",
+							"pm.test(\"Has correct credentialAssociation: \" + jsonData.response.dataObjects.credentialAssociation, function () {\r",
+							"        pm.expect(jsonData.response.dataObjects.credentialAssociation).to.eql(\"SITE\")\r",
+							"})\r",
+							"pm.test(\"Has correct credentialType: \" + jsonData.response.dataObjects.credentialType, function () {\r",
+							"        pm.expect(jsonData.response.dataObjects.credentialType).to.eql(\"CERTIFICATE\")\r",
+							"})\r",
+							"\r",
+							"var createdSiteIds = new Array()\r",
+							"createdSiteIds = pm.collectionVariables.get(\"createdSiteIds\")\r",
+							"if (0 === createdSiteIds.length){\r",
+							"    console.log(\"Creating new array\")\r",
+							"    createdSiteIds = new Array()\r",
+							"} else {\r",
+							"    createdSiteIds = JSON.parse(pm.collectionVariables.get(\"createdSiteIds\"))\r",
+							"}\r",
+							"\r",
+							"createdSiteIds.push(jsonData.response.dataObjects.id)\r",
+							"pm.collectionVariables.set(\"createdSiteIds\",  JSON.stringify(createdSiteIds))\r",
+							"console.log(\"Created Site id's = \" + pm.collectionVariables.get(\"createdSiteIds\"))"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site\": {\r\n        \"name\": \"An EAP TLS Site With SITE Credentials\",\r\n        \"shiftStartTime\": \"00:00\",\r\n        \"timeZoneId\": \"EST\",\r\n        \"eapType\": \"EAPTLS\",\r\n        \"restrictedEapType\" : \"EAPTLS\",\r\n        \"credentialAssociation\": \"SITE\",\r\n        \"chargerDisconnect\": false,\r\n        \"usePins\" : true,\r\n        \"sitePIN\" : \"1234\",\r\n        \"siteWideUser\": {\r\n            \"userName\": \"SiteWide-User\",\r\n            \"certificatePassword\" : \"foobar\",\r\n            \"certificateKeyFileContents\": \"SiteWide-User-KeyContent\",\r\n            \"certificateFileContents\"   : \"SiteWide-User-FileContent\"\r\n        },\r\n        \"restrictedUser\": {\r\n            \"userName\": \"Restricted-User\",\r\n            \"certificateKeyFileContents\": \"Restricted-User-KeyContent\",\r\n            \"certificateFileContents\"   : \"Restricted-User-FileContent\",\r\n            \"certificatePassword\" : \"foobar\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}sites",
+					"host": [
+						"{{baseURL}}sites"
+					]
+				},
+				"description": "This request creates a new site using EAP TLS with EAP Credential type \"SITE\"\n\nThis means that you MUST have a certificate and key for the site wide user and the restricted user when creating this site. A certificate password is optional for both users."
+			},
+			"response": []
+		},
+		{
+			"name": "Create Site using EAPTLS with SITE credentials and Server Certificate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"pm.test(\"Has property dataObjects\", function () {\r",
+							"    pm.expect(jsonData.response).to.have.property(\"dataObjects\")\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Has property serverCredentials\", function () {\r",
+							"    pm.expect(jsonData.response.dataObjects).to.have.property(\"serverCredentials\")\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Has correct site name: \" + jsonData.response.dataObjects.name, function () {\r",
+							"        pm.expect(jsonData.response.dataObjects.name).to.eql(\"An EAP TLS Site With SITE Credentials and Server Certificate\")\r",
+							"})\r",
+							"pm.test(\"Has correct credentialAssociation: \" + jsonData.response.dataObjects.credentialAssociation, function () {\r",
+							"        pm.expect(jsonData.response.dataObjects.credentialAssociation).to.eql(\"SITE\")\r",
+							"})\r",
+							"pm.test(\"Has correct credentialType: \" + jsonData.response.dataObjects.credentialType, function () {\r",
+							"        pm.expect(jsonData.response.dataObjects.credentialType).to.eql(\"CERTIFICATE\")\r",
+							"})\r",
+							"\r",
+							"var createdSiteIds = new Array()\r",
+							"createdSiteIds = pm.collectionVariables.get(\"createdSiteIds\")\r",
+							"if (0 === createdSiteIds.length){\r",
+							"    console.log(\"Creating new array\")\r",
+							"    createdSiteIds = new Array()\r",
+							"} else {\r",
+							"    createdSiteIds = JSON.parse(pm.collectionVariables.get(\"createdSiteIds\"))\r",
+							"}\r",
+							"\r",
+							"createdSiteIds.push(jsonData.response.dataObjects.id)\r",
+							"pm.collectionVariables.set(\"createdSiteIds\",  JSON.stringify(createdSiteIds))\r",
+							"console.log(\"Created Site id's = \" + pm.collectionVariables.get(\"createdSiteIds\"))"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site\": {\r\n        \"name\": \"An EAP TLS Site With SITE Credentials and Server Certificate\",\r\n        \"shiftStartTime\": \"00:00\",\r\n        \"timeZoneId\": \"EST\",\r\n        \"eapType\": \"EAPTLS\",\r\n        \"restrictedEapType\" : \"EAPTLS\",\r\n        \"credentialAssociation\": \"SITE\",\r\n        \"chargerDisconnect\": false,\r\n        \"usePins\" : true,\r\n        \"sitePIN\" : \"1234\",\r\n        \"siteWideUser\": {\r\n            \"userName\": \"SiteWide-User\",\r\n            \"certificateKeyFileContents\": \"SiteWide-User-KeyContent\",\r\n            \"certificateFileContents\"   : \"SiteWide-User-FileContent\"\r\n        },\r\n        \"restrictedUser\": {\r\n            \"userName\": \"Restricted-User\",\r\n            \"certificateKeyFileContents\": \"Restricted-User-KeyContent\",\r\n            \"certificateFileContents\"   : \"Restricted-User-FileContent\"\r\n        },\r\n        \"serverCredentials\": {\r\n            \"certificateFileContents\": \"LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tDQpNSUlFVnpDQ0F6K2dBd0lCQWdJQkFqQU5CZ2txaGtpRzl3MEJBUVVGQURBWE1SVXdFd1lEVlFRREV3eFhhVVpwDQpMVkp2YjNRdFEwRXdIaGNOTURVd01UQXhNREF3TURBd1doY05NalV3TVRBeE1EQXdNREF3V2pBak1TRXdId1lEDQpWUVFERXhoWGFVWnBMVWx1ZEdWeWJXVmthV0YwWlMxRFFTMXpjbll3Z2dFaU1BMEdDU3FHU0liM0RRRUJBUVVBDQpBNElCRHdBd2dnRUtBb0lCQVFERGlya01NbmU2bTJSeWwvanpxOEhFUWt3YTFoeTFYdm9SWExaVGpUeFRaQmJtDQphOEFZMkNiUnNMWlpsbjdSUmVvZTZGbHB4a2tjU3hzUitqdEp2TkdxMlJMYkxiVEFyRzk4Y1UyUHJ6YUlRRFZpDQpXYzk1S3F0TGVBNkhLdkRWNTZxM1MwbFMrQy9QbWJHUlYvTmpxUFhKU1IzSzJtVmRTVFdDU3R0SHVzMjRsRlhVDQpQa3p4ZWpXN1RBOTRSQWhKRHdBNFExVG5BZTJ0KzVTNHRrMFlRR2JFemxjSnRVK3c5cDUzK1NxZmFLTXpablBTDQpTRkJkNklhbHVxQVcxRWFoS3ZRMytRVFpKNkZVVG9DeHBMWEo2c0RMb2tySnB4Y0hEbHpqeHlQaEVNemUza2J6DQp4L0g3ejBuVGJLUHRWaHBLcEhTajJNVDE3R1pJUjZXTjFhMUkxOVozQWdNQkFBR2pnZ0dnTUlJQm5EQS9CZ05WDQpIU01FT0RBMmdCVFhIWFRJMW1xVWpCRFBCVS9qbHFiV3o3Smk4NkVicEJrd0Z6RVZNQk1HQTFVRUF4TU1WMmxHDQphUzFTYjI5MExVTkJnZ0VCTUVFR0NXQ0dTQUdHK0VJQkJBUTBGakpvZEhSd09pOHZjMlZ5ZG1WeUxuZHBabWxzDQpZV0p6TG14dlkyRnNMMk5oTDJOeWJDOTNhV1pwY205dmRHTmhMbU55YkRCREJnTlZIUjhFUERBNk1EaWdOcUEwDQpoakpvZEhSd09pOHZjMlZ5ZG1WeUxuZHBabWxzWVdKekxteHZZMkZzTDJOaEwyTnliQzkzYVdacGNtOXZkR05oDQpMbU55YkRCTkJnZ3JCZ0VGQlFjQkFRUkJNRDh3UFFZSUt3WUJCUVVITUFLR01XaDBkSEE2THk5elpYSjJaWEl1DQpkMmxtYVd4aFluTXViRzlqWVd3dlkyRXZZMkV2ZDJsbWFYSnZiM1JqWVM1amNuUXdJQVlEVlIwU0JCa3dGNElWDQpjMlZ5ZG1WeUxuZHBabWxzWVdKekxteHZZMkZzTUNBR0ExVWRFUVFaTUJlQ0ZYTmxjblpsY2k1M2FXWnBiR0ZpDQpjeTVzYjJOaGJEQVBCZ05WSFJNQkFmOEVCVEFEQVFIL01BNEdBMVVkRHdFQi93UUVBd0lCaGpBZEJnTlZIUTRFDQpGZ1FVUDV6LytPV3owNnRaNXd0K010dXd4VVFVS3pZd0RRWUpLb1pJaHZjTkFRRUZCUUFEZ2dFQkFDbjNWZWRrDQo4WFFaMjVsak1xbzA4VE81NlFnYWhSc012OHdPcGxWd21tdjk5dlpTWmlFenBQL3RJN0prMjdRYkZaTzYrTG5RDQpUb1RaT2NteCt4a0lpMWM5Tm12dWVKc2dCMWl2NEdlc1NvZTVoV3VIaU5mbGdGSmV3QUsxelRSajBzMzI4US8wDQphNlNOUUJKcEk5NGlVeFRCcDNvOTAyOGhCeFdPVFNIN21iSUF4Vkc2NldKQTJJMmxDS016TlI5Wll2ZG5UNHhwDQpjVzFzd0g1RFF2RkNxQmJmVXlZR3gvRzJDTXpGdXU5dlh0dG9BZVpsQm90eDVDc2lRNVV0anc0d2QrejZvalVUDQp6SFI0R2lNeis5ZWFGNEFncUp0d0czMmNCbm85bjlRaGF1dXhWM3R0NFFNSW9KMzdtdHJUcHh2M1FvOUpQMUgzDQpKVTN6NnRteXRCbEVXTEk9DQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tDQo=\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}sites",
+					"host": [
+						"{{baseURL}}sites"
+					]
+				},
+				"description": "This request creates a new site using EAP TLS with EAP Credential type \"SITE\"\n\nThis means that you MUST have a certificate and key for the site wide user and the restricted user when creating this site. A certificate password is optional for both users.\n\nThis test also creates the site with a Server Certificate."
+			},
+			"response": []
+		},
+		{
+			"name": "Create Site using EAPTLS with DEVICE credentials",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"pm.test(\"Has property dataObjects\", function () {\r",
+							"    pm.expect(jsonData.response).to.have.property(\"dataObjects\")\r",
+							"})\r",
+							"pm.test(\"Has correct site name: \" + jsonData.response.dataObjects.name, function () {\r",
+							"    pm.expect(jsonData.response.dataObjects.name).to.eql(\"An EAP TLS Site with Device Credentials\")\r",
+							"})\r",
+							"pm.test(\"Has correct credentialAssociation: \" + jsonData.response.dataObjects.credentialAssociation, function () {\r",
+							"        pm.expect(jsonData.response.dataObjects.credentialAssociation).to.eql(\"DEVICE\")\r",
+							"})\r",
+							"pm.test(\"Has correct credentialType: \" + jsonData.response.dataObjects.credentialType, function () {\r",
+							"        pm.expect(jsonData.response.dataObjects.credentialType).to.eql(\"CERTIFICATE\")\r",
+							"})\r",
+							"\r",
+							"var createdSiteIds = new Array()\r",
+							"createdSiteIds = pm.collectionVariables.get(\"createdSiteIds\")\r",
+							"if (0 === createdSiteIds.length){\r",
+							"    console.log(\"Creating new array\")\r",
+							"    createdSiteIds = new Array()\r",
+							"} else {\r",
+							"    createdSiteIds = JSON.parse(pm.collectionVariables.get(\"createdSiteIds\"))\r",
+							"}\r",
+							"\r",
+							"createdSiteIds.push(jsonData.response.dataObjects.id)\r",
+							"pm.collectionVariables.set(\"createdSiteIds\",  JSON.stringify(createdSiteIds))\r",
+							"console.log(\"Created Site id's = \" + pm.collectionVariables.get(\"createdSiteIds\"))"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site\": {\r\n        \"name\": \"An EAP TLS Site with Device Credentials\",\r\n        \"shiftStartTime\": \"00:00\",\r\n        \"timeZoneId\": \"EST\",\r\n        \"eapType\": \"EAPTLS\",\r\n        \"restrictedEapType\" : \"EAPTLS\",\r\n        \"credentialAssociation\": \"DEVICE\",\r\n        \"chargerDisconnect\": false,\r\n        \"usePins\" : true,\r\n        \"sitePIN\" : \"1234\",\r\n        \"siteWideUser\": {\r\n            \"userName\": \"SiteWide-User\",\r\n            \"certificateKeyFileContents\": \"SiteWide-User-KeyContent\",\r\n            \"certificateFileContents\"   : \"SiteWide-User-FileContent\"\r\n        },\r\n        \"restrictedUser\": {\r\n            \"userName\": \"Restricted-User\",\r\n            \"certificateKeyFileContents\": \"Restricted-User-KeyContent\",\r\n            \"certificateFileContents\"   : \"Restricted-User-FileContent\",\r\n            \"certificatePassword\" : \"foobar\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}sites",
+					"host": [
+						"{{baseURL}}sites"
+					]
+				},
+				"description": "This request creates a new site using EAP TLS with EAP Credential type \"DEVICE\"\n\nThis means that you MUST have a certificate and key for restricted user when creating this site. A certificate password is optional.\n\nYou do NOT need a Site Wide user when using EAP TLS and DEVICE"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Site using PEAPV0 with DEVICE credentials",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"pm.test(\"Has property dataObjects\", function () {\r",
+							"    pm.expect(jsonData.response).to.have.property(\"dataObjects\")\r",
+							"})\r",
+							"pm.test(\"Has correct site name: \" + jsonData.response.dataObjects.name, function () {\r",
+							"    pm.expect(jsonData.response.dataObjects.name).to.eql(\"A PEAPV0 Site with Device Credentials\")\r",
+							"})\r",
+							"pm.test(\"Has correct credentialAssociation: \" + jsonData.response.dataObjects.credentialAssociation, function () {\r",
+							"        pm.expect(jsonData.response.dataObjects.credentialAssociation).to.eql(\"DEVICE\")\r",
+							"})\r",
+							"pm.test(\"Has correct credentialType: \" + jsonData.response.dataObjects.credentialType, function () {\r",
+							"        pm.expect(jsonData.response.dataObjects.credentialType).to.eql(\"PASSWORD\")\r",
+							"})\r",
+							"\r",
+							"var createdSiteIds = new Array()\r",
+							"createdSiteIds = pm.collectionVariables.get(\"createdSiteIds\")\r",
+							"if (0 === createdSiteIds.length){\r",
+							"    console.log(\"Creating new array\")\r",
+							"    createdSiteIds = new Array()\r",
+							"} else {\r",
+							"    createdSiteIds = JSON.parse(pm.collectionVariables.get(\"createdSiteIds\"))\r",
+							"}\r",
+							"\r",
+							"createdSiteIds.push(jsonData.response.dataObjects.id)\r",
+							"pm.collectionVariables.set(\"createdSiteIds\",  JSON.stringify(createdSiteIds))\r",
+							"console.log(\"Created Site id's = \" + pm.collectionVariables.get(\"createdSiteIds\"))"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site\": {\r\n        \"name\": \"A PEAPV0 Site with Device Credentials\",\r\n        \"shiftStartTime\": \"00:00\",\r\n        \"timeZoneId\": \"EST\",\r\n        \"eapType\": \"PEAPV0\",\r\n        \"restrictedEapType\" : \"PEAPV0\",\r\n        \"credentialAssociation\": \"DEVICE\",\r\n        \"chargerDisconnect\": false,\r\n        \"usePins\" : true,\r\n        \"sitePIN\" : \"1234\",\r\n        \"siteWideUser\": {\r\n            \"userName\": \"SiteWide-User\",\r\n            \"password\" :\"foobar\"\r\n        },\r\n        \"restrictedUser\": {\r\n            \"userName\": \"Restricted-User\",\r\n            \"password\" : \"foobar\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}sites",
+					"host": [
+						"{{baseURL}}sites"
+					]
+				},
+				"description": "This request creates a new site using EAP TLS with EAP Credential type \"DEVICE\"\n\nThis means that you MUST have a certificate and key for restricted user when creating this site. A certificate password is optional.\n\nYou do NOT need a Site Wide user when using EAP TLS and DEVICE"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Site using EAPTLS with DEVICE credentials and restrictedEapType NONE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"pm.test(\"Has property dataObjects\", function () {\r",
+							"    pm.expect(jsonData.response).to.have.property(\"dataObjects\")\r",
+							"})\r",
+							"pm.test(\"Has correct site name: \" + jsonData.response.dataObjects.name, function () {\r",
+							"    pm.expect(jsonData.response.dataObjects.name).to.eql(\"An EAP Site with EAPTLS, Device credentials and resrictedEap is NONE\")\r",
+							"})\r",
+							"pm.test(\"Has correct credentialAssociation: \" + jsonData.response.dataObjects.credentialAssociation, function () {\r",
+							"        pm.expect(jsonData.response.dataObjects.credentialAssociation).to.eql(\"DEVICE\")\r",
+							"})\r",
+							"pm.test(\"Has correct credentialType: \" + jsonData.response.dataObjects.credentialType, function () {\r",
+							"        pm.expect(jsonData.response.dataObjects.credentialType).to.eql(\"CERTIFICATE\")\r",
+							"})\r",
+							"\r",
+							"var createdSiteIds = new Array()\r",
+							"createdSiteIds = pm.collectionVariables.get(\"createdSiteIds\")\r",
+							"if (0 === createdSiteIds.length){\r",
+							"    console.log(\"Creating new array\")\r",
+							"    createdSiteIds = new Array()\r",
+							"} else {\r",
+							"    createdSiteIds = JSON.parse(pm.collectionVariables.get(\"createdSiteIds\"))\r",
+							"}\r",
+							"\r",
+							"createdSiteIds.push(jsonData.response.dataObjects.id)\r",
+							"pm.collectionVariables.set(\"createdSiteIds\",  JSON.stringify(createdSiteIds))\r",
+							"console.log(\"Created Site id's = \" + pm.collectionVariables.get(\"createdSiteIds\"))"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site\": {\r\n        \"name\": \"An EAP Site with EAPTLS, Device credentials and resrictedEap is NONE1\",\r\n        \"shiftStartTime\": \"00:00\",\r\n        \"timeZoneId\": \"EST\",\r\n        \"eapType\": \"EAPTLS\",\r\n        \"credentialAssociation\": \"DEVICE\",\r\n        \"restrictedEapType\" : \"NONE\",\r\n        \"restrictedSSID\" : \"MyRestrectedSSID\",\r\n        \"chargerDisconnect\": false,\r\n        \"usePins\" : true,\r\n        \"sitePIN\" : \"1234\",\r\n        \"siteWideUser\": {\r\n            \"userName\": \"SiteWide-User\",\r\n            \"certificateKeyFileContents\": \"SiteWide-User-KeyContent\",\r\n            \"certificateFileContents\"   : \"SiteWide-User-FileContent\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}sites",
+					"host": [
+						"{{baseURL}}sites"
+					]
+				},
+				"description": "This request creates a new site using EAP TLS with EAP Credential type \"DEVICE\"\n\nThis means that you MUST have a certificate and key for restricted user when creating this site. A certificate password is optional.\n\nYou do NOT need a Site Wide user when using EAP TLS and DEVICE"
+			},
+			"response": []
+		},
+		{
+			"name": "Create EAP Site that is not using pins",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"pm.test(\"Has property dataObjects\", function () {\r",
+							"    pm.expect(jsonData.response).to.have.property(\"dataObjects\")\r",
+							"})\r",
+							"pm.test(\"Has correct site name: \" + jsonData.response.dataObjects.name, function () {\r",
+							"    pm.expect(jsonData.response.dataObjects.name).to.eql(\"An EAP Site that is not using PINS\")\r",
+							"})\r",
+							"pm.test(\"Has usePin property equal to false\", function () {\r",
+							"    pm.expect(jsonData.response.dataObjects).to.have.property(\"usePins\").eq(false)\r",
+							"})\r",
+							"pm.test(\"Does not have sitePin property\", function () {\r",
+							"    pm.expect(jsonData.response.dataObjects).to.not.have.property(\"sitePIN\")\r",
+							"})\r",
+							"\r",
+							"var createdSiteIds = new Array()\r",
+							"createdSiteIds = pm.collectionVariables.get(\"createdSiteIds\")\r",
+							"if (0 === createdSiteIds.length){\r",
+							"    console.log(\"Creating new array\")\r",
+							"    createdSiteIds = new Array()\r",
+							"} else {\r",
+							"    createdSiteIds = JSON.parse(pm.collectionVariables.get(\"createdSiteIds\"))\r",
+							"}\r",
+							"\r",
+							"createdSiteIds.push(jsonData.response.dataObjects.id)\r",
+							"pm.collectionVariables.set(\"createdSiteIds\",  JSON.stringify(createdSiteIds))\r",
+							"console.log(\"Created Site id's = \" + pm.collectionVariables.get(\"createdSiteIds\"))"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site\": {\r\n        \"name\": \"An EAP Site that is not using PINS\",\r\n        \"shiftStartTime\": \"00:00\",\r\n        \"timeZoneId\": \"EST\",\r\n        \"eapType\": \"EAPTLS\",\r\n        \"credentialAssociation\": \"SITE\",\r\n        \"restrictedEapType\" : \"EAPTLS\",        \r\n        \"chargerDisconnect\": false,\r\n        \"usePins\" : false,\r\n        \"siteWideUser\": {\r\n            \"userName\": \"SiteWide-User\",\r\n            \"certificatePassword\" : \"foobar\",\r\n            \"certificateKeyFileContents\": \"SiteWide-User-KeyContent\",\r\n            \"certificateFileContents\"   : \"SiteWide-User-FileContent\"\r\n        },\r\n        \"restrictedUser\": {\r\n            \"userName\": \"Restricted-User\",\r\n            \"certificateKeyFileContents\": \"Restricted-User-KeyContent\",\r\n            \"certificateFileContents\"   : \"Restricted-User-FileContent\",\r\n            \"certificatePassword\" : \"foobar\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}sites",
+					"host": [
+						"{{baseURL}}sites"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create EAP Site that is using pins",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"pm.test(\"Has property dataObjects\", function () {\r",
+							"    pm.expect(jsonData.response).to.have.property(\"dataObjects\")\r",
+							"})\r",
+							"pm.test(\"Has correct site name: \" + jsonData.response.dataObjects.name, function () {\r",
+							"})\r",
+							"pm.test(\"Has usePin property equal to true\", function () {\r",
+							"    pm.expect(jsonData.response.dataObjects).to.have.property(\"usePins\").eq(true)\r",
+							"})\r",
+							"pm.test(\"Has sitePIN property with correct value 1234\", function () {\r",
+							"    pm.expect(jsonData.response.dataObjects).to.have.property(\"sitePIN\").eq(1234)\r",
+							"})\r",
+							"\r",
+							"var createdSiteIds = new Array()\r",
+							"createdSiteIds = pm.collectionVariables.get(\"createdSiteIds\")\r",
+							"if (0 === createdSiteIds.length){\r",
+							"    console.log(\"Creating new array\")\r",
+							"    createdSiteIds = new Array()\r",
+							"} else {\r",
+							"    createdSiteIds = JSON.parse(pm.collectionVariables.get(\"createdSiteIds\"))\r",
+							"}\r",
+							"\r",
+							"createdSiteIds.push(jsonData.response.dataObjects.id)\r",
+							"pm.collectionVariables.set(\"createdSiteIds\",  JSON.stringify(createdSiteIds))\r",
+							"console.log(\"Created Site id's = \" + pm.collectionVariables.get(\"createdSiteIds\"))"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site\": {\r\n        \"name\": \"An EAP Site that is using PINS\",\r\n        \"shiftStartTime\": \"00:00\",\r\n        \"timeZoneId\": \"EST\",\r\n        \"eapType\": \"EAPTLS\",\r\n        \"credentialAssociation\": \"SITE\",\r\n        \"restrictedEapType\" : \"EAPTLS\",        \r\n        \"chargerDisconnect\": false,\r\n        \"usePins\" : true,\r\n        \"sitePIN\" : \"1234\",\r\n        \"siteWideUser\": {\r\n            \"userName\": \"SiteWide-User\",\r\n            \"certificateKeyFileContents\": \"SiteWide-User-KeyContent\",\r\n            \"certificateFileContents\"   : \"SiteWide-User-FileContent\"\r\n        },\r\n        \"restrictedUser\": {\r\n            \"userName\": \"Restricted-User\",\r\n            \"certificateKeyFileContents\": \"Restricted-User-KeyContent\",\r\n            \"certificateFileContents\"   : \"Restricted-User-FileContent\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}sites",
+					"host": [
+						"{{baseURL}}sites"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Attempt to create existing regression testing site",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"A Site with name A Site for Regression Testing already exists.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"pm.test(\"Has property errors\", function () {\r",
+							"    pm.expect(jsonData.response).to.have.property(\"errors\")\r",
+							"})\r",
+							"pm.test(\"Has correct error message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site\": {\r\n        \"name\": \"A Site for Regression Testing\",\r\n        \"description\": \"This is the description for A Regression Testing Site.\",\r\n        \"timeZoneId\": \"America/Kentucky/Monticello\",\r\n        \"notes\": \"This should not have been created because it already exists\",\r\n        \"shiftStartTime\": \"00:00\"\r\n    }\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}sites",
+					"host": [
+						"{{baseURL}}sites"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Attempt to create EAP site with invalid EAP type",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Invalid value for parameter: eapType.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"pm.test(\"Has property errors\", function () {\r",
+							"    pm.expect(jsonData.response).to.have.property(\"errors\")\r",
+							"})\r",
+							"pm.test(\"Has correct error message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site\": {\r\n        \"name\": \"bad eap type\",\r\n        \"shiftStartTime\": \"00:00\",\r\n        \"timeZoneId\": \"EST\",\r\n        \"notes\" : \"This site is configured with a bad EAPType.\",\r\n        \"eapType\": \"abc\",\r\n        \"restrictedEapType\" : \"EAPTls\",\r\n        \"restrictedSSID\" :  \"testSSID\",\r\n        \"credentialAssociation\": \"SITE\",\r\n        \"chargerDisconnect\": false,\r\n        \"usePins\" : true,\r\n        \"sitePIN\" : \"1234\",\r\n        \"siteWideUser\": {\r\n            \"userName\": \"SiteWide-User\",\r\n            \"certificatePassword\" : \"foobar\",\r\n            \"certificateKeyFileContents\": \"SiteWide-User-KeyContent\",\r\n            \"certificateFileContents\"   : \"SiteWide-User-FileContent\"\r\n        },\r\n        \"restrictedUser\": {\r\n            \"userName\": \"Restricted-User\",\r\n            \"certificateKeyFileContents\": \"Restricted-User-KeyContent\",\r\n            \"certificateFileContents\"   : \"Restricted-User-FileContent\",\r\n            \"certificatePassword\" : \"foobar\"\r\n        }\r\n    }\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}sites",
+					"host": [
+						"{{baseURL}}sites"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Attempt to create EAP site with invalid restrictedEapType",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Invalid value for parameter: restrictedEapType.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"pm.test(\"Has property errors\", function () {\r",
+							"    pm.expect(jsonData.response).to.have.property(\"errors\")\r",
+							"})\r",
+							"pm.test(\"Has correct error message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site\": {\r\n        \"name\": \"Bad restrictedEapType\",\r\n        \"shiftStartTime\": \"00:00\",\r\n        \"timeZoneId\": \"EST\",\r\n        \"notes\" : \"This site is configured with a bad restrictedEapTYpe.\",\r\n        \"eapType\": \"EAPTLS\",\r\n        \"restrictedEapType\" : \"abc\",\r\n        \"restrictedSSID\" :  \"testSSID\",\r\n        \"credentialAssociation\": \"SITE\",\r\n        \"chargerDisconnect\": false,\r\n        \"usePins\" : true,\r\n        \"sitePIN\" : \"1234\",\r\n        \"siteWideUser\": {\r\n            \"userName\": \"SiteWide-User\",\r\n            \"certificatePassword\" : \"foobar\",\r\n            \"certificateKeyFileContents\": \"SiteWide-User-KeyContent\",\r\n            \"certificateFileContents\"   : \"SiteWide-User-FileContent\"\r\n        },\r\n        \"restrictedUser\": {\r\n            \"userName\": \"Restricted-User\",\r\n            \"certificateKeyFileContents\": \"Restricted-User-KeyContent\",\r\n            \"certificateFileContents\"   : \"Restricted-User-FileContent\",\r\n            \"certificatePassword\" : \"foobar\"\r\n        }\r\n    }\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}sites",
+					"host": [
+						"{{baseURL}}sites"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Attempt to create EAP site with invalid credentialAssociation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Invalid value for parameter: credentialAssociation.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"pm.test(\"Has property errors\", function () {\r",
+							"    pm.expect(jsonData.response).to.have.property(\"errors\")\r",
+							"})\r",
+							"pm.test(\"Has correct error message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site\": {\r\n        \"name\": \"Bad credential association\",\r\n        \"shiftStartTime\": \"00:00\",\r\n        \"timeZoneId\": \"EST\",\r\n        \"notes\" : \"This site is configured with a Bad credential association.\",\r\n        \"eapType\": \"EAPTLS\",\r\n        \"restrictedEapType\" : \"EAPTLS\",\r\n        \"restrictedSSID\" :  \"testSSID\",\r\n        \"credentialAssociation\": \"bad\",\r\n        \"chargerDisconnect\": false,\r\n        \"usePins\" : true,\r\n        \"sitePIN\" : \"1234\",\r\n        \"siteWideUser\": {\r\n            \"userName\": \"SiteWide-User\",\r\n            \"certificatePassword\" : \"foobar\",\r\n            \"certificateKeyFileContents\": \"SiteWide-User-KeyContent\",\r\n            \"certificateFileContents\"   : \"SiteWide-User-FileContent\"\r\n        },\r\n        \"restrictedUser\": {\r\n            \"userName\": \"Restricted-User\",\r\n            \"certificateKeyFileContents\": \"Restricted-User-KeyContent\",\r\n            \"certificateFileContents\"   : \"Restricted-User-FileContent\",\r\n            \"certificatePassword\" : \"foobar\"\r\n        }\r\n    }\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}sites",
+					"host": [
+						"{{baseURL}}sites"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Attempt to create EAP site with restricted EAPtype.NONE and unneed restricted user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"A restricted user is NOT need when restrictedEapType equals EAPype.NONE\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"pm.test(\"Has property errors\", function () {\r",
+							"    pm.expect(jsonData.response).to.have.property(\"errors\")\r",
+							"})\r",
+							"pm.test(\"Has correct error message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site\": {\r\n        \"name\": \"bad site\",\r\n        \"shiftStartTime\": \"00:00\",\r\n        \"timeZoneId\": \"EST\",\r\n        \"eapType\": \"EAPTLS\",\r\n        \"restrictedEapType\" : \"NONE\",\r\n        \"restrictedSSID\" : \"myRestrictedSSID\",\r\n        \"credentialAssociation\": \"SITE\",\r\n        \"chargerDisconnect\": false,\r\n        \"usePins\" : true,\r\n        \"sitePIN\" : \"1234\",\r\n        \"siteWideUser\": {\r\n            \"userName\": \"SiteWide-User\",\r\n            \"certificateKeyFileContents\": \"SiteWide-User-KeyContent\",\r\n            \"certificateFileContents\"   : \"SiteWide-User-FileContent\"\r\n        },\r\n        \"restrictedUser\": {\r\n            \"userName\": \"Restricted-User\",\r\n            \"certificateKeyFileContents\": \"Restricted-User-KeyContent\",\r\n            \"certificateFileContents\"   : \"Restricted-User-FileContent\"\r\n        }\r\n    }\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}sites",
+					"host": [
+						"{{baseURL}}sites"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Attempt to create EAP site with restricted EAPtype.NONE and no sitewide user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"You must configure a siteWideUser to use EAP.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"pm.test(\"Has property errors\", function () {\r",
+							"    pm.expect(jsonData.response).to.have.property(\"errors\")\r",
+							"})\r",
+							"pm.test(\"Has correct error message\", function () {\r",
+							"    console.log(jsonData.response.errors.msg)\r",
+							"    console.log(errorMessage)\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site\": {\r\n        \"name\": \"Should not be created\",\r\n        \"shiftStartTime\": \"00:00\",\r\n        \"timeZoneId\": \"EST\",\r\n        \"eapType\": \"EAPTLS\",\r\n        \"credentialAssociation\": \"SITE\",\r\n        \"restrictedEapType\" : \"NONE\",\r\n        \"restrictedSSID\" : \"MyRestrectedSSID\",\r\n        \"chargerDisconnect\": false,\r\n        \"usePins\" : true,\r\n        \"sitePIN\" : \"1234\"\r\n    }\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}sites",
+					"host": [
+						"{{baseURL}}sites"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Attempt to create EAP site with restricted EAPtype.NONE and mising restricted SSID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"restrictedSSID property cannot be null or empty.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"pm.test(\"Has property errors\", function () {\r",
+							"    pm.expect(jsonData.response).to.have.property(\"errors\")\r",
+							"})\r",
+							"console.log(jsonData.response.errors.msg)\r",
+							"console.log(errorMessage)\r",
+							"pm.test(\"Has correct error message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site\": {\r\n        \"name\": \"bad site\",\r\n        \"shiftStartTime\": \"00:00\",\r\n        \"timeZoneId\": \"EST\",\r\n        \"eapType\": \"EAPTLS\",\r\n        \"restrictedEapType\" : \"NONE\",\r\n        \"credentialAssociation\": \"SITE\",\r\n        \"chargerDisconnect\": false,\r\n        \"usePins\" : true,\r\n        \"sitePIN\" : \"1234\",\r\n        \"siteWideUser\": {\r\n            \"userName\": \"SiteWide-User\",\r\n            \"certificateKeyFileContents\": \"SiteWide-User-KeyContent\",\r\n            \"certificateFileContents\"   : \"SiteWide-User-FileContent\"\r\n        }\r\n    }\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}sites",
+					"host": [
+						"{{baseURL}}sites"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Site using PEAPV0 with  missing passwords",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"pm.test(\"Has property errors\", function () {\r",
+							"    pm.expect(jsonData.response).to.have.property(\"errors\")\r",
+							"})\r",
+							"\r",
+							"console.log(jsonData.response.errors[0].msg)\r",
+							"pm.test(\"Has correct restrictedUser error message: \", function () {\r",
+							"    pm.expect(jsonData.response.errors[0].msg).to.eql(\"The restrictedUser user password property cannot be null or empty.\") \r",
+							"})\r",
+							"console.log(jsonData.response.errors[1].msg)\r",
+							"pm.test(\"Has correct siteWideUser error message \", function () {\r",
+							"    pm.expect(jsonData.response.errors[1].msg).to.eql(\"The siteWideUser user password property cannot be null or empty.\") \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site\": {\r\n        \"name\": \"badone\",\r\n        \"shiftStartTime\": \"00:00\",\r\n        \"timeZoneId\": \"EST\",\r\n        \"eapType\": \"PEAPV0\",\r\n        \"restrictedEapType\" : \"PEAPV0\",\r\n        \"credentialAssociation\": \"DEVICE\",\r\n        \"chargerDisconnect\": false,\r\n        \"usePins\" : true,\r\n        \"sitePIN\" : \"1234\",\r\n        \"siteWideUser\": {\r\n            \"userName\": \"SiteWide-User\"\r\n        },\r\n        \"restrictedUser\": {\r\n            \"userName\": \"Restricted-User\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}sites",
+					"host": [
+						"{{baseURL}}sites"
+					]
+				},
+				"description": "This request creates a new site using EAP TLS with EAP Credential type \"DEVICE\"\n\nThis means that you MUST have a certificate and key for restricted user when creating this site. A certificate password is optional.\n\nYou do NOT need a Site Wide user when using EAP TLS and DEVICE"
+			},
+			"response": []
+		},
+		{
+			"name": "Attempt to create Site with empty server certificate property",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"certificateFileContents property cannot be null or empty.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"pm.test(\"Has correct error message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site\": {\r\n        \"name\": \"EAP Site With SITE Credentials and empty Server Certificate\",\r\n        \"shiftStartTime\": \"00:00\",\r\n        \"timeZoneId\": \"EST\",\r\n        \"eapType\": \"EAPTLS\",\r\n        \"restrictedEapType\" : \"EAPTLS\",\r\n        \"credentialAssociation\": \"SITE\",\r\n        \"chargerDisconnect\": false,\r\n        \"usePins\" : true,\r\n        \"sitePIN\" : \"1234\",\r\n        \"siteWideUser\": {\r\n            \"userName\": \"SiteWide-User\",\r\n            \"certificateKeyFileContents\": \"SiteWide-User-KeyContent\",\r\n            \"certificateFileContents\"   : \"SiteWide-User-FileContent\"\r\n        },\r\n        \"restrictedUser\": {\r\n            \"userName\": \"Restricted-User\",\r\n            \"certificateKeyFileContents\": \"Restricted-User-KeyContent\",\r\n            \"certificateFileContents\"   : \"Restricted-User-FileContent\"\r\n        }, \r\n        \"serverCredentials\": {\r\n            \"certificateFileContents\": \"\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}sites",
+					"host": [
+						"{{baseURL}}sites"
+					]
+				},
+				"description": "This request creates a new site using EAP TLS with EAP Credential type \"SITE\"\n\nThis means that you MUST have a certificate and key for the site wide user and the restricted user when creating this site. A certificate password is optional for both users."
+			},
+			"response": []
+		},
+		{
+			"name": "Attempt to create a site without the required properties",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage_0 = \"name property cannot be null or empty.\"\r",
+							"const errorMessage_1 = \"shiftStartTime property cannot be null or empty.\"\r",
+							"const errorMessage_2 = \"timeZoneId property cannot be null or empty.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"pm.test(\"Has property errors\", function () {\r",
+							"    pm.expect(jsonData.response).to.have.property(\"errors\")\r",
+							"})\r",
+							"pm.test(\"Has correct error messages\", function () {\r",
+							"    pm.expect(jsonData.response.errors[0].msg).eql(errorMessage_0)\r",
+							"    pm.expect(jsonData.response.errors[1].msg).eql(errorMessage_1)\r",
+							"    pm.expect(jsonData.response.errors[2].msg).eql(errorMessage_2)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site\": {\r\n\r\n   }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}sites",
+					"host": [
+						"{{baseURL}}sites"
+					]
+				},
+				"description": "Attempt to create a site without the required properties.\n\nRequired properties are\n\n- name\n- shiftStartTime\n- timeZoneId"
+			},
+			"response": []
+		},
+		{
+			"name": "Attempt to create site using EAPTLS - SITE with no credentials",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage_0 = \"You must provide both certificateKeyFileContents and certificateFileContent properties for the restricted user.\"\r",
+							"const errorMessage_1 = \"You must provide both certificateKeyFileContents and certificateFileContent properties for the sitewide user.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"pm.test(\"Has property errors\", function () {\r",
+							"    pm.expect(jsonData.response).to.have.property(\"errors\")\r",
+							"})\r",
+							"pm.test(\"Has correct error messages\", function () {\r",
+							"    pm.expect(jsonData.response.errors[0].msg).eql(errorMessage_0)\r",
+							"    pm.expect(jsonData.response.errors[1].msg).eql(errorMessage_1)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site\": {\r\n        \"name\": \"Eap Site No Credentials\",\r\n        \"shiftStartTime\": \"00:00\",\r\n        \"timeZoneId\": \"EST\",\r\n        \"eapType\": \"EAPTLS\",\r\n        \"restrictedEapType\" : \"EAPTLS\",\r\n        \"credentialAssociation\": \"SITE\",\r\n        \"chargerDisconnect\": false,\r\n        \"usePins\" : true,\r\n        \"sitePIN\" : \"1234\",\r\n        \"siteWideUser\": {\r\n            \"userName\": \"SiteWide-User\"\r\n        },\r\n        \"restrictedUser\": {\r\n            \"userName\": \"Restricted-User\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}sites",
+					"host": [
+						"{{baseURL}}sites"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Attempt to create a site with wrong shiftStartTime format",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Start time format is hh:mm\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"pm.test(\"Has correct error message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site\": {\r\n        \"name\": \"Bad\",\r\n        \"shiftStartTime\": \"000:000\",\r\n        \"timeZoneId\": \"EST\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}sites",
+					"host": [
+						"{{baseURL}}sites"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Attempt to create a s with non numeric shiftStartTime time",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Start time format is hh:mm\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"pm.test(\"Has correct error message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site\": {\r\n        \"name\": \"bad\",\r\n        \"shiftStartTime\": \"aa:bb\",\r\n        \"timeZoneId\": \"EST\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}sites",
+					"host": [
+						"{{baseURL}}sites"
+					]
+				},
+				"description": "This request sends an invalid shiftStartTime as \"aa:bb\" with the intent of catching it as a non numeric value. The problem is that after checking for an empty string, \"aa:bb\" is validated using a regular expression that confirms that \"aa:bb\" only contains numbers and and a semicolon.\n\nWithout lots of work, we will not be able to catch this as a non numeric value but we will still report this condition as an error."
+			},
+			"response": []
+		},
+		{
+			"name": "Attempt to create EAP site with empty credential association",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Invalid value for parameter: credentialAssociation.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"pm.test(\"Has correct error message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site\": {\r\n        \"name\": \"Should not have been created\",\r\n        \"shiftStartTime\": \"00:00\",\r\n        \"timeZoneId\": \"EST\",\r\n        \"eapType\": \"EAPTLS\",\r\n        \"restrictedEapType\" : \"EAPTLS\",\r\n        \"credentialAssociation\": \"\",\r\n        \"chargerDisconnect\": false,\r\n        \"usePins\" : false,\r\n        \"siteWideUser\": {\r\n            \"userName\": \"SiteWide-User\",\r\n            \"certificateKeyFileContents\": \"SiteWide-User-KeyContent\",\r\n            \"certificateFileContents\"   : \"SiteWide-User-FileContent\"\r\n        },\r\n        \"restrictedUser\": {\r\n            \"userName\": \"Restricted-User\",\r\n            \"certificateKeyFileContents\": \"Restricted-User-KeyContent\",\r\n            \"certificateFileContents\"   : \"Restricted-User-FileContent\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}sites",
+					"host": [
+						"{{baseURL}}sites"
+					]
+				},
+				"description": "Attempt to create an EAP site with an empty credentialAssociation property"
+			},
+			"response": []
+		},
+		{
+			"name": "Attempt to create EAP site with empty restrictedSSID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"restrictedSSID property cannot be null or empty.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"pm.test(\"Has correct error message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site\": {\r\n        \"name\": \"Site Restricted NONE\",\r\n        \"shiftStartTime\": \"00:00\",\r\n        \"timeZoneId\": \"EST\",\r\n        \"notes\" : \"This site is configured with the restricted EAP type set to NONE.\",\r\n        \"eapType\": \"EAPTLS\",\r\n        \"restrictedEapType\" : \"NONE\",\r\n        \"restrictedSSID\" : \"\",\r\n        \"credentialAssociation\": \"SITE\",\r\n        \"chargerDisconnect\": false,\r\n        \"usePins\" : true,\r\n        \"sitePIN\" : \"1234\",\r\n        \"siteWideUser\": {\r\n            \"userName\": \"SiteWide-User\",\r\n            \"certificatePassword\" : \"foobar\",\r\n            \"certificateKeyFileContents\": \"SiteWide-User-KeyContent\",\r\n            \"certificateFileContents\"   : \"SiteWide-User-FileContent\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}sites",
+					"host": [
+						"{{baseURL}}sites"
+					]
+				},
+				"description": "When creating an site using EAP, the eapType and the restrictedEapType **must** be equal to each other or the restrictedEapType property **must** be equal to NONE.\n\nValid configurations are:\n\n``` json\n\"eapType\": \"AnyEAPType\",    \"restrictedEapType\" : \"AnyEapType\", \n\"eapType\": \"AnyEapType\",    \"restrictedEapType\" : \"NONE\",\n\n ```\n\nWhen\n\n``` json\n\"eapType\": \"AnytEapType\",    \"restrictedEapType\" : \"NONE\",\n\n ```\n\nthe \"restrictedSSID\" must be provided.\n\nThis test is sending an empty string for the \"restrictedEapType\" property."
+			},
+			"response": []
+		},
+		{
+			"name": "Attempt to create EAP site with a missing restrictedSSID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"restrictedSSID property cannot be null or empty.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"pm.test(\"Has correct error message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site\": {\r\n        \"name\": \"BAD\",\r\n        \"shiftStartTime\": \"00:00\",\r\n        \"timeZoneId\": \"EST\",\r\n        \"eapType\": \"EAPTLS\",\r\n        \"restrictedEapType\" : \"NONE\",\r\n        \"credentialAssociation\": \"DEVICE\",\r\n        \"chargerDisconnect\": false,\r\n        \"usePins\" : true,\r\n        \"sitePIN\" : \"1234\",\r\n        \"siteWideUser\": {\r\n            \"userName\": \"SiteWide-User\",\r\n            \"certificateKeyFileContents\": \"SiteWide-User-KeyContent\",\r\n            \"certificateFileContents\"   : \"SiteWide-User-FileContent\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}sites",
+					"host": [
+						"{{baseURL}}sites"
+					]
+				},
+				"description": "When creating an site using EAP, the eapType and the restrictedEapType **must** be equal to each other or the restrictedEapType property **must** be equal to NONE.\n\nValid configurations are:\n\n``` json\n\"eapType\": \"AnyEAPType\",    \"restrictedEapType\" : \"AnyEapType\", \n\"eapType\": \"AnyEapType\",    \"restrictedEapType\" : \"NONE\",\n\n ```\n\nWhen\n\n``` json\n\"eapType\": \"AnytEapType\",    \"restrictedEapType\" : \"NONE\",\n\n ```\n\nthe \"restrictedSSID\" must be provided.\n\nThis test is NOT sending \"restrictedEapType\" property."
+			},
+			"response": []
+		},
+		{
+			"name": "Attempt to create EAP site with eapType NONE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Invalid value for parameter eapType: NONE.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"pm.test(\"Has correct error message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site\": {\r\n        \"name\": \"EAP Type NONE\",\r\n        \"shiftStartTime\": \"00:00\",\r\n        \"timeZoneId\": \"EST\",\r\n        \"eapType\": \"NONE\",\r\n        \"restrictedEapType\" : \"EAPTLS\",\r\n        \"credentialAssociation\": \"SITE\",\r\n        \"chargerDisconnect\": false,\r\n        \"usePins\" : false,\r\n        \"siteWideUser\": {\r\n            \"userName\": \"SiteWide-User\",\r\n            \"certificateKeyFileContents\": \"SiteWide-User-KeyContent\",\r\n            \"certificateFileContents\"   : \"SiteWide-User-FileContent\"\r\n        },        \r\n        \"restrictedUser\": {\r\n            \"userName\": \"Restricted-User\",\r\n            \"certificateKeyFileContents\": \"Restricted-User-KeyContent\",\r\n            \"certificateFileContents\"   : \"Restricted-User-FileContent\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}sites",
+					"host": [
+						"{{baseURL}}sites"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Attempt to create EAP Site usePins TRUE and no PIN",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"sitePIN property cannot be null or empty.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"pm.test(\"Has correct error message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site\": {\r\n        \"name\": \"Should not have been created\",\r\n        \"shiftStartTime\": \"00:00\",\r\n        \"timeZoneId\": \"EST\",\r\n        \"credentialAssociation\": \"SITE\",\r\n        \"eapType\": \"EAPTLS\",\r\n        \"restrictedEapType\" : \"EAPTLS\",        \r\n        \"chargerDisconnect\": false,\r\n        \"usePins\" : true,\r\n        \"siteWideUser\": {\r\n            \"userName\": \"SiteWide-User\",\r\n            \"certificateKeyFileContents\": \"SiteWide-User-KeyContent\",\r\n            \"certificateFileContents\"   : \"SiteWide-User-FileContent\"\r\n        },\r\n        \"restrictedUser\": {\r\n            \"userName\": \"Restricted-User\",\r\n            \"certificateKeyFileContents\": \"Restricted-User-KeyContent\",\r\n            \"certificateFileContents\"   : \"Restricted-User-FileContent\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}sites",
+					"host": [
+						"{{baseURL}}sites"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create New Site for Update Testing",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"\r",
+							"pm.test(\"Has property dataObjects\", function () {\r",
+							"    pm.expect(jsonData.response).to.have.property(\"dataObjects\")\r",
+							"})\r",
+							"pm.test(\"Has correct site name: \" + jsonData.response.dataObjects.name, function () {\r",
+							"        pm.expect(jsonData.response.dataObjects.name).to.eql(\"New Site for Update Testing\")\r",
+							"})\r",
+							"pm.test(\"Has correct propoerty\", function () {\r",
+							"        pm.expect(jsonData.response.dataObjects).to.not.haveOwnProperty(\"eapType\")\r",
+							"})\r",
+							"\r",
+							"// needed for a later test\r",
+							"pm.collectionVariables.set(\"existingNameTest\", jsonData.response.dataObjects.id)\r",
+							"\r",
+							"var createdSiteIds = new Array()\r",
+							"createdSiteIds = pm.collectionVariables.get(\"createdSiteIds\")\r",
+							"if (0 === createdSiteIds.length){\r",
+							"    console.log(\"Creating new array\")\r",
+							"    createdSiteIds = new Array()\r",
+							"} else {\r",
+							"    createdSiteIds = JSON.parse(pm.collectionVariables.get(\"createdSiteIds\"))\r",
+							"}\r",
+							"createdSiteIds.push(jsonData.response.dataObjects.id)\r",
+							"pm.collectionVariables.set(\"createdSiteIds\",  JSON.stringify(createdSiteIds))\r",
+							"console.log(\"Created Site id's = \" + pm.collectionVariables.get(\"createdSiteIds\"))\r",
+							"pm.collectionVariables.set(\"updateSiteId\",  JSON.stringify(jsonData.response.dataObjects.id))\r",
+							"console.log(pm.collectionVariables.get(\"updateSiteId\"))\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site\": {\r\n        \"name\": \"New Site for Update Testing\",\r\n        \"description\": \"This is site is being used for update testing\",\r\n        \"timeZoneId\": \"America/Kentucky/Monticello\",\r\n        \"notes\": \"EAP has NOT been configured\",\r\n        \"shiftStartTime\": \"00:00\"\r\n    }\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}sites",
+					"host": [
+						"{{baseURL}}sites"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sites | Create EAP Device with eapType NONE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"\r",
+							"const errorMessage = \"Invalid value for parameter eapType: NONE.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Sites | Create EAP Device with eapType NONE\", function() {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site\": {\r\n        \"name\": \"TEST\",\r\n        \"shiftStartTime\": \"00:00\",\r\n        \"timeZoneId\": \"EST\",\r\n        \"eapType\": \"NONE\",\r\n        \"restrictedEapType\" : \"EAPTLS\",\r\n        \"credentialAssociation\": \"DEVICE\",\r\n        \"chargerDisconnect\": false,\r\n        \"usePins\" : true,\r\n        \"sitePIN\" : \"1234\",\r\n        \"restrictedUser\": {\r\n            \"userName\": \"Restricted-User\",\r\n            \"certificateKeyFileContents\": \"Restricted-User-KeyContent\",\r\n            \"certificateFileContents\"   : \"Restricted-User-FileContent\",\r\n            \"certificatePassword\" : \"foobar\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}sites",
+					"host": [
+						"{{baseURL}}sites"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sites | Create EAP Device with restrictedEapType NONE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"\r",
+							"const errorMessage = \"restrictedSSID property cannot be null or empty.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Sites | Create EAP Device with eapType NONE\", function() {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site\": {\r\n        \"name\": \"TEST\",\r\n        \"shiftStartTime\": \"00:00\",\r\n        \"timeZoneId\": \"EST\",\r\n        \"eapType\": \"EAPTLS\",\r\n        \"restrictedEapType\" : \"NONE\",\r\n        \"credentialAssociation\": \"DEVICE\",\r\n        \"chargerDisconnect\": false,\r\n        \"usePins\" : true,\r\n        \"sitePIN\" : \"1234\",\r\n        \"restrictedUser\": {\r\n            \"userName\": \"Restricted-User\",\r\n            \"certificateKeyFileContents\": \"Restricted-User-KeyContent\",\r\n            \"certificateFileContents\"   : \"Restricted-User-FileContent\",\r\n            \"certificatePassword\" : \"foobar\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}sites",
+					"host": [
+						"{{baseURL}}sites"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update the name of an existing site",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"A Site with name A Site for Regression Testing already exists.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"pm.test(\"Has property errors\", function () {\r",
+							"    pm.expect(jsonData.response).to.have.property(\"errors\")\r",
+							"})\r",
+							"pm.test(\"Has correct error message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"site\": {\r\n            \"id\": {{existingNameTest}},\r\n            \"name\": \"A Site for Regression Testing\"\r\n        }\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}sites",
+					"host": [
+						"{{baseURL}}sites"
+					]
+				},
+				"description": "Attempt to change the name of an existing site using the name of another existing site."
+			},
+			"response": []
+		},
+		{
+			"name": "Update Site Add EAP",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"pm.test(\"EAP as been configured\", function () {\r",
+							"    pm.expect(jsonData.response.dataObjects).to.haveOwnProperty(\"eapType\")\r",
+							"})\r",
+							"pm.test(\"Has restricted and site wide user properties\", function () {\r",
+							"    pm.expect(jsonData.response.dataObjects).to.haveOwnProperty(\"siteWideUser\")\r",
+							"    pm.expect(jsonData.response.dataObjects).to.haveOwnProperty(\"restrictedUser\")\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site\": {\r\n        \"id\": {{updateSiteId}},\r\n        \"eapType\": \"EAPTLS\",\r\n        \"restrictedEapType\": \"EAPTLS\",\r\n        \"credentialAssociation\": \"SITE\",\r\n        \"chargerDisconnect\": false,\r\n        \"notes\": \"EAP has been configured\",\r\n        \"usePins\": false,\r\n        \"siteWideUser\": {\r\n            \"userName\": \"SiteWide-User\",\r\n            \"certificatePassword\" : \"foobar\",\r\n            \"certificateKeyFileContents\": \"SiteWide-User-KeyContent\",\r\n            \"certificateFileContents\"   : \"SiteWide-User-FileContent\"\r\n        },\r\n        \"restrictedUser\": {\r\n            \"userName\": \"Restricted-User\",\r\n            \"certificateKeyFileContents\": \"Restricted-User-KeyContent\",\r\n            \"certificateFileContents\"   : \"Restricted-User-FileContent\",\r\n            \"certificatePassword\" : \"foobar\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}sites",
+					"host": [
+						"{{baseURL}}sites"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Site Add Server Certificate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"pm.test(\"Has serverCredentials property\", function () {\r",
+							"    pm.expect(jsonData.response.dataObjects).to.haveOwnProperty(\"serverCredentials\")\r",
+							"})\r",
+							"pm.test(\"Has serverCredentials.certificateFileName property\", function () {\r",
+							"    pm.expect(jsonData.response.dataObjects.serverCredentials).to.haveOwnProperty(\"certificateFileName\")\r",
+							"})\r",
+							"\r",
+							"pm.collectionVariables.set(\"serverCertificateFileName\", jsonData.response.dataObjects.serverCredentials.certificateFileName)\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site\": {\r\n        \"id\": {{updateSiteId}},\r\n        \"eapType\": \"EAPTLS\",\r\n        \"restrictedEapType\": \"EAPTLS\",\r\n        \"credentialAssociation\": \"SITE\",\r\n        \"chargerDisconnect\": false,\r\n        \"usePins\": false,\r\n        \"siteWideUser\": {\r\n            \"userName\": \"SiteWide-User\",\r\n            \"certificateKeyFileContents\": \"SiteWide-User-KeyContent\",\r\n            \"certificateFileContents\"   : \"SiteWide-User-FileContent\"\r\n        },\r\n        \"restrictedUser\": {\r\n            \"userName\": \"Restricted-User\",\r\n            \"certificateKeyFileContents\": \"Restricted-User-KeyContent\",\r\n            \"certificateFileContents\"   : \"Restricted-User-FileContent\"\r\n        },\r\n        \"serverCredentials\": {\r\n            \"certificateFileContents\": \"LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tDQpNSUlFVnpDQ0F6K2dBd0lCQWdJQkFqQU5CZ2txaGtpRzl3MEJBUVVGQURBWE1SVXdFd1lEVlFRREV3eFhhVVpwDQpMVkp2YjNRdFEwRXdIaGNOTURVd01UQXhNREF3TURBd1doY05NalV3TVRBeE1EQXdNREF3V2pBak1TRXdId1lEDQpWUVFERXhoWGFVWnBMVWx1ZEdWeWJXVmthV0YwWlMxRFFTMXpjbll3Z2dFaU1BMEdDU3FHU0liM0RRRUJBUVVBDQpBNElCRHdBd2dnRUtBb0lCQVFERGlya01NbmU2bTJSeWwvanpxOEhFUWt3YTFoeTFYdm9SWExaVGpUeFRaQmJtDQphOEFZMkNiUnNMWlpsbjdSUmVvZTZGbHB4a2tjU3hzUitqdEp2TkdxMlJMYkxiVEFyRzk4Y1UyUHJ6YUlRRFZpDQpXYzk1S3F0TGVBNkhLdkRWNTZxM1MwbFMrQy9QbWJHUlYvTmpxUFhKU1IzSzJtVmRTVFdDU3R0SHVzMjRsRlhVDQpQa3p4ZWpXN1RBOTRSQWhKRHdBNFExVG5BZTJ0KzVTNHRrMFlRR2JFemxjSnRVK3c5cDUzK1NxZmFLTXpablBTDQpTRkJkNklhbHVxQVcxRWFoS3ZRMytRVFpKNkZVVG9DeHBMWEo2c0RMb2tySnB4Y0hEbHpqeHlQaEVNemUza2J6DQp4L0g3ejBuVGJLUHRWaHBLcEhTajJNVDE3R1pJUjZXTjFhMUkxOVozQWdNQkFBR2pnZ0dnTUlJQm5EQS9CZ05WDQpIU01FT0RBMmdCVFhIWFRJMW1xVWpCRFBCVS9qbHFiV3o3Smk4NkVicEJrd0Z6RVZNQk1HQTFVRUF4TU1WMmxHDQphUzFTYjI5MExVTkJnZ0VCTUVFR0NXQ0dTQUdHK0VJQkJBUTBGakpvZEhSd09pOHZjMlZ5ZG1WeUxuZHBabWxzDQpZV0p6TG14dlkyRnNMMk5oTDJOeWJDOTNhV1pwY205dmRHTmhMbU55YkRCREJnTlZIUjhFUERBNk1EaWdOcUEwDQpoakpvZEhSd09pOHZjMlZ5ZG1WeUxuZHBabWxzWVdKekxteHZZMkZzTDJOaEwyTnliQzkzYVdacGNtOXZkR05oDQpMbU55YkRCTkJnZ3JCZ0VGQlFjQkFRUkJNRDh3UFFZSUt3WUJCUVVITUFLR01XaDBkSEE2THk5elpYSjJaWEl1DQpkMmxtYVd4aFluTXViRzlqWVd3dlkyRXZZMkV2ZDJsbWFYSnZiM1JqWVM1amNuUXdJQVlEVlIwU0JCa3dGNElWDQpjMlZ5ZG1WeUxuZHBabWxzWVdKekxteHZZMkZzTUNBR0ExVWRFUVFaTUJlQ0ZYTmxjblpsY2k1M2FXWnBiR0ZpDQpjeTVzYjJOaGJEQVBCZ05WSFJNQkFmOEVCVEFEQVFIL01BNEdBMVVkRHdFQi93UUVBd0lCaGpBZEJnTlZIUTRFDQpGZ1FVUDV6LytPV3owNnRaNXd0K010dXd4VVFVS3pZd0RRWUpLb1pJaHZjTkFRRUZCUUFEZ2dFQkFDbjNWZWRrDQo4WFFaMjVsak1xbzA4VE81NlFnYWhSc012OHdPcGxWd21tdjk5dlpTWmlFenBQL3RJN0prMjdRYkZaTzYrTG5RDQpUb1RaT2NteCt4a0lpMWM5Tm12dWVKc2dCMWl2NEdlc1NvZTVoV3VIaU5mbGdGSmV3QUsxelRSajBzMzI4US8wDQphNlNOUUJKcEk5NGlVeFRCcDNvOTAyOGhCeFdPVFNIN21iSUF4Vkc2NldKQTJJMmxDS016TlI5Wll2ZG5UNHhwDQpjVzFzd0g1RFF2RkNxQmJmVXlZR3gvRzJDTXpGdXU5dlh0dG9BZVpsQm90eDVDc2lRNVV0anc0d2QrejZvalVUDQp6SFI0R2lNeis5ZWFGNEFncUp0d0czMmNCbm85bjlRaGF1dXhWM3R0NFFNSW9KMzdtdHJUcHh2M1FvOUpQMUgzDQpKVTN6NnRteXRCbEVXTEk9DQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tDQo=\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}sites",
+					"host": [
+						"{{baseURL}}sites"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Site EAP Update Server Certificate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"pm.test(\"Certificate was updated\", function () {\r",
+							"    var previousFileName = pm.collectionVariables.get(\"serverCertificateFileName\")\r",
+							"    pm.expect(jsonData.response.dataObjects.serverCredentials.serverCertificateFileName).to.not.eql(previousFileName)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site\": {\r\n        \"id\": {{updateSiteId}},\r\n        \"eapType\": \"EAPTLS\",\r\n        \"restrictedEapType\": \"EAPTLS\",\r\n        \"credentialAssociation\": \"SITE\",\r\n        \"chargerDisconnect\": false,\r\n        \"usePins\": false,\r\n        \"siteWideUser\": {\r\n            \"userName\": \"SiteWide-User\",\r\n            \"certificateKeyFileContents\": \"SiteWide-User-KeyContent\",\r\n            \"certificateFileContents\"   : \"SiteWide-User-FileContent\"\r\n        },\r\n        \"restrictedUser\": {\r\n            \"userName\": \"Restricted-User\",\r\n            \"certificateKeyFileContents\": \"Restricted-User-KeyContent\",\r\n            \"certificateFileContents\"   : \"Restricted-User-FileContent\"\r\n        },\r\n        \"serverCredentials\": {\r\n            \"certificateFileContents\": \"updated Certificate\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}sites",
+					"host": [
+						"{{baseURL}}sites"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Site EAP Site Wide User Certificate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const certificateKeyFileName = \"SiteWideUserKey\"\r",
+							"const certificateFileName = \"SiteWideUserCertificate\"\r",
+							"const userName = \"SiteWide-User\"\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"pm.test(\"Site Wide User certificate and certificate password were added\", function () {\r",
+							"    pm.expect(jsonData.response.dataObjects.siteWideUser).to.haveOwnProperty(\"certificateFileName\")\r",
+							"    pm.expect(jsonData.response.dataObjects.siteWideUser).to.haveOwnProperty(\"certificateKeyFileName\")\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Site Wide User Certificate data is correct\", function () {\r",
+							"    pm.expect(jsonData.response.dataObjects.siteWideUser.userName).eql(userName)\r",
+							"    pm.expect(jsonData.response.dataObjects.siteWideUser.certificateFileName).contains(certificateFileName)\r",
+							"    pm.expect(jsonData.response.dataObjects.siteWideUser.certificateKeyFileName).contains(certificateKeyFileName)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site\": {\r\n        \"id\": {{updateSiteId}},\r\n        \"eapType\": \"EAPTLS\",\r\n        \"restrictedEapType\": \"EAPTLS\",\r\n        \"credentialAssociation\": \"SITE\",\r\n        \"chargerDisconnect\": false,\r\n        \"usePins\": true,\r\n        \"sitePIN\": \"1234\",\r\n        \"siteWideUser\": {\r\n            \"userName\": \"SiteWide-User\",\r\n            \"certificateKeyFileContents\": \"Updated -SiteWide-User-KeyContent\",\r\n            \"certificateFileContents\": \"SiteWide-User-FileContent\"\r\n        },\r\n        \"restrictedUser\": {\r\n            \"userName\": \"Restricted-User\",\r\n            \"certificateKeyFileContents\": \"Restricted-User-KeyContent\",\r\n            \"certificateFileContents\": \"Restricted-User-FileContent\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}sites",
+					"host": [
+						"{{baseURL}}sites"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Site EAP Update Restricted User Certificate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const certificateKeyFileName = \"RestrictedUserKey\"\r",
+							"const certificateFileName = \"RestrictedUserCertificate\"\r",
+							"const userName = \"Restricted-User\"\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"pm.test(\"Restricted User certificate and certificate password were added\", function () {\r",
+							"    pm.expect(jsonData.response.dataObjects.siteWideUser).to.haveOwnProperty(\"certificateFileName\")\r",
+							"    pm.expect(jsonData.response.dataObjects.siteWideUser).to.haveOwnProperty(\"certificateKeyFileName\")\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Restricted User Certificate data is correct\", function () {\r",
+							"    pm.expect(jsonData.response.dataObjects.restrictedUser.userName).eql(userName)\r",
+							"    pm.expect(jsonData.response.dataObjects.restrictedUser.certificateFileName).contains(certificateFileName)\r",
+							"    pm.expect(jsonData.response.dataObjects.restrictedUser.certificateKeyFileName).contains(certificateKeyFileName)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site\": {\r\n        \"id\": {{updateSiteId}},\r\n        \"eapType\": \"EAPTLS\",\r\n        \"restrictedEapType\": \"EAPTLS\",\r\n        \"credentialAssociation\": \"SITE\",\r\n        \"chargerDisconnect\": false,\r\n        \"usePins\": true,\r\n        \"sitePIN\": \"1234\",\r\n        \"restrictedUser\": {\r\n            \"userName\": \"Restricted-User\",\r\n            \"certificateKeyFileContents\": \"Updated-Restricted-User-KeyContent\",\r\n            \"certificateFileContents\": \"Restricted-User-FileContent\"\r\n        },\r\n        \"siteWideUser\": {\r\n            \"userName\": \"SiteWide-User\",\r\n            \"certificateKeyFileContents\": \"Updated -SiteWide-User-KeyContent\",\r\n            \"certificateFileContents\": \"SiteWide-User-FileContent\"\r\n        },\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}sites",
+					"host": [
+						"{{baseURL}}sites"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Site Switch to Device",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const credentialAssociation = \"DEVICE\"\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"pm.test(\"Update Site Switch to Device\", function () {\r",
+							"    pm.expect(jsonData.response.dataObjects.credentialAssociation).eql(credentialAssociation)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site\": {\r\n        \"id\": {{updateSiteId}},\r\n        \"name\" : \"Switching from SITE to DEVICE EAP\",\r\n        \"eapType\": \"EAPTLS\",\r\n        \"credentialAssociation\": \"DEVICE\",\r\n        \"restrictedEapType\" : \"EAPTLS\",\r\n        \"restrictedUser\": {\r\n            \"userName\": \"Restricted-User\",\r\n            \"certificateKeyFileContents\": \"Restricted-User-KeyContent\",\r\n            \"certificateFileContents\"   : \"Restricted-User-FileContent\"\r\n        },\r\n        \"siteWideUser\": {\r\n            \"userName\": \"SiteWide-User\",\r\n            \"certificateKeyFileContents\": \"SiteWide-User-KeyContent\",\r\n            \"certificateFileContents\"   : \"SiteWide-User-FileContent\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}sites",
+					"host": [
+						"{{baseURL}}sites"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Site Switch to Site",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const credentialAssociation = \"SITE\"\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"pm.test(\"Update Site Switch to Site\", function () {\r",
+							"    pm.expect(jsonData.response.dataObjects.credentialAssociation).eql(credentialAssociation)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site\": {\r\n        \"id\": {{updateSiteId}},\r\n        \"name\" : \"Switching from DEVICE back to SITE EAP\",\r\n        \"eapType\": \"EAPTLS\",\r\n        \"credentialAssociation\": \"SITE\",\r\n        \"restrictedEapType\" : \"EAPTLS\",\r\n        \"restrictedUser\": {\r\n            \"userName\": \"Restricted-User\",\r\n            \"certificateKeyFileContents\": \"Updated-Restricted-User-KeyContent\",\r\n            \"certificateFileContents\": \"Restricted-User-FileContent\"\r\n        }, \r\n        \"siteWideUser\": {\r\n            \"userName\": \"SiteWide-User\",\r\n            \"certificateKeyFileContents\": \"SiteWide-User-KeyContent\",\r\n            \"certificateFileContents\": \"SiteWide-User-FileContent\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}sites",
+					"host": [
+						"{{baseURL}}sites"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Empty Site",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"id property cannot be null or empty.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"pm.test(\"Has correct error message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site\": {\r\n        \"id\": \"\",\r\n        \"name\" : \"not exist\",\r\n        \"eapType\": \"EAPTLS\",\r\n        \"credentialAssociation\": \"SITE\",\r\n        \"restrictedEapType\" : \"EAPTLS\",\r\n        \"siteWideUser\": {\r\n            \"userName\": \"SiteWide-User\",\r\n            \"certificatePassword\": \"foobar\",\r\n            \"certificateKeyFileContents\": \"SiteWide-User-KeyContent\",\r\n            \"certificateFileContents\": \"SiteWide-User-FileContent\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}sites",
+					"host": [
+						"{{baseURL}}sites"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Site non numeric id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"id property is not numeric: abcd\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"pm.test(\"Has correct error message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site\": {\r\n        \"id\": \"abcd\",\r\n        \"name\" : \"not exist\",\r\n        \"eapType\": \"EAPTLS\",\r\n        \"credentialAssociation\": \"SITE\",\r\n        \"restrictedEapType\" : \"EAPTLS\",\r\n        \"siteWideUser\": {\r\n            \"userName\": \"SiteWide-User\",\r\n            \"certificatePassword\": \"foobar\",\r\n            \"certificateKeyFileContents\": \"SiteWide-User-KeyContent\",\r\n            \"certificateFileContents\": \"SiteWide-User-FileContent\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}sites",
+					"host": [
+						"{{baseURL}}sites"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update non existing Site",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Site with id 1000000000000000000 cannot be found.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"pm.test(\"Has correct error message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site\": {\r\n        \"id\": 1000000000000000000,\r\n        \"eapType\": \"EAPTLS\",\r\n        \"restrictedEapType\": \"EAPTLS\",\r\n        \"credentialAssociation\": \"SITE\",\r\n        \"chargerDisconnect\": false,\r\n        \"usePins\": true,\r\n        \"sitePIN\": \"1234\",\r\n        \"siteWideUser\": {\r\n            \"userName\": \"SiteWide-User\",\r\n            \"certificatePassword\": \"foobar\",\r\n            \"certificateKeyFileContents\": \"SiteWide-User-KeyContent\",\r\n            \"certificateFileContents\": \"SiteWide-User-FileContent\"\r\n        },\r\n        \"restrictedUser\": {\r\n            \"userName\": \"Restricted-User\",\r\n            \"certificateKeyFileContents\": \"Restricted-User-KeyContent\",\r\n            \"certificateFileContents\": \"Restricted-User-FileContent\",\r\n            \"certificatePassword\": \"foobar\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}sites",
+					"host": [
+						"{{baseURL}}sites"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Site missing id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"You must select at least one site to be deleted.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"pm.test(\"Has correct error message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site\": {\r\n        \"id\": \"\",\r\n        \"name\" : \"not exist\",\r\n        \"eapType\": \"EAPTLS\",\r\n        \"credentialAssociation\": \"SITE\",\r\n        \"restrictedEapType\" : \"EAPTLS\",\r\n        \"siteWideUser\": {\r\n            \"userName\": \"SiteWide-User\",\r\n            \"certificatePassword\": \"foobar\",\r\n            \"certificateKeyFileContents\": \"SiteWide-User-KeyContent\",\r\n            \"certificateFileContents\": \"SiteWide-User-FileContent\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}sites?ids=",
+					"host": [
+						"{{baseURL}}sites"
+					],
+					"query": [
+						{
+							"key": "ids",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Multiple Unknown Sites",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage_0 = \"Site with id 100000 cannot be found.\"\r",
+							"const errorMessage_1 = \"Site with id 200000 cannot be found.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Has correct error messages: \", function () {\r",
+							"    pm.expect(jsonData.response.errors[0].msg).to.eql(\"Site with id 100000 cannot be found.\") \r",
+							"    pm.expect(jsonData.response.errors[1].msg).to.eql(\"Site with id 200000 cannot be found.\") \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}sites?ids=100000,200000",
+					"host": [
+						"{{baseURL}}sites"
+					],
+					"query": [
+						{
+							"key": "ids",
+							"value": "100000,200000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create New Site to Delete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"\r",
+							"pm.test(\"Has property dataObjects\", function () {\r",
+							"    pm.expect(jsonData.response).to.have.property(\"dataObjects\")\r",
+							"})\r",
+							"pm.test(\"Has correct site name: \" + jsonData.response.dataObjects.name, function () {\r",
+							"        pm.expect(jsonData.response.dataObjects.name).to.eql(\"New Site to delete\")\r",
+							"})\r",
+							"\r",
+							"// needed for a later test\r",
+							"pm.collectionVariables.set(\"newSiteToDelete\", jsonData.response.dataObjects.id)\r",
+							"\r",
+							"var createdSiteIds = new Array()\r",
+							"createdSiteIds = pm.collectionVariables.get(\"createdSiteIds\")\r",
+							"if (0 === createdSiteIds.length){\r",
+							"    console.log(\"Creating new array\")\r",
+							"    createdSiteIds = new Array()\r",
+							"} else {\r",
+							"    createdSiteIds = JSON.parse(pm.collectionVariables.get(\"createdSiteIds\"))\r",
+							"}\r",
+							"createdSiteIds.push(jsonData.response.dataObjects.id)\r",
+							"pm.collectionVariables.set(\"createdSiteIds\",  JSON.stringify(createdSiteIds))\r",
+							"console.log(\"Created Site id's = \" + pm.collectionVariables.get(\"createdSiteIds\"))\r",
+							"pm.collectionVariables.set(\"updateSiteId\",  JSON.stringify(jsonData.response.dataObjects.id))\r",
+							"console.log(pm.collectionVariables.get(\"updateSiteId\"))\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site\": {\r\n        \"name\": \"New Site to delete\",\r\n        \"description\": \"This is site is being used for deletion testing\",\r\n        \"timeZoneId\": \"America/Kentucky/Monticello\",\r\n        \"shiftStartTime\": \"00:00\"\r\n    }\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}sites",
+					"host": [
+						"{{baseURL}}sites"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Multiple Partial success",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage_0 = \"Site with id 100000 cannot be found.\"\r",
+							"const errorMessage_1 = \"Site with id 200000 cannot be found.\"\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Has correct error message: \", function () {\r",
+							"    pm.expect(jsonData.response.errors[0].msg).to.eql(\"Site with id 100000 cannot be found.\") \r",
+							"    pm.expect(jsonData.response.errors[1].msg).to.eql(\"Site with id 200000 cannot be found.\") \r",
+							"})\r",
+							"success = \"Site \" + pm.collectionVariables.get(\"newSiteToDelete\") + \" was deleted.\"\r",
+							"pm.test(\"Has correct success message: \", function () {\r",
+							"    pm.expect(jsonData.response.success.msg).to.eql(success) \r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}sites?ids=100000,200000,{{newSiteToDelete}}",
+					"host": [
+						"{{baseURL}}sites"
+					],
+					"query": [
+						{
+							"key": "ids",
+							"value": "100000,200000,{{newSiteToDelete}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Clean up after yourself",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(\"Cleanup after yourself\")\r",
+							"if (pm.collectionVariables.get(\"createdSiteIds\")) {\r",
+							"\r",
+							"    pm.test(\"Status code is 200\", function () {\r",
+							"        pm.response.to.have.status(200)\r",
+							"    })\r",
+							"\r",
+							"    pm.test(\"Clear Variables\", function () {\r",
+							"        console.log(\"Clearing variables\")\r",
+							"        pm.collectionVariables.set(\"sitesToDelete\", \"\")\r",
+							"        pm.collectionVariables.set(\"createdSiteIds\",  new Array())\r",
+							"    })\r",
+							"}\r",
+							"console.log(\"Exiting Cleanup after yourself\")"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"console.log(\"Delete sites that were created when running this collection\")\r",
+							"\r",
+							"if (pm.collectionVariables.get(\"createdSiteIds\")) {\r",
+							"    createdSiteIds = pm.collectionVariables.get(\"createdSiteIds\")\r",
+							"    if (0 != createdSiteIds.length) {\r",
+							"        createdSiteIds = JSON.parse(pm.collectionVariables.get(\"createdSiteIds\"))\r",
+							"        console.log(\"Deleting created sites \" + createdSiteIds)\r",
+							"        sitesToDelete = \"\"\r",
+							"        for (let i = 0; i < createdSiteIds.length; i++) {\r",
+							"        sitesToDelete = sitesToDelete + createdSiteIds[i]\r",
+							"        if (i != createdSiteIds.length -1)\r",
+							"            sitesToDelete = sitesToDelete + \",\"\r",
+							"        }\r",
+							"        console.log (\"Sites to Delete: \" + sitesToDelete)\r",
+							"        pm.collectionVariables.set(\"sitesToDelete\",  sitesToDelete)\r",
+							"    }\r",
+							"} else {\r",
+							"    console.log(\"Creating site id array\")\r",
+							"    pm.collectionVariables.set(\"createdSiteIds\", new Array())\r",
+							"}\r",
+							"console.log(\"Exiting Clean up after yourself\")"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}sites?ids={{sitesToDelete}}",
+					"host": [
+						"{{baseURL}}sites"
+					],
+					"query": [
+						{
+							"key": "ids",
+							"value": "{{sitesToDelete}}"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Clean up Created Sites Array",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}sites",
+							"host": [
+								"{{baseURL}}sites"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "raw",
+					"header": [
+						{
+							"key": "Accept",
+							"value": "*/*"
+						},
+						{
+							"key": "accept-encoding",
+							"value": "gzip, deflate, br"
+						},
+						{
+							"key": "connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "host",
+							"value": "localhost:80"
+						},
+						{
+							"key": "postman-token",
+							"value": "40b9e6ff-3c92-4c8e-8ab8-36c2dc9381b3"
+						},
+						{
+							"key": "user-agent",
+							"value": "PostmanRuntime/7.32.2"
+						},
+						{
+							"key": "WWW-Authenticate",
+							"value": "Basic realm=realm"
+						},
+						{
+							"key": "Content-Type",
+							"value": ";charset=UTF-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "0"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 02 Jun 2023 17:38:11 GMT"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "{{password}}",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "{{username}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "updateSiteId",
+			"value": "1"
+		},
+		{
+			"key": "sitesToDelete",
+			"value": ""
+		},
+		{
+			"key": "serverCertificateFileName",
+			"value": ""
+		},
+		{
+			"key": "createdSiteIds",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "existingNameTest",
+			"value": ""
+		},
+		{
+			"key": "newSiteToDelete",
+			"value": ""
+		}
+	]
+}

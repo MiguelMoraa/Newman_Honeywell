@@ -1,0 +1,2749 @@
+{
+	"info": {
+		"_postman_id": "904d9ca6-4fee-4c03-8428-3a25cbb89644",
+		"name": "PSnF_Admin_Logs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14803454"
+	},
+	"item": [
+		{
+			"name": "VCNG-get-data-ContentFile",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/log/localhost.2023-07-19.log",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"log",
+						"localhost.2023-07-19.log"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-ContentFile-Not-Found",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"Could not find source file localhost.2023-05-03.log.\"\r",
+							"\r",
+							"pm.test(\"Status code is 500\", function () {\r",
+							"    pm.response.to.have.status(500)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate not find source file\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(responseMessage)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/log/localhost.2023-05-03.log",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"log",
+						"localhost.2023-05-03.log"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-siteId-valid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/log/data?siteId=-1",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"log",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-siteId-invalid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () { \r",
+							"     pm.response.to.have.status(200) })"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/log/data?siteId=invalid",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"log",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "invalid"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-siteId-missing",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () { \r",
+							"     pm.response.to.have.status(200) })"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/log/data",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"log",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-5",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumndisplayName-and-sortAscTrue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () { \r",
+							"     pm.response.to.have.status(200) })"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/log/data?siteId=-1&sortColumn=displayName&sortAsc=true",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"log",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "displayName"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumndisplayName-and-sortAscFalse",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () { \r",
+							"     pm.response.to.have.status(200) })"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/log/data?siteId=-1&sortColumn=displayName&sortAsc=false",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"log",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "displayName"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumndisplayName-and-sortAscNull",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json() \r",
+							"var errorMessages = [ \r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\", \r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"]\r",
+							"    \r",
+							"pm.test(\"Status code is 400\", function () { \r",
+							"     pm.response.to.have.status(400) })\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate Bad request Message\", function () { \r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) { \r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i]) \r",
+							"    } \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/log/data?siteId=-1&sortColumn=displayName&sortAsc=",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"log",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "displayName"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumndisplayName-and-missingsortAsc",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json() \r",
+							"var errorMessages = [ \r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\", \r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"]\r",
+							"    \r",
+							"pm.test(\"Status code is 400\", function () { \r",
+							"     pm.response.to.have.status(400) })\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate Bad request Message\", function () { \r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) { \r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i]) \r",
+							"    } \r",
+							"})\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/log/data?siteId=-1&sortColumn=displayName&sortAsc=&viewId=-3",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"log",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "displayName"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						},
+						{
+							"key": "viewId",
+							"value": "-3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnFileType-and-sortAscTrue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () { \r",
+							"     pm.response.to.have.status(200) })\r",
+							"\t "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/log/data?siteId=-1&sortColumn=fileType&sortAsc=true",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"log",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "fileType"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnFileType-and-sortAscFalse",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () { \r",
+							"     pm.response.to.have.status(200) })\r",
+							"\t "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/log/data?siteId=-1&sortColumn=fileType&sortAsc=false",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"log",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "fileType"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnFileType-and-sortAscNull",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json() \r",
+							"var errorMessages = [ \r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\", \r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"]\r",
+							"    \r",
+							"pm.test(\"Status code is 400\", function () { \r",
+							"     pm.response.to.have.status(400) })\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate Bad request Message\", function () { \r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) { \r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i]) \r",
+							"    } \r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/log/data?siteId=-1&sortColumn=fileType&sortAsc=",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"log",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "fileType"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnFileType-and-missingsortAsc",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json() \r",
+							"var errorMessages = [ \r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\", \r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"]\r",
+							"    \r",
+							"pm.test(\"Status code is 400\", function () { \r",
+							"     pm.response.to.have.status(400) })\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate Bad request Message\", function () { \r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) { \r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i]) \r",
+							"    } \r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/log/data?siteId=-1&sortColumn=fileType&sortAsc=",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"log",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "fileType"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnActualFileSize-and-sortAscTrue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () { \r",
+							"     pm.response.to.have.status(200) })"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/log/data?siteId=-1&sortColumn=actualFileSize&sortAsc=true",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"log",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "actualFileSize"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnActualFileSize-and-sortAscFalse",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () { \r",
+							"     pm.response.to.have.status(200) })"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/log/data?siteId=-1&sortColumn=actualFileSize&sortAsc=false",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"log",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "actualFileSize"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnActualFileSize-and-sortAscNull",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json() \r",
+							"var errorMessages = [ \r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\", \r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"]\r",
+							"    \r",
+							"pm.test(\"Status code is 400\", function () { \r",
+							"     pm.response.to.have.status(400) })\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate Bad request Message\", function () { \r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) { \r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i]) \r",
+							"    } \r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/log/data?siteId=-1&sortColumn=actualFileSize&sortAsc=",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"log",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "actualFileSize"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnActualFileSize-and-missingsortAsc",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json() \r",
+							"var errorMessages = [ \r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\", \r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"]\r",
+							"    \r",
+							"pm.test(\"Status code is 400\", function () { \r",
+							"     pm.response.to.have.status(400) })\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate Bad request Message\", function () { \r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) { \r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i]) \r",
+							"    } \r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/log/data?siteId=-1&sortColumn=actualFileSize&sortAsc=",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"log",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "actualFileSize"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnModificationDate-and-sortAscTrue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () { \r",
+							"     pm.response.to.have.status(200) })\r",
+							"\t "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/log/data?siteId=-1&sortColumn=modificationDate&sortAsc=true",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"log",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "modificationDate"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnModificationDate-and-sortAscFalse",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () { \r",
+							"     pm.response.to.have.status(200) })\r",
+							"\t "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/log/data?siteId=-1&sortColumn=modificationDate&sortAsc=false",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"log",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "modificationDate"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnModificationDate-and-sortAscNull",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json() \r",
+							"var errorMessages = [ \r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\", \r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"]\r",
+							"    \r",
+							"pm.test(\"Status code is 400\", function () { \r",
+							"     pm.response.to.have.status(400) })\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate Bad request Message\", function () { \r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) { \r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i]) \r",
+							"    } \r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/log/data?siteId=-1&sortColumn=modificationDate&sortAsc=",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"log",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "modificationDate"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnModificationDate-and-missingsortAsc",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json() \r",
+							"var errorMessages = [ \r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\", \r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"]\r",
+							"    \r",
+							"pm.test(\"Status code is 400\", function () { \r",
+							"     pm.response.to.have.status(400) })\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate Bad request Message\", function () { \r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) { \r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i]) \r",
+							"    } \r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/log/data?siteId=-1&sortColumn=modificationDate&sortAsc=",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"log",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "modificationDate"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnmissing-and-sortAscTrue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"Invalid value for parameter sortColumn. It should not be null or empty if sortAsc is provided.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate not find source file\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(responseMessage)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/log/data?siteId=-1&sortAsc=true",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"log",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "site",
+							"disabled": true
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnmissing-and-sortAscFalse",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"Invalid value for parameter sortColumn. It should not be null or empty if sortAsc is provided.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate not find source file\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(responseMessage)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/log/data?siteId=-1&sortAsc=false",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"log",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "site",
+							"disabled": true
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnmissing-and-sortAscNull",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"Invalid value for parameter sortAsc. It should be either true or false.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate not find source file\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(responseMessage)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/log/data?siteId=-1&sortAsc=",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"log",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "site",
+							"disabled": true
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnmissing-and-missingsortAsc",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () { \r",
+							"     pm.response.to.have.status(200) })"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/log/data?siteId=-1",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"log",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "site",
+							"disabled": true
+						},
+						{
+							"key": "sortAsc",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumInvalid-and-sortAscTrue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"Invalid value for parameter sortColumn. invalid column does not exist for entity name: logs.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate not find source file\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(responseMessage)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/log/data?siteId=-1&sortColumn=invalid&sortAsc=true",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"log",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "invalid"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumInvalid-and-sortAscFalse",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"Invalid value for parameter sortColumn. invalid column does not exist for entity name: logs.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate not find source file\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(responseMessage)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/log/data?siteId=-1&sortColumn=invalid&sortAsc=false",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"log",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "invalid"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumInvalid-and-sortAscNull",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json() \r",
+							"var errorMessages = [ \r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\", \r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\",\r",
+							"    \"Invalid value for parameter sortColumn. invalid column does not exist for entity name: logs.\"]\r",
+							"    \r",
+							"pm.test(\"Status code is 400\", function () { \r",
+							"     pm.response.to.have.status(400) })\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate Bad request Message\", function () { \r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) { \r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i]) \r",
+							"    } \r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/log/data?siteId=-1&sortColumn=invalid&sortAsc=",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"log",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "invalid"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumInvalid-and-missingsortAsc",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json() \r",
+							"var errorMessages = [ \r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\", \r",
+							"    \"Invalid value for parameter sortColumn. invalid column does not exist for entity name: logs.\"]\r",
+							"    \r",
+							"pm.test(\"Status code is 400\", function () { \r",
+							"     pm.response.to.have.status(400) })\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate Bad request Message\", function () { \r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) { \r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i]) \r",
+							"    } \r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/log/data?siteId=-1&sortColumn=invalid",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"log",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "invalid"
+						},
+						{
+							"key": "sortAsc",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-offset-valid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const dataObject = pm.environment.get(\"filterProperty\")\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Get Data offset Valid\", function () {\r",
+							"    pm.expect(jsonData.response.dataObjects[0]).to.have.property(dataObject)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/log/data?siteId=-1&offset=5",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"log",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "offset",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-offset-invalid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"offset property is not numeric: invalid\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate not find source file\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(responseMessage)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/log/data?siteId=-1&offset=invalid",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"log",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "offset",
+							"value": "invalid"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-offset-negativeNumber",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"offset property value cannot be negative.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate not find source file\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(responseMessage)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/log/data?siteId=-1&offset=-54",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"log",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "offset",
+							"value": "-54"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-limit-valid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () { \r",
+							"     pm.response.to.have.status(200) })"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/log/data?siteId=-1&limit=5",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"log",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "limit",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-limit-invalid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"limit property is not numeric: invalid\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate not find source file\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(responseMessage)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/log/data?siteId=-1&limit=invalid",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"log",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "limit",
+							"value": "invalid"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-limit-negativeNumber",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"limit property value cannot be negative.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate not find source file\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(responseMessage)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/log/data?siteId=-1&limit=-56",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"log",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "limit",
+							"value": "-56"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-limit-valid-and-offset-valid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () { \r",
+							"     pm.response.to.have.status(200) })"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/log/data?siteId=-1&limit=5&offset=5",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"log",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "limit",
+							"value": "5"
+						},
+						{
+							"key": "offset",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-submittedFilterCriterion-displayName",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () { \r",
+							"     pm.response.to.have.status(200) })"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/log/data?siteId=-1&submittedFilterCriterion=%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%32%30%31%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%76%6f%69%63%65%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"log",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%32%30%31%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%76%6f%69%63%65%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-submittedFilterCriterion-fileType",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () { \r",
+							"     pm.response.to.have.status(200) })"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/log/data?siteId=-1&submittedFilterCriterion=%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%32%30%32%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%33%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%30%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"log",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%32%30%32%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%33%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%30%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-submittedFilterCriterion-actualFileSize",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () { \r",
+							"     pm.response.to.have.status(200) })"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/log/data?siteId=-1&submittedFilterCriterion=%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%32%30%31%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%76%6f%69%63%65%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"log",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%32%30%31%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%76%6f%69%63%65%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-submittedFilterCriterion-modificationDate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () { \r",
+							"     pm.response.to.have.status(200) })"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/log/data?siteId=-1&submittedFilterCriterion=%7b%22%76%69%65%77%49%64%22%3a%22%2d%33%22%2c%20%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%32%30%34%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%32%33%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%31%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%2c%20%22%63%72%69%74%4e%75%6d%22%3a%38%2c%20%22%6c%6f%63%6b%65%64%22%3a%66%61%6c%73%65%7d",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"log",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7b%22%76%69%65%77%49%64%22%3a%22%2d%33%22%2c%20%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%32%30%34%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%32%33%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%31%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%2c%20%22%63%72%69%74%4e%75%6d%22%3a%38%2c%20%22%6c%6f%63%6b%65%64%22%3a%66%61%6c%73%65%7d"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

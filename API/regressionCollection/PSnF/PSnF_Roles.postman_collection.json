@@ -1,0 +1,5423 @@
+{
+	"info": {
+		"_postman_id": "747ecd64-e494-4e81-9516-79e07f7906ef",
+		"name": "PSnF_Roles",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22861454",
+		"_collection_link": "https://martian-eclipse-381947.postman.co/workspace/VCNG-automation~60598d72-d6bf-4ec8-9ccc-e86c28b839db/collection/22861454-747ecd64-e494-4e81-9516-79e07f7906ef?action=share&creator=22861454&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Get Role Empty ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role sortAsc empty",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Useres of Site\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=name",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "name"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role sortAsc true",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=name&sortAsc=true",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "name"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role sortAsc false",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=name&sortAsc=false",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "name"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role sortAsc invalid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"Invalid value for parameter sortAsc. It should be either true or false.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Useres of Site\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(responseMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=name&sortAsc=a",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "name"
+						},
+						{
+							"key": "sortAsc",
+							"value": "a"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role offset empty",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&offset=",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "offset",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role non numeric offset",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"offset property is not numeric: a\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Useres of Site\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?offset=a",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "offset",
+							"value": "a"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role negative offset",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"offset property value cannot be negative.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Useres of Site\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&offset=-2",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "offset",
+							"value": "-2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with offset",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&offset=2",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "offset",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role negative Limit",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"limit property value cannot be negative.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Useres of Site\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=name&sortAsc=true&limit=-2",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "name"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "limit",
+							"value": "-2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role non numeric Limit",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"limit property is not numeric: a\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Useres of Site\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=name&sortAsc=true&limit=a",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "name"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "limit",
+							"value": "a"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role numeric Limit",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=name&sortAsc=true&limit=2&offset=1",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "name"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "limit",
+							"value": "2"
+						},
+						{
+							"key": "offset",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort Description",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=description&sortAsc=true",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "description"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort userCount",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=userCount&sortAsc=true",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "userCount"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort Name filter starts with Miguel",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=name&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-101%22,%20%22operandId%22:%22-1%22,%20%22value1%22:%22Miguel%22,%20%22value2%22:%22%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "name"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-101%22,%20%22operandId%22:%22-1%22,%20%22value1%22:%22Miguel%22,%20%22value2%22:%22%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort Name filter starts with Invalid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"No data to display.\"\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Get Role with sort Name filter starts with Invalid\", function () {\r",
+							"    pm.expect(jsonData.response.success.msg).eql(responseMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=name&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-101%22,%20%22operandId%22:%22-1%22,%20%22value1%22:%22Invalid%22,%20%22value2%22:%22%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "name"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-101%22,%20%22operandId%22:%22-1%22,%20%22value1%22:%22Invalid%22,%20%22value2%22:%22%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort Name filter starts with Empty",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Empty value for parameter value1 in submittedFilterCriterion. A value must be entered to be filtered.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Useres of Site\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=name&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-101%22,%20%22operandId%22:%22-1%22,%20%22value1%22:%22%22,%20%22value2%22:%22%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "name"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-101%22,%20%22operandId%22:%22-1%22,%20%22value1%22:%22%22,%20%22value2%22:%22%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort Name filter ends in t",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=name&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-101%22,%20%22operandId%22:%22-2%22,%20%22value1%22:%22t%22,%20%22value2%22:%22%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "name"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-101%22,%20%22operandId%22:%22-2%22,%20%22value1%22:%22t%22,%20%22value2%22:%22%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort Name filter ends in xyz",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"No data to display.\"\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Get Role with sort Name filter ends in xyz\", function () {\r",
+							"    pm.expect(jsonData.response.success.msg).eql(responseMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=name&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-101%22,%20%22operandId%22:%22-2%22,%20%22value1%22:%22xyz%22,%20%22value2%22:%22%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "name"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-101%22,%20%22operandId%22:%22-2%22,%20%22value1%22:%22xyz%22,%20%22value2%22:%22%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort Name filter ends empty",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Empty value for parameter value1 in submittedFilterCriterion. A value must be entered to be filtered.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Useres of Site\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=name&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-101%22,%20%22operandId%22:%22-2%22,%20%22value1%22:%22%22,%20%22value2%22:%22%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "name"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-101%22,%20%22operandId%22:%22-2%22,%20%22value1%22:%22%22,%20%22value2%22:%22%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort Name filter contains est",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=name&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-101%22,%20%22operandId%22:%22-3%22,%20%22value1%22:%22est%22,%20%22value2%22:%22%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "name"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-101%22,%20%22operandId%22:%22-3%22,%20%22value1%22:%22est%22,%20%22value2%22:%22%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort Name filter contains xyz",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"No data to display.\"\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Get Role with sort Name filter contains xyz\", function () {\r",
+							"    pm.expect(jsonData.response.success.msg).eql(responseMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=name&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-101%22,%20%22operandId%22:%22-3%22,%20%22value1%22:%22xyz%22,%20%22value2%22:%22%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "name"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-101%22,%20%22operandId%22:%22-3%22,%20%22value1%22:%22xyz%22,%20%22value2%22:%22%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort Name filter contains empty",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"Empty value for parameter value1 in submittedFilterCriterion. A value must be entered to be filtered.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Useres of Site\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(responseMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=name&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-101%22,%20%22operandId%22:%22-3%22,%20%22value1%22:%22%22,%20%22value2%22:%22%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "name"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-101%22,%20%22operandId%22:%22-3%22,%20%22value1%22:%22%22,%20%22value2%22:%22%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort Name filter equal to Miguel",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=name&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-101%22,%20%22operandId%22:%22-4%22,%20%22value1%22:%22Miguel Test%22,%20%22value2%22:%22%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "name"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-101%22,%20%22operandId%22:%22-4%22,%20%22value1%22:%22Miguel Test%22,%20%22value2%22:%22%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort Name filter equal to xyz",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"No data to display.\"\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Get Role with sort Name filter equal to xyz\", function () {\r",
+							"    pm.expect(jsonData.response.success.msg).eql(responseMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=name&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-101%22,%20%22operandId%22:%22-4%22,%20%22value1%22:%22xyz%22,%20%22value2%22:%22%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "name"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-101%22,%20%22operandId%22:%22-4%22,%20%22value1%22:%22xyz%22,%20%22value2%22:%22%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort Name filter equal empty",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Empty value for parameter value1 in submittedFilterCriterion. A value must be entered to be filtered.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Get Role with sort Name filter equal empty\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=name&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-101%22,%20%22operandId%22:%22-4%22,%20%22value1%22:%22%22,%20%22value2%22:%22%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "name"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-101%22,%20%22operandId%22:%22-4%22,%20%22value1%22:%22%22,%20%22value2%22:%22%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort Description filter starts with Administrative",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=description&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-102%22,%20%22operandId%22:%22-1%22,%20%22value1%22:%22Administrative%22,%20%22value2%22:%22%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "description"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-102%22,%20%22operandId%22:%22-1%22,%20%22value1%22:%22Administrative%22,%20%22value2%22:%22%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort Description filter starts with xyz",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"No data to display.\"\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Get Role with sort Description filter starts with xyz\", function () {\r",
+							"    pm.expect(jsonData.response.success.msg).eql(responseMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=description&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-102%22,%20%22operandId%22:%22-1%22,%20%22value1%22:%22xyz%22,%20%22value2%22:%22%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "description"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-102%22,%20%22operandId%22:%22-1%22,%20%22value1%22:%22xyz%22,%20%22value2%22:%22%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort Description filter starts empty",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Empty value for parameter value1 in submittedFilterCriterion. A value must be entered to be filtered.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Get Role with sort Description filter starts empty\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=description&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-102%22,%20%22operandId%22:%22-1%22,%20%22value1%22:%22%22,%20%22value2%22:%22%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "description"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-102%22,%20%22operandId%22:%22-1%22,%20%22value1%22:%22%22,%20%22value2%22:%22%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort Description filter ends with role",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=description&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-102%22,%20%22operandId%22:%22-2%22,%20%22value1%22:%22role%22,%20%22value2%22:%22%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "description"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-102%22,%20%22operandId%22:%22-2%22,%20%22value1%22:%22role%22,%20%22value2%22:%22%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort Description filter ends with xyz",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"No data to display.\"\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Get Role with sort Description filter ends with xyz\", function () {\r",
+							"    pm.expect(jsonData.response.success.msg).eql(responseMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=description&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-102%22,%20%22operandId%22:%22-2%22,%20%22value1%22:%22xyz%22,%20%22value2%22:%22%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "description"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-102%22,%20%22operandId%22:%22-2%22,%20%22value1%22:%22xyz%22,%20%22value2%22:%22%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort Description filter ends empty",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"No data to display.\"\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Get Role with sort Description filter ends empty\", function () {\r",
+							"    pm.expect(jsonData.response.success.msg).eql(responseMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=description&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-102%22,%20%22operandId%22:%22-2%22,%20%22value1%22:%22xyz%22,%20%22value2%22:%22%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "description"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-102%22,%20%22operandId%22:%22-2%22,%20%22value1%22:%22xyz%22,%20%22value2%22:%22%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort Description filter contains ead-onl",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=description&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-102%22,%20%22operandId%22:%22-3%22,%20%22value1%22:%22ead-onl%22,%20%22value2%22:%22%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "description"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-102%22,%20%22operandId%22:%22-3%22,%20%22value1%22:%22ead-onl%22,%20%22value2%22:%22%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort Description filter contains xyz",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"No data to display.\"\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Get Role with sort Description filter contains xyz\", function () {\r",
+							"    pm.expect(jsonData.response.success.msg).eql(responseMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=description&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-102%22,%20%22operandId%22:%22-3%22,%20%22value1%22:%22xyz%22,%20%22value2%22:%22%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "description"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-102%22,%20%22operandId%22:%22-3%22,%20%22value1%22:%22xyz%22,%20%22value2%22:%22%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort Description filter contains empty",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"Empty value for parameter value1 in submittedFilterCriterion. A value must be entered to be filtered.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Get Role with sort Description filter contains empty\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(responseMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=description&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-102%22,%20%22operandId%22:%22-3%22,%20%22value1%22:%22%22,%20%22value2%22:%22%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "description"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-102%22,%20%22operandId%22:%22-3%22,%20%22value1%22:%22%22,%20%22value2%22:%22%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort Description filter equal to Administrative role",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=description&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-102%22,%20%22operandId%22:%22-4%22,%20%22value1%22:%22Administrative role%22,%20%22value2%22:%22%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "description"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-102%22,%20%22operandId%22:%22-4%22,%20%22value1%22:%22Administrative role%22,%20%22value2%22:%22%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort Description filter equal xyz",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"No data to display.\"\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Get Role with sort Description filter equal xyz\", function () {\r",
+							"    pm.expect(jsonData.response.success.msg).eql(responseMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=description&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-102%22,%20%22operandId%22:%22-4%22,%20%22value1%22:%22xyz%22,%20%22value2%22:%22%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "description"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-102%22,%20%22operandId%22:%22-4%22,%20%22value1%22:%22xyz%22,%20%22value2%22:%22%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort Description filter equal empty",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Empty value for parameter value1 in submittedFilterCriterion. A value must be entered to be filtered.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Get Role with sort Description filter equal empty\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=description&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-102%22,%20%22operandId%22:%22-4%22,%20%22value1%22:%22%22,%20%22value2%22:%22%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "description"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-102%22,%20%22operandId%22:%22-4%22,%20%22value1%22:%22%22,%20%22value2%22:%22%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort userCount filter equal with non numeric",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Invalid filter value xyz for operand type: 1. Cannot be filtered.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Get Role with sort userCount filter equal with non numeric\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=userCount&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-11%22,%20%22value1%22:%22xyz%22,%20%22value2%22:%22%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "userCount"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-11%22,%20%22value1%22:%22xyz%22,%20%22value2%22:%22%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort userCount filter equal with 3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=userCount&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-11%22,%20%22value1%22:%223%22,%20%22value2%22:%22%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "userCount"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-11%22,%20%22value1%22:%223%22,%20%22value2%22:%22%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort userCount filter equal empty",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Invalid filter value  for operand type: 1. Cannot be filtered.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Get Role with sort userCount filter equal empty\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=userCount&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-11%22,%20%22value1%22:%22%22,%20%22value2%22:%22%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "userCount"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-11%22,%20%22value1%22:%22%22,%20%22value2%22:%22%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort userCount filter equal negative value",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"No data to display.\"\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Get Role with sort userCount filter equal negative value\", function () {\r",
+							"    pm.expect(jsonData.response.success.msg).eql(responseMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=userCount&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-11%22,%20%22value1%22:%22-5%22,%20%22value2%22:%22%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "userCount"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-11%22,%20%22value1%22:%22-5%22,%20%22value2%22:%22%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort userCount filter greather than 39",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=userCount&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-12%22,%20%22value1%22:%2239%22,%20%22value2%22:%22%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "userCount"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-12%22,%20%22value1%22:%2239%22,%20%22value2%22:%22%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort userCount filter greather than non numeric",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Invalid filter value xyz for operand type: 1. Cannot be filtered.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Get Role with sort userCount filter greather than non numeric\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=userCount&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-12%22,%20%22value1%22:%22xyz%22,%20%22value2%22:%22%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "userCount"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-12%22,%20%22value1%22:%22xyz%22,%20%22value2%22:%22%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort userCount filter greather than empty",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Invalid filter value  for operand type: 1. Cannot be filtered.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Get Role with sort userCount filter greather than empty\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=userCount&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-12%22,%20%22value1%22:%22%22,%20%22value2%22:%22%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "userCount"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-12%22,%20%22value1%22:%22%22,%20%22value2%22:%22%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort userCount filter greather than negative value",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=userCount&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-12%22,%20%22value1%22:%22-5%22,%20%22value2%22:%22%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "userCount"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-12%22,%20%22value1%22:%22-5%22,%20%22value2%22:%22%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort userCount filter grather than or equal to 3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=userCount&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-13%22,%20%22value1%22:%223%22,%20%22value2%22:%22%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "userCount"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-13%22,%20%22value1%22:%223%22,%20%22value2%22:%22%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort userCount filter grather than or equal to xyz",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Invalid filter value xyz for operand type: 1. Cannot be filtered.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Useres of Site\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=userCount&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-13%22,%20%22value1%22:%22xyz%22,%20%22value2%22:%22%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "userCount"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-13%22,%20%22value1%22:%22xyz%22,%20%22value2%22:%22%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort userCount filter grather than or equal to empty",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Invalid filter value  for operand type: 1. Cannot be filtered.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Get Role with sort userCount filter grather than or equal to empty\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=userCount&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-13%22,%20%22value1%22:%22%22,%20%22value2%22:%22%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "userCount"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-13%22,%20%22value1%22:%22%22,%20%22value2%22:%22%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort userCount filter  grather than or equal to negative value",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=userCount&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-13%22,%20%22value1%22:%22-5%22,%20%22value2%22:%22%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "userCount"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-13%22,%20%22value1%22:%22-5%22,%20%22value2%22:%22%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort userCount filter less than 50",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=userCount&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-14%22,%20%22value1%22:%2250%22,%20%22value2%22:%22%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "userCount"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-14%22,%20%22value1%22:%2250%22,%20%22value2%22:%22%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort userCount filter less than xyz",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Invalid filter value xyz for operand type: 1. Cannot be filtered.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Get Role with sort userCount filter less than xyz\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=userCount&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-14%22,%20%22value1%22:%22xyz%22,%20%22value2%22:%22%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "userCount"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-14%22,%20%22value1%22:%22xyz%22,%20%22value2%22:%22%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort userCount filter less empty",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Invalid filter value  for operand type: 1. Cannot be filtered.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Get Role with sort userCount filter less empty\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=userCount&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-14%22,%20%22value1%22:%22%22,%20%22value2%22:%22%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "userCount"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-14%22,%20%22value1%22:%22%22,%20%22value2%22:%22%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort userCount filter less negative Value",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"No data to display.\"\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Get Role with sort userCount filter less negative Value\", function () {\r",
+							"    pm.expect(jsonData.response.success.msg).eql(responseMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=userCount&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-14%22,%20%22value1%22:%22-5%22,%20%22value2%22:%22%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "userCount"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-14%22,%20%22value1%22:%22-5%22,%20%22value2%22:%22%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort userCount filter less than or equal 55",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=userCount&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-15%22,%20%22value1%22:%2255%22,%20%22value2%22:%22%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "userCount"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-15%22,%20%22value1%22:%2255%22,%20%22value2%22:%22%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort userCount filter less than or equal xyz",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Invalid filter value xyz for operand type: 1. Cannot be filtered.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Get Role with sort userCount filter less than or equal xyz\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=userCount&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-15%22,%20%22value1%22:%22xyz%22,%20%22value2%22:%22%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "userCount"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-15%22,%20%22value1%22:%22xyz%22,%20%22value2%22:%22%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort userCount filter less than or equal empty",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Invalid filter value  for operand type: 1. Cannot be filtered.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Get Role with sort userCount filter less than or equal empty\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=userCount&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-15%22,%20%22value1%22:%22%22,%20%22value2%22:%22%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "userCount"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-15%22,%20%22value1%22:%22%22,%20%22value2%22:%22%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort userCount filter less than or equal negative value",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"No data to display.\"\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Get Role with sort userCount filter less than or equal negative value\", function () {\r",
+							"    pm.expect(jsonData.response.success.msg).eql(responseMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=userCount&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-15%22,%20%22value1%22:%22-5%22,%20%22value2%22:%22%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "userCount"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-15%22,%20%22value1%22:%22-5%22,%20%22value2%22:%22%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort userCount filter between 4 and 169",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=userCount&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-16%22,%20%22value1%22:%224%22,%20%22value2%22:%22169%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "userCount"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-16%22,%20%22value1%22:%224%22,%20%22value2%22:%22169%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort userCount filter between 4 and empty",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Invalid filter value  for operand type: 1. Cannot be filtered.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Get Role with sort userCount filter between 4 and empty\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=userCount&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-16%22,%20%22value1%22:%224%22,%20%22value2%22:%22%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "userCount"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-16%22,%20%22value1%22:%224%22,%20%22value2%22:%22%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort userCount filter between empty and 39",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Invalid filter value  for operand type: 1. Cannot be filtered.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Get Role with sort userCount filter between empty and 39\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=userCount&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-16%22,%20%22value1%22:%22%22,%20%22value2%22:%2239%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "userCount"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-16%22,%20%22value1%22:%22%22,%20%22value2%22:%2239%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort userCount filter between xyz and 39",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Invalid filter value xyz for operand type: 1. Cannot be filtered.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Useres of Site\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=userCount&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-16%22,%20%22value1%22:%22xyz%22,%20%22value2%22:%2239%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "userCount"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-16%22,%20%22value1%22:%22xyz%22,%20%22value2%22:%2239%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort userCount filter between 4 and xyz",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Invalid filter value xyz for operand type: 1. Cannot be filtered.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Get Role with sort userCount filter between 4 and xyz\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=userCount&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-16%22,%20%22value1%22:%224%22,%20%22value2%22:%22xyz%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "userCount"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-16%22,%20%22value1%22:%224%22,%20%22value2%22:%22xyz%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort userCount filter between empty and empty",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Invalid filter value  for operand type: 1. Cannot be filtered.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Get Role with sort userCount filter between empty and empty\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=userCount&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-16%22,%20%22value1%22:%22%22,%20%22value2%22:%22%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "userCount"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-16%22,%20%22value1%22:%22%22,%20%22value2%22:%22%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort userCount filter between non Numeric and non Numeric",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Invalid filter value xyz for operand type: 1. Cannot be filtered.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Get Role with sort userCount filter between non Numeric and non Numeric\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=userCount&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-16%22,%20%22value1%22:%22xyz%22,%20%22value2%22:%22xyz%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "userCount"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-16%22,%20%22value1%22:%22xyz%22,%20%22value2%22:%22xyz%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role with sort userCount filter between than -5 and -5",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const responseMessage = \"No data to display.\"\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Get Role with sort userCount filter between than -5 and -5\", function () {\r",
+							"    pm.expect(jsonData.response.success.msg).eql(responseMessage)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/role/data?siteId=&sortColumn=userCount&sortAsc=true&submittedFilterCriterion=%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-16%22,%20%22value1%22:%22-5%22,%20%22value2%22:%22-10%22%7D",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"role",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": ""
+						},
+						{
+							"key": "sortColumn",
+							"value": "userCount"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7B%20%22columnId%22:%22-103%22,%20%22operandId%22:%22-16%22,%20%22value1%22:%22-5%22,%20%22value2%22:%22-10%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

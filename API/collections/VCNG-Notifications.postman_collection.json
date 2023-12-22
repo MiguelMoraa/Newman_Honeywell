@@ -1,0 +1,232 @@
+{
+	"info": {
+		"_postman_id": "5045b0fd-5aeb-44ca-b06d-60763a8dee92",
+		"name": "VCNG-Notifications",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "fetchNotification",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/admin/notifications/24",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"admin",
+						"notifications",
+						"24"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fetchNotificationNotNumeric",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/admin/notifications/ThisIsNotnumeric",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"admin",
+						"notifications",
+						"ThisIsNotnumeric"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fetchNotificationNotExist",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/admin/notifications/240000000",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"admin",
+						"notifications",
+						"240000000"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addNotification",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/admin/notifications/-1/addTest",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"admin",
+						"notifications",
+						"-1",
+						"addTest"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addNotificationInvalidSite",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/admin/notifications/-31/addTest",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"admin",
+						"notifications",
+						"-31",
+						"addTest"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addNotificatiionAck",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/admin/notifications/ack?ids=28,29,bad,30,foo,31,23,24",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"admin",
+						"notifications",
+						"ack"
+					],
+					"query": [
+						{
+							"key": "ids",
+							"value": "28,29,bad,30,foo,31,23,24"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "{{password}}",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "{{username}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

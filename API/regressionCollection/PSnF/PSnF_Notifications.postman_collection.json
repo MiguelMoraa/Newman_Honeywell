@@ -1,0 +1,4785 @@
+{
+	"info": {
+		"_postman_id": "cae1610a-cb37-48f1-8699-7a3e8cda7843",
+		"name": "PSnF_Notification",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22861454",
+		"_collection_link": "https://martian-eclipse-381947.postman.co/workspace/VCNG-automation~60598d72-d6bf-4ec8-9ccc-e86c28b839db/collection/22861454-cae1610a-cb37-48f1-8699-7a3e8cda7843?action=share&creator=22861454&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "VCNG-get-data-siteId-valid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-siteId-invalid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var siteId = pm.collectionVariables.get(\"siteId\")\r",
+							"const errorMessage = \"siteId property is not numeric: \" + siteId\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Error Message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)    \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId={{siteId}}",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "{{siteId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-siteId-NotFound",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var siteId = pm.collectionVariables.get(\"siteNotFound\")\r",
+							"const errorMessage = \"Site with id \" + siteId + \" cannot be found.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Error Message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)    \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId={{siteNotFound}}",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "{{siteNotFound}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-siteId-missing",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"siteId property cannot be null or empty.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Error Message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)    \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-5",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnApplication-sortAscTrue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&sortColumn=application&sortAsc=true",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "application"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnApplication-sortAscFalse",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&sortColumn=application&sortAsc=false",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "application"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnApplication-sortAscNull",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var errorMessages = [\r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\",\r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"\r",
+							"]\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Errors Messages\", function () {\r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) {\r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i])\r",
+							"    }   \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&sortColumn=application&sortAsc=",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "application"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnApplication-missingsortAsc",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Error Message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)    \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&sortColumn=application",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "application"
+						},
+						{
+							"key": "sortAsc",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnProcess-sortAscTrue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&sortColumn=process&sortAsc=true",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "process"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnProcess-sortAscFalse",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&sortColumn=process&sortAsc=false",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "process"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnProcess-sortAscNull",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var errorMessages = [\r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\",\r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"\r",
+							"]\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Errors Messages\", function () {\r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) {\r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i])\r",
+							"    }   \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&sortColumn=process&sortAsc=",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "process"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnProcess-missingsortAsc",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Error Message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)    \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&sortColumn=process",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "process"
+						},
+						{
+							"key": "sortAsc",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnPriority-sortAscTrue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&sortColumn=priority&sortAsc=true",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "priority"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnPriority-sortAscFalse",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&sortColumn=priority&sortAsc=false",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "priority"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnPriority-sortAscNull",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var errorMessages = [\r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\",\r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"\r",
+							"]\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Errors Messages\", function () {\r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) {\r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i])\r",
+							"    }   \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&sortColumn=priority&sortAsc=",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "priority"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnPriority-missingsortAsc",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var errorMessages = [\r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\"\r",
+							"]\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Errors Messages\", function () {\r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) {\r",
+							"        pm.expect(jsonData.response.errors.msg).eql(errorMessages[i])\r",
+							"    }   \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&sortColumn=priority",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "priority"
+						},
+						{
+							"key": "sortAsc",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnMessage-sortAscTrue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&sortColumn=message&sortAsc=true",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "message"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnMessage-sortAscFalse",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&sortColumn=message&sortAsc=false",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "message"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnMessage-sortAscNull",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var errorMessages = [\r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\",\r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"\r",
+							"]\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Errors Messages\", function () {\r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) {\r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i])\r",
+							"    }   \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&sortColumn=message&sortAsc=",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "message"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnMessage-missingsortAsc",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var errorMessages = [\r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\"\r",
+							"]\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Errors Messages\", function () {\r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) {\r",
+							"        pm.expect(jsonData.response.errors.msg).eql(errorMessages[i])\r",
+							"    }   \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&sortColumn=message",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "message"
+						},
+						{
+							"key": "sortAsc",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnCreationDateTime-sortAscTrue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&sortColumn=creationDateTime&sortAsc=true",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "creationDateTime"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnCreationDateTime-sortAscFalse",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&sortColumn=creationDateTime&sortAsc=false",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "creationDateTime"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnCreationDateTime-sortAscNull",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var errorMessages = [\r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\",\r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"\r",
+							"]\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Errors Messages\", function () {\r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) {\r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i])\r",
+							"    }   \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&sortColumn=creationDateTime&sortAsc=",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "creationDateTime"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnCreationDateTime-missingsortAsc",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var errorMessages = [\r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\"\r",
+							"]\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Errors Messages\", function () {\r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) {\r",
+							"        pm.expect(jsonData.response.errors.msg).eql(errorMessages[i])\r",
+							"    }   \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&sortColumn=creationDateTime",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "creationDateTime"
+						},
+						{
+							"key": "sortAsc",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnAcknowledgedUser-sortAscTrue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&sortColumn=acknowledgedUser&sortAsc=true",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "acknowledgedUser"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnAcknowledgedUser-sortAscFalse",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&sortColumn=acknowledgedUser&sortAsc=false",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "acknowledgedUser"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnAcknowledgedUser-sortAscNull",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var errorMessages = [\r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\",\r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"\r",
+							"]\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Errors Messages\", function () {\r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) {\r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i])\r",
+							"    }   \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&sortColumn=acknowledgedUser&sortAsc=",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "acknowledgedUser"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnAcknowledgedUser-missingsortAsc",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var errorMessages = [\r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\"\r",
+							"]\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Errors Messages\", function () {\r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) {\r",
+							"        pm.expect(jsonData.response.errors.msg).eql(errorMessages[i])\r",
+							"    }   \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&sortColumn=acknowledgedUser",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "acknowledgedUser"
+						},
+						{
+							"key": "sortAsc",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnAcknowledgedDateTime-sortAscTrue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&sortColumn=acknowledgedDateTime&sortAsc=true",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "acknowledgedDateTime"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnAcknowledgedDateTime-sortAscFalse",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&sortColumn=acknowledgedDateTime&sortAsc=false",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "acknowledgedDateTime"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnAcknowledgedDateTime-sortAscNull",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var errorMessages = [\r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\",\r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\"\r",
+							"]\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Errors Messages\", function () {\r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) {\r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i])\r",
+							"    }   \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&sortColumn=acknowledgedDateTime&sortAsc=",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "acknowledgedDateTime"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnAcknowledgedDateTime-missingsortAsc",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var errorMessages = [\r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\"\r",
+							"]\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Errors Messages\", function () {\r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) {\r",
+							"        pm.expect(jsonData.response.errors.msg).eql(errorMessages[i])\r",
+							"    }   \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&sortColumn=acknowledgedDateTime",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "acknowledgedDateTime"
+						},
+						{
+							"key": "sortAsc",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnSite-sortAscTrue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var errorMessages = [\r",
+							"    \"Invalid value for parameter sortColumn. site column sort type is NoSort and does not support sorting.\"\r",
+							"]\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Errors Messages\", function () {\r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) {\r",
+							"        pm.expect(jsonData.response.errors.msg).eql(errorMessages[i])\r",
+							"    }   \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&sortColumn=site&sortAsc=true",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "site"
+						},
+						{
+							"key": "sortAsc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnSite-sortAscFalse",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var errorMessages = [\r",
+							"    \"Invalid value for parameter sortColumn. site column sort type is NoSort and does not support sorting.\"\r",
+							"]\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Errors Messages\", function () {\r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) {\r",
+							"        pm.expect(jsonData.response.errors.msg).eql(errorMessages[i])\r",
+							"    }   \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&sortColumn=site&sortAsc=false",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "site"
+						},
+						{
+							"key": "sortAsc",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnSite-sortAscNull",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var errorMessages = [\r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\",\r",
+							"    \"Invalid value for parameter sortAsc. It should be either true or false.\",\r",
+							"    \"Invalid value for parameter sortColumn. site column sort type is NoSort and does not support sorting.\"\r",
+							"]\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Errors Messages\", function () {\r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) {\r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i])\r",
+							"    }   \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&sortColumn=site&sortAsc=",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "site"
+						},
+						{
+							"key": "sortAsc",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-sortColumnSite-missingsortAsc",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var errorMessages = [\r",
+							"    \"Invalid value for parameter sortAsc. It should not be null or empty if sortColumn is provided.\",\r",
+							"    \"Invalid value for parameter sortColumn. site column sort type is NoSort and does not support sorting.\"\r",
+							"]\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Errors Messages\", function () {\r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) {\r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i])\r",
+							"    }   \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&sortColumn=site",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "sortColumn",
+							"value": "site"
+						},
+						{
+							"key": "sortAsc",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-offSet-valid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&offset=1",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "offset",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-offSet-invalid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var offSet = pm.collectionVariables.get(\"offSetInvalid\")\r",
+							"const errorMessage = \"offset property is not numeric: \" + offSet\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Error Message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)    \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&offset={{offSetInvalid}}",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "offset",
+							"value": "{{offSetInvalid}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-offSet-negativeNumber",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"offset property value cannot be negative.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Error Message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)    \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&offset=-14",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "offset",
+							"value": "-14"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-offSet-missing",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "offset",
+							"value": "-14",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-limit-valid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&limit=1",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "limit",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-limit-invalid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var limit = pm.collectionVariables.get(\"limitInvalid\")\r",
+							"const errorMessage = \"limit property is not numeric: \" + limit\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Error Message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)    \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&limit={{limitInvalid}}",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "limit",
+							"value": "{{limitInvalid}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-limit-negativeNumber",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const errorMessage = \"limit property value cannot be negative.\"\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Error Message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)    \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&limit=-56",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "limit",
+							"value": "-56"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-limit-missing",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "limit",
+							"value": "-56",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-limitvalid-and-validOffSet",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&limit=1&offset=1",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "limit",
+							"value": "1"
+						},
+						{
+							"key": "offset",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-limitvalid-and-invalidOffSet",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var offSet = pm.collectionVariables.get(\"offSetInvalid\")\r",
+							"const errorMessage = \"offset property is not numeric: \" + offSet\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Error Message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)    \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&limit=1&offset={{offSetInvalid}}",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "limit",
+							"value": "1"
+						},
+						{
+							"key": "offset",
+							"value": "{{offSetInvalid}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-limitInvalid-and-invalidOffSet",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var errorMessages = [\r",
+							"    \"limit property is not numeric: invalid\",\r",
+							"    \"offset property is not numeric: invalid\"\r",
+							"]\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Errors Messages\", function () {\r",
+							"    for(let i = 0 ; i < errorMessages.length ; i++) {\r",
+							"        pm.expect(jsonData.response.errors[i][\"msg\"]).eql(errorMessages[i])\r",
+							"    }   \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&limit=invalid&offset=invalid",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "limit",
+							"value": "invalid"
+						},
+						{
+							"key": "offset",
+							"value": "invalid"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-limitInvalid-and-validOffSet",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"var limit = pm.collectionVariables.get(\"limitInvalid\")\r",
+							"const errorMessage = \"limit property is not numeric: \" + limit\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							" pm.response.to.have.status(400)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate Error Message\", function () {\r",
+							"    pm.expect(jsonData.response.errors.msg).eql(errorMessage)    \r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&limit=invalid&offset=1",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "limit",
+							"value": "invalid"
+						},
+						{
+							"key": "offset",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-missingLimit-and-missingOffSet",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "limit",
+							"value": "invalid",
+							"disabled": true
+						},
+						{
+							"key": "offset",
+							"value": "1",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-submittedFilterCriterion-AcknowledgedDate/Time",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&submittedFilterCriterion=%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%35%30%37%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%32%33%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%37%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d%0a\n",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%35%30%37%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%32%33%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%37%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d%0a\n"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-submittedFilterCriterion-AcknowledgedUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&submittedFilterCriterion=%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%35%30%36%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%61%72%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d\n",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%35%30%36%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%61%72%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d\n"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-submittedFilterCriterion-Application",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&submittedFilterCriterion=%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%35%30%31%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%32%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%74%65%6d%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d\n",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%35%30%31%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%32%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%74%65%6d%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d\n"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-submittedFilterCriterion-Date/Time",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&submittedFilterCriterion=%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%35%30%35%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%32%33%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%36%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d\n",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%35%30%35%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%32%33%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%36%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d\n"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-submittedFilterCriterion-Message",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&submittedFilterCriterion=%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%35%30%34%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%34%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%54%68%69%73%20%69%73%20%61%20%74%65%73%74%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%35%30%34%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%34%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%54%68%69%73%20%69%73%20%61%20%74%65%73%74%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-submittedFilterCriterion-Priority",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&submittedFilterCriterion=%7b%22%76%69%65%77%49%64%22%3a%22%2d%36%22%2c%20%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%35%30%33%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%33%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%30%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%2c%20%22%63%72%69%74%4e%75%6d%22%3a%36%2c%20%22%6c%6f%63%6b%65%64%22%3a%66%61%6c%73%65%7d\n",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7b%22%76%69%65%77%49%64%22%3a%22%2d%36%22%2c%20%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%35%30%33%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%33%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%30%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%2c%20%22%63%72%69%74%4e%75%6d%22%3a%36%2c%20%22%6c%6f%63%6b%65%64%22%3a%66%61%6c%73%65%7d\n"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-submittedFilterCriterion-Process",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&submittedFilterCriterion=%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%35%30%32%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%53%4d%54%50%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d\n",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%35%30%32%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%53%4d%54%50%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d\n"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-submittedFilterCriterion-System",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&submittedFilterCriterion=%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%35%30%39%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%44%65%66%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d\n",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%35%30%39%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%44%65%66%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d\n"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-submittedFilterCriterion-2Filters",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&submittedFilterCriterion=%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%35%30%39%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%44%65%66%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d%2c%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%35%30%32%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%33%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%53%4d%54%50%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d\n",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%35%30%39%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%44%65%66%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d%2c%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%35%30%32%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%33%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%53%4d%54%50%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d\n"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VCNG-get-data-submittedFilterCriterion-3Filters",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"const filterObject = pm.environment.get(\"filterProperty\")\r",
+							"var results = jsonData.response.dataObjects.length\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"if (results > \"0\")\r",
+							"        {\r",
+							"            pm.test(\"Validate Many Results Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects[0]).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }\r",
+							"           \r",
+							"        else\r",
+							"        {\r",
+							"            pm.test(\"Validate one Result Success Message\", function()\r",
+							"            {\r",
+							"            pm.expect(jsonData.response.dataObjects).to.have.property(filterObject)\r",
+							"            })\r",
+							"        }"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}admin/notifications/data?siteId=-1&submittedFilterCriterion=%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%35%30%39%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%44%65%66%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d%2c%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%35%30%32%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%33%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%53%4d%54%50%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d%2c%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%35%30%31%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%34%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%53%79%73%74%65%6d%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d\n",
+					"host": [
+						"{{baseURL}}admin"
+					],
+					"path": [
+						"notifications",
+						"data"
+					],
+					"query": [
+						{
+							"key": "siteId",
+							"value": "-1"
+						},
+						{
+							"key": "submittedFilterCriterion",
+							"value": "%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%35%30%39%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%31%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%44%65%66%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d%2c%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%35%30%32%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%33%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%53%4d%54%50%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d%2c%7b%22%63%6f%6c%75%6d%6e%49%64%22%3a%22%2d%35%30%31%22%2c%20%22%6f%70%65%72%61%6e%64%49%64%22%3a%22%2d%34%22%2c%20%22%76%61%6c%75%65%31%22%3a%22%53%79%73%74%65%6d%22%2c%20%22%76%61%6c%75%65%32%22%3a%22%22%7d\n"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "siteId",
+			"value": "invalid",
+			"type": "string"
+		},
+		{
+			"key": "siteNotFound",
+			"value": "-5",
+			"type": "string"
+		},
+		{
+			"key": "offSetInvalid",
+			"value": "invalid",
+			"type": "string"
+		},
+		{
+			"key": "limitInvalid",
+			"value": "invalid",
+			"type": "string"
+		}
+	]
+}

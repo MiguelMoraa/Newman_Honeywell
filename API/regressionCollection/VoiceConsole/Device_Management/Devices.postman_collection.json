@@ -1,0 +1,156 @@
+{
+	"info": {
+		"_postman_id": "fdf58169-48c8-4d10-9640-2f7611b95239",
+		"name": "Devices",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14803454"
+	},
+	"item": [
+		{
+			"name": "Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate generate JWT Token\", function () {\r",
+							"    pm.expect(jsonData.id_token).to.not.eql(null)\r",
+							"    pm.expect(jsonData.token_type).eql(\"Bearer\")\r",
+							"})\r",
+							"\r",
+							"pm.collectionVariables.set(\"token\", jsonData.id_token)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "ad59f7e5-b5db-4f10-b7d7-fa4056f16b7c",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "f93caa01-ef0c-433f-b06c-5632a8a9112b",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://voiceconsole-qa.honeywell.com/VoiceConsole-7qsl/services/auth/generatejwt",
+					"protocol": "https",
+					"host": [
+						"voiceconsole-qa",
+						"honeywell",
+						"com"
+					],
+					"path": [
+						"VoiceConsole-7qsl",
+						"services",
+						"auth",
+						"generatejwt"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Device",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "<terminalCommand serialNumber=\"mock_device_test\" commandID=\"35\">\r\n\r\n  <timestamp>2023-08-25 09:53:53 GMT-04:00</timestamp>\r\n\r\n  <terminalState id=\"4\">ON</terminalState>\r\n\r\n  <command>\r\n\r\n    <sendDeviceDisplayMessage displayMessageType=\"recognitionword\" displayMessageCount=\"1\">\r\n\r\n      <displayMessageData>Hello VCNG</displayMessageData>\r\n\r\n      <!-- <displayMessageData><![CDATA[<displayMessageData>Hello Dave</displayMessageData>]]></displayMessageData> -->\r\n\r\n    </sendDeviceDisplayMessage>\r\n\r\n  </command>\r\n\r\n</terminalCommand>",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://voiceconsole-qa.honeywell.com/VoiceConsole-7qsl/Tmgr",
+					"protocol": "https",
+					"host": [
+						"voiceconsole-qa",
+						"honeywell",
+						"com"
+					],
+					"path": [
+						"VoiceConsole-7qsl",
+						"Tmgr"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
